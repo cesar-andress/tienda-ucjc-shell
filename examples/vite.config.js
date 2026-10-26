@@ -1,7 +1,7 @@
 import { defineConfig } from 'vite';
 
-// Copy into your piece repo as vite.config.js.
-// Produces a single ES module: dist/remote.js
+// Copiad este fichero a vuestro repo de pieza como vite.config.js.
+// Produce un único módulo ES: dist/remote.js
 export default defineConfig({
   build: {
     lib: {

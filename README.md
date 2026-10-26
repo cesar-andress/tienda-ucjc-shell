@@ -1,44 +1,44 @@
 # tienda-ucjc-shell
 
-Integration shell for the **UCJC Store** (DFE 76042, UCJC 2026/2027). Owned by the lecturer. Student teams have no write access here.
+Shell de integración de la **Tienda UCJC** (DFE 76042, UCJC 2026/2027). Lo mantiene el profesor; los equipos no tienen escritura aquí.
 
-Live store (after GitHub Pages is enabled on `main`):  
+Tienda en vivo:  
 https://cesar-andress.github.io/tienda-ucjc-shell/
 
-The shell reads `manifest.json`, imports each piece’s `remote.js`, and mounts its custom element in the matching slot. **Only tagged releases count.** Whatever is not on a tag does not exist for the store.
+El shell lee `manifest.json`, importa el `remote.js` de cada pieza y monta su custom element en el hueco correspondiente. **Solo cuentan las releases etiquetadas.** Lo que no tiene tag no existe para la tienda.
 
-Until a team publishes, the slot shows a professor filler from `relleno/`. If a listed URL fails to load, the slot shows **piece unavailable**.
+Mientras un equipo no publique, el hueco muestra un relleno del profesor (`relleno/`). Si la URL del manifest falla, el hueco muestra **pieza no disponible**.
 
-Open the browser console in class: every `ucjc:*` event is logged as `[ucjc event]`.
+Abrid la consola del navegador en clase: cada evento `ucjc:*` se registra como `[evento ucjc]`.
 
-## Load contract (what every team must ship)
+## Contrato de carga (lo que debe publicar cada equipo)
 
-1. **A single `remote.js` file**, ES module, already built (output of `vite build`), reachable over HTTPS from any origin. GitHub Pages satisfies CORS; **the team repository must be public**.
-2. On import, the module **registers its custom element** with `customElements.define(...)`. Fixed names:
+1. **Un único fichero `remote.js`**, módulo ES, ya construido (salida de `vite build`), accesible por HTTPS desde cualquier origen. GitHub Pages cumple CORS; **el repositorio del equipo debe ser público**.
+2. Al importarse, el módulo **registra su custom element** con `customElements.define(...)`. Nombres fijos:
 
-   | Piece (manifest key) | Custom element |
+   | Pieza (clave del manifest) | Custom element |
    | --- | --- |
    | `descubrimiento` | `ucjc-descubrimiento` |
    | `compra` | `ucjc-compra` |
    | `identidad` | `ucjc-identidad` |
    | `datos` | `ucjc-pedidos` |
 
-3. The module **must not touch anything outside its element**: not `document.body`, not global styles, not other elements. Styles stay inside the element (Shadow DOM recommended, not required).
-4. The module **default-exports** `{ nombre, version }`.
-5. Communication with other pieces happens **only** through events on `window`:
+3. El módulo **no toca nada fuera de su elemento**: ni `document.body`, ni estilos globales, ni otros elementos. Los estilos van dentro del elemento (Shadow DOM recomendado, no obligatorio).
+4. El módulo **exporta por defecto** `{ nombre, version }`.
+5. La comunicación con el resto es **solo** por eventos en `window`:
 
    ```js
    window.dispatchEvent(
-     new CustomEvent('ucjc:<pieza>:<verbo>@<n>', { detail: { /* fields */ } }),
+     new CustomEvent('ucjc:<pieza>:<verbo>@<n>', { detail: { /* campos */ } }),
    );
    window.addEventListener('ucjc:<pieza>:<verbo>@<n>', (e) => { /* ... */ });
    ```
 
-   Event names and `detail` fields are the ones signed in [tienda-ucjc-contratos](https://github.com/cesar-andress/tienda-ucjc-contratos). A field that travels without being in the contract does not exist.
+   Los nombres y los campos de `detail` son los firmados en [tienda-ucjc-contratos](https://github.com/cesar-andress/tienda-ucjc-contratos). Un campo que viaja sin estar en el contrato no existe.
 
-## Produce `remote.js` with Vite (library mode)
+## Cómo producir `remote.js` con Vite (modo librería)
 
-Use the sample at [`examples/vite.config.js`](examples/vite.config.js):
+Usad el ejemplo de [`examples/vite.config.js`](examples/vite.config.js):
 
 ```js
 import { defineConfig } from 'vite';
@@ -56,28 +56,28 @@ export default defineConfig({
 });
 ```
 
-`npm run build` leaves `dist/remote.js`. That file is what you publish.
+`npm run build` deja `dist/remote.js`. Ese fichero es el que se publica.
 
-## Publish each tag under `gh-pages/vX.Y.Z/` without deleting previous ones
+## Publicar cada tag en `gh-pages/vX.Y.Z/` sin borrar los anteriores
 
-Each version lives in its own folder so the shell can roll back. Copy [`examples/publish-tag.yml`](examples/publish-tag.yml) into your piece repo as `.github/workflows/release.yml`. It runs on every `v*` tag, builds, and copies `dist/` to `gh-pages/<tag>/` **without removing earlier tags**.
+Cada versión vive en su propia carpeta para poder volver atrás. Copiad [`examples/publish-tag.yml`](examples/publish-tag.yml) al repo de vuestra pieza como `.github/workflows/release.yml`. Se dispara con cada tag `v*`, construye y copia `dist/` a `gh-pages/<tag>/` **sin eliminar tags anteriores**.
 
-Then in the piece repo: *Settings → Pages* → deploy from branch `gh-pages`, folder `/`. The resulting URL is:
+Luego, en el repo de la pieza: *Settings → Pages* → desplegar desde la rama `gh-pages`, carpeta `/`. La URL queda:
 
-`https://<user-or-org>.github.io/tienda-ucjc-<pieza>/v0.1.0/remote.js`
+`https://<usuario-o-org>.github.io/tienda-ucjc-<pieza>/v0.1.0/remote.js`
 
 ```bash
 git tag v0.1.0
 git push origin v0.1.0
 ```
 
-**Never move a tag.** If you need a fix, publish `v0.1.1`.
+**Un tag no se mueve nunca.** Si hay que corregir algo, se publica `v0.1.1`.
 
-## Manifest formats
+## Formatos del manifest
 
-### Week 1 (explicit URL per piece)
+### Semana 1 (URL explícita por pieza)
 
-This is what `manifest.json` uses today (pointing at the four fillers):
+Así está `manifest.json` hoy (apuntando a los cuatro rellenos):
 
 ```json
 {
@@ -88,13 +88,13 @@ This is what `manifest.json` uses today (pointing at the four fillers):
 }
 ```
 
-### From Friday 30 Oct — uncertainty 1
+### Desde el viernes 30/10 — incertidumbre 1
 
-The shell already supports this second format. Uncertainty 1 is activated by **editing only `manifest.json`**:
+El shell ya soporta este segundo formato. La incertidumbre 1 se activa **editando solo `manifest.json`**:
 
 ```json
 {
-  "base": "https://<user-or-org>.github.io",
+  "base": "https://<usuario-o-org>.github.io",
   "piezas": {
     "descubrimiento": "0.1.0",
     "compra": "0.1.0",
@@ -104,22 +104,22 @@ The shell already supports this second format. Uncertainty 1 is activated by **e
 }
 ```
 
-The shell builds: `${base}/tienda-ucjc-${pieza}/v${version}/remote.js`.
+El shell construye: `${base}/tienda-ucjc-${pieza}/v${version}/remote.js`.
 
-If the four piece repos live under different GitHub accounts, `base` may also be an object keyed by piece (`{ "descubrimiento": "https://dani84mol.github.io", … }`). That will be announced with the change.
+Si los cuatro repos viven en cuentas distintas, `base` también puede ser un objeto por pieza (`{ "descubrimiento": "https://dani84mol.github.io", … }`). Se anunciará con el cambio.
 
-## What the shell does
+## Qué hace el shell
 
-- Fetches `./manifest.json` with `cache: "no-store"`.
-- Resolves either format above.
-- Dynamic-imports each URL, checks that the expected custom element is registered, mounts it.
-- On failure: shows `piece unavailable` in that slot and logs the error.
-- Patches `EventTarget.prototype.dispatchEvent` to print every `ucjc:*` event to the console.
+- Pide `./manifest.json` con `cache: "no-store"`.
+- Resuelve cualquiera de los dos formatos anteriores.
+- Importa en dinámico cada URL, comprueba que el custom element esperado esté registrado y lo monta.
+- Si falla: muestra `pieza no disponible` en ese hueco y registra el error.
+- Intercepta `EventTarget.prototype.dispatchEvent` para imprimir en consola todos los eventos `ucjc:*`.
 
-## Integration log
+## Parte de integración
 
-Every Friday at 14:00 the active tagged versions are integrated here. The history of `manifest.json` is the history of the store.
+Cada viernes a las 14:00 se integran aquí las versiones etiquetadas activas. El historial de `manifest.json` es la historia de la tienda.
 
-| Date | Discovery | Purchase | Identity | Data | Notes |
+| Fecha | Descubrimiento | Compra | Identidad | Datos | Notas |
 | --- | --- | --- | --- | --- | --- |
 | 28/10 | | | | | |

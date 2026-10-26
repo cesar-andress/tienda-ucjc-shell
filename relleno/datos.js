@@ -1,12 +1,12 @@
-// Professor filler: holds the Data / orders slot until the team publishes a tag.
-// The custom element name for this piece is ucjc-pedidos (not ucjc-datos).
-class Filler extends HTMLElement {
+// Relleno del profesor: ocupa el hueco de Datos / pedidos hasta que el equipo publique un tag.
+// El custom element de esta pieza es ucjc-pedidos (no ucjc-datos).
+class Relleno extends HTMLElement {
   connectedCallback() {
     this.attachShadow({ mode: 'open' }).innerHTML =
-      '<p style="color:#888;font-style:italic;margin:0">Filler · the <b>datos</b> team has not published a release yet.</p>';
+      '<p style="color:#888;font-style:italic;margin:0">Relleno · el equipo de <b>datos</b> aún no ha publicado una release.</p>';
   }
 }
 if (!customElements.get('ucjc-pedidos')) {
-  customElements.define('ucjc-pedidos', Filler);
+  customElements.define('ucjc-pedidos', Relleno);
 }
 export default { nombre: 'datos', version: '0.0.0', relleno: true };
