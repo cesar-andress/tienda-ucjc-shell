@@ -1,12 +1,7 @@
 # Contrato de carga (shell)
 
-> Documento técnico conservado el 26/10/2026 al convertir el `README.md` del shell en registro de equipos.  
-> El registro vivo está en [`../README.md`](../README.md).
-
-Shell de integración de la **Tienda UCJC** (DFE 76042, UCJC 2026/2027). Lo mantiene el profesor; los equipos no tienen escritura aquí.
-
-Tienda en vivo:  
-https://cesar-andress.github.io/tienda-ucjc-shell/
+> Documento técnico para alumnos y para el profesor.  
+> Visión general, equipos y cómo arrancar el shell: [`../README.md`](../README.md).
 
 El shell lee `manifest.json`, importa el `remote.js` de cada pieza y monta su custom element en el hueco correspondiente. **Solo cuentan las releases etiquetadas.** Lo que no tiene tag no existe para la tienda.
 
