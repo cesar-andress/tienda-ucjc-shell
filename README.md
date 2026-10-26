@@ -30,29 +30,24 @@ El shell monta cada custom element en su hueco. Un fallo al cargar una URL **no*
 
 Detalle técnico (formato de `remote.js`, Vite en modo librería, workflow de tags, formatos de manifest): [`docs/CONTRATO-CARGA.md`](docs/CONTRATO-CARGA.md).
 
-## 4. Tabla de equipos y repositorios GitHub
+## 4. Equipos y repositorios
 
-Estado conocido el **26 de octubre de 2026** (antes de la sesión «Fronteras»). Diagnóstico ampliado: [`docs/ESTADO-INICIAL-2026-10-26.md`](docs/ESTADO-INICIAL-2026-10-26.md).
-
-| Pieza | Responsable confirmado | Repositorio | Estado conocido |
+| Equipo | Responsabilidad | Repositorio | Estado general (26/10) |
 | --- | --- | --- | --- |
-| Descubrimiento | Daniel Molina Vitón | https://github.com/dani84mol/tienda-ucjc-descubrimiento | Vite + CE mínimo; borrador de eventos (README incompleto); `TIEMPO.md`; sin tags |
-| Compra | No confirmado en README | https://github.com/Alcompar77/tienda-ucjc-compra | Solo `.gitignore`; owner [Alcompar77](https://github.com/Alcompar77); sin tags |
-| Identidad | Sebastián Blanco | https://github.com/ucjc-ecommerce-identidad/tienda-ucjc-identidad | Vite + CE mínimo; borrador de eventos; `TIEMPOS.md` vacío; sin tags |
-| Datos | — | Pendiente de recibir | Sin repositorio conocido |
+| Descubrimiento | Catálogo, búsqueda y ficha | https://github.com/dani84mol/tienda-ucjc-descubrimiento | Repositorio activo; sin release `v0.1.0` integrada |
+| Compra | Carrito y proceso de compra | https://github.com/Alcompar77/tienda-ucjc-compra | Repositorio creado; sin release integrada |
+| Identidad | Usuario y sesión | https://github.com/ucjc-ecommerce-identidad/tienda-ucjc-identidad | Repositorio activo; sin release `v0.1.0` integrada |
+| Datos | Pedidos y persistencia simulada | Pendiente de recibir | Sin repositorio conocido |
 
-### Integrantes identificados en README (sin correos)
+Los integrantes y el responsable de cada pieza figuran en el **README del repositorio del equipo**. No se duplican aquí.
 
-- **Descubrimiento:** Daniel Molina Vitón (responsable), Mario González Baranda, Juan Cruz Romero, Jaime Moraleda Loran, Jaime Nicolás Mas. Owner: [dani84mol](https://github.com/dani84mol).
-- **Compra:** sin listado en el repo. Único autor del commit inicial: [Alcompar77](https://github.com/Alcompar77) (Alessa Comparini).
-- **Identidad:** Sebastián Blanco ([@sebasxblanco](https://github.com/sebasxblanco)), Olivia Troitiño Frydrych ([@oliviatroitino](https://github.com/oliviatroitino)), Ingrid Carvalhais Silva, Fernando Melero Muñoz ([@FerMelero](https://github.com/FerMelero)), Giordano Fabio Castilla García ([@Giordano-jpg](https://github.com/Giordano-jpg)).
-- **Datos:** pendiente.
+**Convención de tiempos:** el fichero de registro de horas se llama `TIEMPOS.md` (plural). Si algún equipo usó otro nombre, lo unifica el propio equipo.
 
 ## 5. Repositorio central de contratos
 
 https://github.com/cesar-andress/tienda-ucjc-contratos
 
-Ahí se negocian y firman los eventos. Lo que no está escrito allí no existe para la tienda.
+Las propuestas se hacen mediante **fork + Pull Request** (los equipos no tienen push al original).
 
 ## 6. Contrato técnico de carga
 
@@ -72,7 +67,7 @@ Cómo debe ser un `remote.js`, nombres de custom elements, ejemplo de `vite.conf
 Hasta que un equipo tenga un `remote.js` público y probado, el manifest del shell sigue apuntando a los **rellenos del profesor** (`relleno/*.js`, versión `0.0.0`).  
 **No** se usan las URLs de los repos de alumnos como si fueran módulos. El miércoles 28 el profesor actualizará el manifest **a mano** solo con releases válidas. Cambiar la URL en el manifest a un tag anterior es el mecanismo de **rollback**.
 
-La convención de URLs del viernes 30/10 (incertidumbre 1) **no** está activa: el shell ya la soporta en código, pero el `manifest.json` actual sigue el formato de la semana 1 (URL explícita por pieza).
+La convención de URLs del viernes 30/10 (incertidumbre 1) **no** está activa en el manifest actual.
 
 ## 8. Ejecutar el shell en local
 
@@ -84,17 +79,13 @@ python3 -m http.server 4173
 
 Abrir http://127.0.0.1:4173/  
 
-Debéis ver cuatro huecos con los rellenos («el equipo de … aún no ha publicado una release»). La consola debe mostrar `[shell] … cargada` por cada pieza.
+Debéis ver cuatro huecos con los rellenos. La consola debe mostrar `[shell] … cargada` por cada pieza.
 
 ## 9. Desplegar en GitHub Pages
 
-Publicación prevista: **https://cesar-andress.github.io/tienda-ucjc-shell/**
-
-Preparación en el repo (ya incluida):
+Publicación: **https://cesar-andress.github.io/tienda-ucjc-shell/**
 
 - Contenido estático en la raíz (`index.html`, `manifest.json`, `relleno/`, `.nojekyll`).
-- Rutas relativas (`./manifest.json`, `./relleno/…`) válidas bajo el subpath `/tienda-ucjc-shell/`.
+- Rutas relativas válidas bajo `/tienda-ucjc-shell/`.
 
-Si Pages no estuviera activo, en GitHub: *Settings → Pages → Build and deployment → Source: Deploy from a branch → Branch: `main` → Folder: `/ (root)` → Save*.
-
-Tras un push a `main`, esperad uno o dos minutos y recargad la URL con recarga forzada si la caché muestra una versión antigua.
+Si hiciera falta reactivar Pages: *Settings → Pages → Deploy from a branch → `main` → `/ (root)`*.

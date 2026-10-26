@@ -34,6 +34,8 @@ Abrid la consola del navegador en clase: cada evento `ucjc:*` se registra como `
 
    Los nombres y los campos de `detail` son los firmados en [tienda-ucjc-contratos](https://github.com/cesar-andress/tienda-ucjc-contratos). Un campo que viaja sin estar en el contrato no existe.
 
+   El sufijo `@n` es la **versión del contrato del evento**. La release del micro-frontend usa **otro** número (`v0.1.0`, `v0.2.0`, …). No son equivalentes.
+
 ## Cómo producir `remote.js` con Vite (modo librería)
 
 Usad el ejemplo de [`examples/vite.config.js`](examples/vite.config.js):
@@ -71,24 +73,44 @@ git push origin v0.1.0
 
 **Un tag no se mueve nunca.** Si hay que corregir algo, se publica `v0.1.1`.
 
-## Formatos del manifest
+## Manifest
 
-### Semana 1 (URL explícita por pieza)
+### A. Estado actual (26/10/2026)
 
-Así está `manifest.json` hoy (apuntando a los cuatro rellenos):
+El fichero real `manifest.json` del shell apunta a los **cuatro rellenos del profesor**. Versión `0.0.0` y rutas relativas:
 
 ```json
 {
-  "descubrimiento": { "version": "0.1.0", "url": "https://…/v0.1.0/remote.js" },
-  "compra":         { "version": "0.1.0", "url": "https://…/v0.1.0/remote.js" },
-  "identidad":      { "version": "0.1.0", "url": "https://…/v0.1.0/remote.js" },
-  "datos":          { "version": "0.1.0", "url": "https://…/v0.1.0/remote.js" }
+  "descubrimiento": { "version": "0.0.0", "url": "./relleno/descubrimiento.js" },
+  "compra":         { "version": "0.0.0", "url": "./relleno/compra.js" },
+  "identidad":      { "version": "0.0.0", "url": "./relleno/identidad.js" },
+  "datos":          { "version": "0.0.0", "url": "./relleno/datos.js" }
 }
 ```
 
-### Desde el viernes 30/10 — incertidumbre 1
+Ninguna URL de repositorio GitHub de alumnos forma parte del manifest. Ningún `v0.1.0` de estudiante está activo todavía.
 
-El shell ya soporta este segundo formato. La incertidumbre 1 se activa **editando solo `manifest.json`**:
+### B. Estado futuro (ilustrativo)
+
+Cuando un equipo publique un `remote.js` HTTPS **probado**, el profesor sustituirá **solo esa entrada** en el manifest. Ejemplo ficticio (no son URLs reales):
+
+```json
+{
+  "descubrimiento": {
+    "version": "0.1.0",
+    "url": "https://<usuario>.github.io/tienda-ucjc-descubrimiento/v0.1.0/remote.js"
+  },
+  "compra":         { "version": "0.0.0", "url": "./relleno/compra.js" },
+  "identidad":      { "version": "0.0.0", "url": "./relleno/identidad.js" },
+  "datos":          { "version": "0.0.0", "url": "./relleno/datos.js" }
+}
+```
+
+El resto puede seguir en relleno hasta tener release válida. Volver a una URL/versión anterior en el manifest es el **rollback**.
+
+### C. Formato alternativo (viernes 30/10 — incertidumbre 1)
+
+El shell **ya soporta** este segundo formato en código, pero **no está activo** en el `manifest.json` actual. Se activará editando solo el manifest:
 
 ```json
 {
@@ -104,19 +126,19 @@ El shell ya soporta este segundo formato. La incertidumbre 1 se activa **editand
 
 El shell construye: `${base}/tienda-ucjc-${pieza}/v${version}/remote.js`.
 
-Si los cuatro repos viven en cuentas distintas, `base` también puede ser un objeto por pieza (`{ "descubrimiento": "https://dani84mol.github.io", … }`). Se anunciará con el cambio.
+Si los cuatro repos viven en cuentas distintas, `base` también puede ser un objeto por pieza. Se anunciará con el cambio.
 
 ## Qué hace el shell
 
 - Pide `./manifest.json` con `cache: "no-store"`.
-- Resuelve cualquiera de los dos formatos anteriores.
+- Resuelve el formato de URL explícita (semana 1) o el de `base` + `piezas` (cuando se active).
 - Importa en dinámico cada URL, comprueba que el custom element esperado esté registrado y lo monta.
 - Si falla: muestra `pieza no disponible` en ese hueco y registra el error.
 - Intercepta `EventTarget.prototype.dispatchEvent` para imprimir en consola todos los eventos `ucjc:*`.
 
 ## Parte de integración
 
-Cada viernes a las 14:00 se integran aquí las versiones etiquetadas activas. El historial de `manifest.json` es la historia de la tienda.
+Cada viernes a las 14:00 se revisan las versiones etiquetadas. El historial de `manifest.json` es la historia de la tienda.
 
 | Fecha | Descubrimiento | Compra | Identidad | Datos | Notas |
 | --- | --- | --- | --- | --- | --- |
