@@ -38,7 +38,7 @@ Abrid la consola del navegador en clase: cada evento `ucjc:*` se registra como `
 
 ## Cómo producir `remote.js` con Vite (modo librería)
 
-Usad el ejemplo de [`examples/vite.config.js`](examples/vite.config.js):
+Usad el ejemplo de [`../examples/vite.config.js`](../examples/vite.config.js):
 
 ```js
 import { defineConfig } from 'vite';
@@ -60,7 +60,7 @@ export default defineConfig({
 
 ## Publicar cada tag en `gh-pages/vX.Y.Z/` sin borrar los anteriores
 
-Cada versión vive en su propia carpeta para poder volver atrás. Copiad [`examples/publish-tag.yml`](examples/publish-tag.yml) al repo de vuestra pieza como `.github/workflows/release.yml`. Se dispara con cada tag `v*`, construye y copia `dist/` a `gh-pages/<tag>/` **sin eliminar tags anteriores**.
+Cada versión vive en su propia carpeta para poder volver atrás. Copiad [`../examples/publish-tag.yml`](../examples/publish-tag.yml) al repo de vuestra pieza como `.github/workflows/release.yml`. Se dispara con cada tag `v*`, construye y copia `dist/` a `gh-pages/<tag>/` **sin eliminar tags anteriores**.
 
 Luego, en el repo de la pieza: *Settings → Pages* → desplegar desde la rama `gh-pages`, carpeta `/`. La URL queda:
 
