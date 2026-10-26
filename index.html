@@ -1,9 +1,9 @@
 <!doctype html>
-<html lang="en">
+<html lang="es">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>UCJC Store</title>
+  <title>Tienda UCJC</title>
   <style>
     :root { font-family: system-ui, sans-serif; color: #111; background: #fafafa; }
     body { margin: 0; }
@@ -26,98 +26,98 @@
       letter-spacing: .05em; color: #666; display: flex; justify-content: space-between; gap: .5rem;
     }
     section > h2 span { font-weight: normal; }
-    .unavailable { color: #a33; margin: 0; }
+    .no-disponible { color: #a33; margin: 0; }
     footer { padding: 1rem 1.5rem; font-size: .8rem; color: #666; }
     @media (max-width: 720px) { main { grid-template-columns: 1fr; } }
   </style>
 </head>
 <body>
   <header>
-    <h1>UCJC Store</h1>
-    <small id="status">loading manifest…</small>
+    <h1>Tienda UCJC</h1>
+    <small id="estado">cargando manifest…</small>
   </header>
   <main>
     <section id="identidad">
-      <h2>Identity <span></span></h2>
-      <div class="slot"></div>
+      <h2>Identidad <span></span></h2>
+      <div class="hueco"></div>
     </section>
     <section id="descubrimiento">
-      <h2>Discovery <span></span></h2>
-      <div class="slot"></div>
+      <h2>Descubrimiento <span></span></h2>
+      <div class="hueco"></div>
     </section>
     <section id="compra">
-      <h2>Purchase <span></span></h2>
-      <div class="slot"></div>
+      <h2>Compra <span></span></h2>
+      <div class="hueco"></div>
     </section>
     <section id="datos">
-      <h2>Data · My orders <span></span></h2>
-      <div class="slot"></div>
+      <h2>Datos · Mis pedidos <span></span></h2>
+      <div class="hueco"></div>
     </section>
   </main>
   <footer>
-    Integration shell. It only loads tagged releases listed in
-    <code>manifest.json</code>. Pieces talk only through
-    <code>CustomEvent</code> on <code>window</code>.
+    Shell de integración. Solo carga releases etiquetadas según
+    <code>manifest.json</code>. Las piezas se comunican únicamente con
+    <code>CustomEvent</code> en <code>window</code>.
   </footer>
   <script type="module">
-    const ELEMENT = {
+    const ELEMENTO = {
       identidad: 'ucjc-identidad',
       descubrimiento: 'ucjc-descubrimiento',
       compra: 'ucjc-compra',
       datos: 'ucjc-pedidos',
     };
 
-    // Week 1: each entry carries its own url.
-    // From Friday 30 Oct (uncertainty 1): { base, piezas } and the shell builds
-    // `${base}/tienda-ucjc-${piece}/v${version}/remote.js`
-    function resolveEntries(manifest) {
+    // Semana 1: cada entrada trae su url.
+    // Desde el viernes 30/10 (incertidumbre 1): { base, piezas } y el shell construye
+    // `${base}/tienda-ucjc-${pieza}/v${version}/remote.js`
+    function resolverEntradas(manifest) {
       if (manifest.piezas) {
-        return Object.entries(manifest.piezas).map(([piece, version]) => {
+        return Object.entries(manifest.piezas).map(([pieza, version]) => {
           const base = typeof manifest.base === 'string'
             ? manifest.base
-            : (manifest.base && manifest.base[piece]);
-          if (!base) throw new Error(`missing base for piece "${piece}"`);
-          return [piece, {
+            : (manifest.base && manifest.base[pieza]);
+          if (!base) throw new Error(`falta base para la pieza "${pieza}"`);
+          return [pieza, {
             version,
-            url: `${base.replace(/\/$/, '')}/tienda-ucjc-${piece}/v${version}/remote.js`,
+            url: `${base.replace(/\/$/, '')}/tienda-ucjc-${pieza}/v${version}/remote.js`,
           }];
         });
       }
       return Object.entries(manifest);
     }
 
-    // Log every ucjc:* event so the class can see the contracts fire.
-    const originalDispatch = EventTarget.prototype.dispatchEvent;
-    EventTarget.prototype.dispatchEvent = function (event) {
-      if (event && typeof event.type === 'string' && event.type.startsWith('ucjc:')) {
-        console.log('[ucjc event]', event.type, event.detail);
+    // Traza todos los eventos ucjc:* para verlos en clase.
+    const despachoOriginal = EventTarget.prototype.dispatchEvent;
+    EventTarget.prototype.dispatchEvent = function (evento) {
+      if (evento && typeof evento.type === 'string' && evento.type.startsWith('ucjc:')) {
+        console.log('[evento ucjc]', evento.type, evento.detail);
       }
-      return originalDispatch.call(this, event);
+      return despachoOriginal.call(this, evento);
     };
 
     const manifest = await (await fetch('./manifest.json', { cache: 'no-store' })).json();
-    const entries = resolveEntries(manifest);
-    document.getElementById('status').textContent =
-      `manifest: ${entries.map(([p, { version }]) => `${p}@${version}`).join(' · ')}`;
+    const entradas = resolverEntradas(manifest);
+    document.getElementById('estado').textContent =
+      `manifest: ${entradas.map(([p, { version }]) => `${p}@${version}`).join(' · ')}`;
 
-    for (const [piece, { version, url }] of entries) {
-      const section = document.getElementById(piece);
-      const label = section.querySelector('h2 span');
-      const slot = section.querySelector('.slot');
+    for (const [pieza, { version, url }] of entradas) {
+      const seccion = document.getElementById(pieza);
+      const etiqueta = seccion.querySelector('h2 span');
+      const hueco = seccion.querySelector('.hueco');
       try {
         const mod = await import(url);
-        const tag = ELEMENT[piece];
-        if (!tag) throw new Error(`unknown piece "${piece}"`);
+        const tag = ELEMENTO[pieza];
+        if (!tag) throw new Error(`pieza desconocida "${pieza}"`);
         if (!customElements.get(tag)) {
-          throw new Error(`module did not register <${tag}>`);
+          throw new Error(`el módulo no ha registrado <${tag}>`);
         }
-        slot.replaceChildren(document.createElement(tag));
-        label.textContent = `v${version}`;
-        console.info(`[shell] ${piece} v${version} loaded`, mod.default);
+        hueco.replaceChildren(document.createElement(tag));
+        etiqueta.textContent = `v${version}`;
+        console.info(`[shell] ${pieza} v${version} cargada`, mod.default);
       } catch (err) {
-        slot.innerHTML = `<p class="unavailable">${piece}: piece unavailable</p>`;
-        label.textContent = `v${version} · error`;
-        console.error(`[shell] ${piece} v${version} failed from ${url}`, err);
+        hueco.innerHTML = `<p class="no-disponible">${pieza}: pieza no disponible</p>`;
+        etiqueta.textContent = `v${version} · error`;
+        console.error(`[shell] ${pieza} v${version} no carga desde ${url}`, err);
       }
     }
   </script>

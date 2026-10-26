@@ -1,11 +1,11 @@
-// Professor filler: holds the Discovery slot until the team publishes a tag.
-class Filler extends HTMLElement {
+// Relleno del profesor: ocupa el hueco de Descubrimiento hasta que el equipo publique un tag.
+class Relleno extends HTMLElement {
   connectedCallback() {
     this.attachShadow({ mode: 'open' }).innerHTML =
-      '<p style="color:#888;font-style:italic;margin:0">Filler · the <b>descubrimiento</b> team has not published a release yet.</p>';
+      '<p style="color:#888;font-style:italic;margin:0">Relleno · el equipo de <b>descubrimiento</b> aún no ha publicado una release.</p>';
   }
 }
 if (!customElements.get('ucjc-descubrimiento')) {
-  customElements.define('ucjc-descubrimiento', Filler);
+  customElements.define('ucjc-descubrimiento', Relleno);
 }
 export default { nombre: 'descubrimiento', version: '0.0.0', relleno: true };
