@@ -1,0 +1,18 @@
+{
+  "descubrimiento": {
+    "version": "0.0.0",
+    "url": "./relleno/descubrimiento.js"
+  },
+  "compra": {
+    "version": "0.0.0",
+    "url": "./relleno/compra.js"
+  },
+  "identidad": {
+    "version": "0.0.0",
+    "url": "./relleno/identidad.js"
+  },
+  "datos": {
+    "version": "0.0.0",
+    "url": "./relleno/datos.js"
+  }
+}
