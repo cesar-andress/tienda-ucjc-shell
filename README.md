@@ -35,7 +35,7 @@ Hay **dos implementaciones** de la pieza Datos que compiten (prueba A/B docente)
 | Variante | Equipo | Repositorio / URL de release |
 | --- | --- | --- |
 | **Datos A** | Hans Jefferson Arauco Sanchez (equipo individual) | https://github.com/HansJeffAS/tienda-ucjc-datos (repo **privado** a 02/11; sin `remote.js` HTTPS público todavía) |
-| **Datos B** | Juan Pedro Faba Prados, Gonzalo Civera Núñez, Alberto Celada Ortega, Pablo Blanco Martín | **Pendiente:** aún no han comunicado repositorio ni URL de despliegue |
+| **Datos B** | Juan Pedro Faba Prados, Gonzalo Civera Núñez, Pablo Blanco Martín | **Pendiente:** aún no han comunicado repositorio ni URL de despliegue |
 
 Detalle técnico (formato de `remote.js`, Vite en modo librería, workflow de tags, formatos de manifest): [`docs/CONTRATO-CARGA.md`](docs/CONTRATO-CARGA.md).
 
@@ -47,7 +47,7 @@ Detalle técnico (formato de `remote.js`, Vite en modo librería, workflow de ta
 | Compra | Carrito y proceso de compra | https://github.com/Alcompar77/tienda-ucjc-compra | Hay `<ucjc-compra>` mínimo («Soy Compra»), README con equipo y borrador de eventos, y `TIEMPOS.md`. **Sin** tag, **sin** Pages ni `remote.js`. Sin PR a contratos. Nombres de evento en borrador con sufijo `:v1` (no `@n`). |
 | Identidad | Usuario y sesión | https://github.com/ucjc-ecommerce-identidad/tienda-ucjc-identidad | Hay `<ucjc-identidad>` mínimo y borrador de eventos en el README. Último commit en `main`: 24/10. **Sin** tag, **sin** Pages ni `remote.js`. Sin PR a contratos. |
 | Datos A | Pedidos y persistencia (variante A/B) | https://github.com/HansJeffAS/tienda-ucjc-datos (**privado**) | Responsable: Hans Arauco Sanchez. Tag `v0.1.0`, Vite en librería, CE actual `<ucjc-datos>` (canon: `<ucjc-pedidos>`), artefacto `index.js` (canon: `remote.js`), sin Pages públicas. |
-| Datos B | Pedidos y persistencia (variante A/B) | *URL no asignada todavía* | Equipo: Faba, Civera, Celada, Blanco. Sin repositorio ni release comunicados al profesor a 02/11. |
+| Datos B | Pedidos y persistencia (variante A/B) | *URL no asignada todavía* | Equipo: Faba, Civera, Blanco. Sin repositorio ni release comunicados al profesor a 02/11. |
 
 Los integrantes y el responsable de cada pieza figuran en el **README del repositorio del equipo**. No se duplican aquí.
 
