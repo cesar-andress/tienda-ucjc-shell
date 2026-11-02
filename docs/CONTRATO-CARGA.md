@@ -88,7 +88,17 @@ El fichero real `manifest.json` del shell apunta a los **cuatro rellenos del pro
 }
 ```
 
-Ninguna URL de repositorio GitHub de alumnos forma parte del manifest. A esta fecha no hay `remote.js` HTTPS de estudiante verificable en Pages (Descubrimiento: tag `v1.0.0` sin despliegue; Compra e Identidad: sin tag; **Datos A** Hans: repo privado `HansJeffAS/tienda-ucjc-datos` con tag `v0.1.0`, sin Pages y con CE `ucjc-datos` en lugar de `ucjc-pedidos`; **Datos B**: sin URL de repo/release asignada todavía). El hueco `datos` del shell admite solo una variante activa a la vez (A/B testing docente).
+Ninguna URL de repositorio GitHub de alumnos forma parte del manifest. A esta fecha (02/11/2026) no hay `remote.js` HTTPS de estudiante verificable en Pages:
+
+| Pieza | Repo | Tag | Pages / `remote.js` | CE vs canon |
+| --- | --- | --- | --- | --- |
+| Descubrimiento | `dani84mol/tienda-ucjc-descubrimiento` | `v1.0.0` | no | `ucjc-descubrimiento` OK |
+| Compra | `Alcompar77/tienda-ucjc-compra` | — | no | `ucjc-compra` OK |
+| Identidad | `ucjc-ecommerce-identidad/tienda-ucjc-identidad` | — | no | `ucjc-identidad` OK |
+| Datos A | `HansJeffAS/tienda-ucjc-datos` (**privado**) | `v0.1.0` | no | `ucjc-datos` → debe ser **`ucjc-pedidos`** |
+| Datos B | `Juampee/ucjc-datos-alt2` (público) | `v0.1.0` | no | `ucjc-datos` → debe ser **`ucjc-pedidos`** |
+
+El hueco `datos` del shell admite solo una variante activa a la vez (A/B testing docente).
 
 ### B. Estado futuro (ilustrativo)
 
