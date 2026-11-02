@@ -8,7 +8,7 @@ Este repositorio lo mantiene el profesor. Los equipos de alumnos **no** tienen e
 
 ## 1. Presentación
 
-La Tienda UCJC es una práctica de micro-frontends: cuatro equipos independientes construyen cada uno una pieza de interfaz. El **shell** las carga en tiempo de ejecución a partir de `manifest.json`. Las piezas no se importan entre sí; se comunican solo con `CustomEvent` en `window`, según lo firmado en el repositorio de contratos.
+La Tienda UCJC es una práctica de micro-frontends: cuatro equipos independientes construyen cada uno una pieza de interfaz. El **shell** las carga en tiempo de ejecución a partir de `manifest.json`. Las piezas no se importan entre sí; se comunican solo con `CustomEvent` en `window`, según lo acordado en el repositorio de contratos.
 
 ## 2. Objetivos docentes
 
@@ -30,74 +30,61 @@ El shell monta cada custom element en su hueco. Un fallo al cargar una URL **no*
 
 ### Datos en A/B testing
 
-Hay **dos implementaciones** de la pieza Datos que compiten (prueba A/B docente). Ambas deben cumplir el mismo contrato de carga (`ucjc-pedidos`, `remote.js`, eventos firmados). El shell solo tiene **un** hueco `datos` en el manifest: el profesor elige qué variante está activa en cada momento.
+Hay **dos implementaciones** de la pieza Datos. Ambas deben cumplir el mismo contrato de carga (`ucjc-pedidos`, `remote.js`, eventos del PR de contratos). El shell solo tiene **un** hueco `datos`: el profesor elige qué variante está activa.
 
-| Variante | Equipo | Repositorio / URL de release |
-| --- | --- | --- |
-| **Datos A** | Hans Jefferson Arauco Sanchez (equipo individual) | https://github.com/HansJeffAS/tienda-ucjc-datos (repo **privado** a 02/11; sin `remote.js` HTTPS público todavía) |
-| **Datos B** | Juan Pedro Faba Prados, Gonzalo Civera Núñez, Pablo Blanco Martín | **Pendiente:** aún no han comunicado repositorio ni URL de despliegue |
-
-Detalle técnico (formato de `remote.js`, Vite en modo librería, workflow de tags, formatos de manifest): [`docs/CONTRATO-CARGA.md`](docs/CONTRATO-CARGA.md).
-
-## 4. Equipos y repositorios
-
-| Equipo | Responsabilidad | Repositorio | Estado general (02/11/2026) |
+| Variante | Equipo | Repositorio | Release HTTPS |
 | --- | --- | --- | --- |
-| Descubrimiento | Catálogo, búsqueda y ficha | https://github.com/dani84mol/tienda-ucjc-descubrimiento | Hay `<ucjc-descubrimiento>` con catálogo en `main`. Tag Git `v1.0.0` (30/10), pero **sin** GitHub Pages ni `remote.js` HTTPS. Sin Vite en modo librería y sin `export default`. Sin PR a contratos. Eventos en código/README con nombres no canónicos (`ucjc:cart:add-item`, …). Registro de horas como `TIEMPO.md` (singular). |
-| Compra | Carrito y proceso de compra | https://github.com/Alcompar77/tienda-ucjc-compra | Hay `<ucjc-compra>` mínimo («Soy Compra»), README con equipo y borrador de eventos, y `TIEMPOS.md`. **Sin** tag, **sin** Pages ni `remote.js`. Sin PR a contratos. Nombres de evento en borrador con sufijo `:v1` (no `@n`). |
-| Identidad | Usuario y sesión | https://github.com/ucjc-ecommerce-identidad/tienda-ucjc-identidad | Hay `<ucjc-identidad>` mínimo y borrador de eventos en el README. Último commit en `main`: 24/10. **Sin** tag, **sin** Pages ni `remote.js`. Sin PR a contratos. |
-| Datos A | Pedidos y persistencia (variante A/B) | https://github.com/HansJeffAS/tienda-ucjc-datos (**privado**) | Responsable: Hans Arauco Sanchez. Tag `v0.1.0`, Vite en librería, CE actual `<ucjc-datos>` (canon: `<ucjc-pedidos>`), artefacto `index.js` (canon: `remote.js`), sin Pages públicas. |
-| Datos B | Pedidos y persistencia (variante A/B) | *URL no asignada todavía* | Equipo: Faba, Civera, Blanco. Sin repositorio ni release comunicados al profesor a 02/11. |
+| **Datos A** | Hans Jefferson Arauco Sanchez | https://github.com/HansJeffAS/tienda-ucjc-datos (**privado**) | Tag `v0.1.0`; sin Pages / sin `remote.js` público; CE actual `ucjc-datos` (canon: `ucjc-pedidos`) |
+| **Datos B** | Juan Pedro Faba, Gonzalo Civera, Pablo Blanco | https://github.com/Juampee/ucjc-datos-alt2 (público) | Tag `v0.1.0`; sin Pages / sin `remote.js`; CE actual `ucjc-datos` (canon: `ucjc-pedidos`) |
 
-Los integrantes y el responsable de cada pieza figuran en el **README del repositorio del equipo**. No se duplican aquí.
+Detalle técnico: [`docs/CONTRATO-CARGA.md`](docs/CONTRATO-CARGA.md).
 
-**Convención de tiempos:** el fichero de registro de horas se llama `TIEMPOS.md` (plural). Si algún equipo usó otro nombre, lo unifica el propio equipo.
+## 4. Equipos y repositorios (02/11/2026)
 
-**Contratos (02/11/2026):** en [tienda-ucjc-contratos](https://github.com/cesar-andress/tienda-ucjc-contratos) la carpeta `eventos/` sigue vacía; no hay Pull Requests ni Issues abiertos o cerrados.
+| Equipo | Repositorio | Estado |
+| --- | --- | --- |
+| Descubrimiento | https://github.com/dani84mol/tienda-ucjc-descubrimiento | Público. Tag `v1.0.0`. **Sin** Pages ni `remote.js`. Deben confirmar contratos en [PR #2](https://github.com/cesar-andress/tienda-ucjc-contratos/pull/2). |
+| Compra | https://github.com/Alcompar77/tienda-ucjc-compra | Público. Stub `<ucjc-compra>`. **Sin** tag / Pages / `remote.js`. Confirmar en PR #2. |
+| Identidad | https://github.com/ucjc-ecommerce-identidad/tienda-ucjc-identidad | Público. Stub `<ucjc-identidad>`. **Sin** tag / Pages / `remote.js`. Confirmar en PR #2. |
+| Datos A | https://github.com/HansJeffAS/tienda-ucjc-datos | **Privado.** Tag `v0.1.0`. Sin Pages. Renombrar CE a `ucjc-pedidos`. Confirmar en PR #2. |
+| Datos B | https://github.com/Juampee/ucjc-datos-alt2 | Público. Tag `v0.1.0`. Sin Pages. Renombrar CE a `ucjc-pedidos`. Confirmar en PR #2. |
+
+Integrantes: ver el README de cada repo. Horas: `TIEMPOS.md` (plural).
+
+**Contratos:** propuestas en [PR #2](https://github.com/cesar-andress/tienda-ucjc-contratos/pull/2) (`propuesto`; aún no en `main`). Hasta firmar/merge, `eventos/` en `main` sigue vacío a propósito.
 
 ## 5. Repositorio central de contratos
 
 https://github.com/cesar-andress/tienda-ucjc-contratos
 
-Las propuestas se hacen mediante **fork + Pull Request** (los equipos no tienen push al original).
+Flujo: **fork + Pull Request** (los equipos no tienen push al original). Ahora el trabajo canónico está en el PR #2 del profesor para que todos comenten OK/NO.
 
 ## 6. Contrato técnico de carga
 
-Cómo debe ser un `remote.js`, nombres de custom elements, ejemplo de `vite.config.js` y workflow de publicación por tag:
-
 → [`docs/CONTRATO-CARGA.md`](docs/CONTRATO-CARGA.md)
 
-## 7. URL de repositorio ≠ URL de despliegue ≠ tag ≠ release activa
+## 7. URL de repositorio ≠ tag ≠ URL de despliegue ≠ release activa
 
-| Concepto | Qué es | Qué no es |
-| --- | --- | --- |
-| **URL del repositorio** | Código fuente en GitHub | No sirve para `import()` en el shell |
-| **Tag** (`v0.1.0`) | Marca inmutable en Git | Por sí solo no publica un fichero HTTPS |
-| **URL de despliegue** | HTTPS donde está el `remote.js` (p. ej. GitHub Pages) | No se inventa; hay que probarla |
-| **Release activa** | La versión/URL que figura **ahora** en `manifest.json` | Puede no ser el último tag del equipo |
+| Concepto | Qué es |
+| --- | --- |
+| URL del repositorio | Código en GitHub (no sirve para `import()`) |
+| Tag (`v0.1.0`) | Marca inmutable en Git (sola no publica HTTPS) |
+| URL de despliegue | HTTPS del `remote.js` (p. ej. Pages) |
+| Release activa | Lo que figura **ahora** en `manifest.json` |
 
-Hasta que un equipo tenga un `remote.js` público y probado, el manifest del shell sigue apuntando a los **rellenos del profesor** (`relleno/*.js`, versión `0.0.0`).  
-**No** se usan las URLs de los repos de alumnos como si fueran módulos. El profesor actualiza el manifest **a mano** solo con releases válidas. Cambiar la URL en el manifest a un tag anterior es el mecanismo de **rollback**.
-
-A fecha **02/11/2026** ninguna pieza de alumno está en el manifest: no hay `remote.js` HTTPS verificable en las URLs previstas de Pages.
+Hasta haber `remote.js` público y probado, el manifest apunta a los **rellenos** (`relleno/*.js`, `0.0.0`).  
+A **02/11/2026** ninguna pieza de alumno está en el manifest.
 
 ## 8. Ejecutar el shell en local
-
-Desde la raíz de este repositorio (sin instalar dependencias):
 
 ```bash
 python3 -m http.server 4173
 ```
 
-Abrir http://127.0.0.1:4173/  
+http://127.0.0.1:4173/ — cuatro huecos con relleno.
 
-Debéis ver cuatro huecos con los rellenos. La consola debe mostrar `[shell] … cargada` por cada pieza.
+## 9. GitHub Pages
 
-## 9. Desplegar en GitHub Pages
+https://cesar-andress.github.io/tienda-ucjc-shell/
 
-Publicación: **https://cesar-andress.github.io/tienda-ucjc-shell/**
-
-- Contenido estático en la raíz (`index.html`, `manifest.json`, `relleno/`, `.nojekyll`).
-- Rutas relativas válidas bajo `/tienda-ucjc-shell/`.
-
-Si hiciera falta reactivar Pages: *Settings → Pages → Deploy from a branch → `main` → `/ (root)`*.
+Contenido estático en la raíz (`index.html`, `manifest.json`, `relleno/`, `.nojekyll`).
