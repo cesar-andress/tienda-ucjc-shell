@@ -37,7 +37,7 @@ Detalle técnico (formato de `remote.js`, Vite en modo librería, workflow de ta
 | Descubrimiento | Catálogo, búsqueda y ficha | https://github.com/dani84mol/tienda-ucjc-descubrimiento | Hay `<ucjc-descubrimiento>` con catálogo en `main`. Tag Git `v1.0.0` (30/10), pero **sin** GitHub Pages ni `remote.js` HTTPS. Sin Vite en modo librería y sin `export default`. Sin PR a contratos. Eventos en código/README con nombres no canónicos (`ucjc:cart:add-item`, …). Registro de horas como `TIEMPO.md` (singular). |
 | Compra | Carrito y proceso de compra | https://github.com/Alcompar77/tienda-ucjc-compra | Hay `<ucjc-compra>` mínimo («Soy Compra»), README con equipo y borrador de eventos, y `TIEMPOS.md`. **Sin** tag, **sin** Pages ni `remote.js`. Sin PR a contratos. Nombres de evento en borrador con sufijo `:v1` (no `@n`). |
 | Identidad | Usuario y sesión | https://github.com/ucjc-ecommerce-identidad/tienda-ucjc-identidad | Hay `<ucjc-identidad>` mínimo y borrador de eventos en el README. Último commit en `main`: 24/10. **Sin** tag, **sin** Pages ni `remote.js`. Sin PR a contratos. |
-| Datos | Pedidos y persistencia simulada | Pendiente de recibir | Sin repositorio conocido (búsqueda pública `tienda-ucjc*` sin pieza Datos). |
+| Datos | Pedidos y persistencia simulada | https://github.com/HansJeffAS/tienda-ucjc-datos (**privado**) | Repo privado con acceso del profesor. Tag `v0.1.0`, Vite en modo librería y `<ucjc-datos>` mínimo («Soy Datos»). **Atención:** el contrato de carga exige `<ucjc-pedidos>`; el artefacto se llama `index.js`, no `remote.js`; sin Pages públicas. El README solo lista a Hans Arauco Sanchez. |
 
 Los integrantes y el responsable de cada pieza figuran en el **README del repositorio del equipo**. No se duplican aquí.
 
