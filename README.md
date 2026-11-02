@@ -28,6 +28,15 @@ La Tienda UCJC es una práctica de micro-frontends: cuatro equipos independiente
 
 El shell monta cada custom element en su hueco. Un fallo al cargar una URL **no** impide cargar el resto.
 
+### Datos en A/B testing
+
+Hay **dos implementaciones** de la pieza Datos que compiten (prueba A/B docente). Ambas deben cumplir el mismo contrato de carga (`ucjc-pedidos`, `remote.js`, eventos firmados). El shell solo tiene **un** hueco `datos` en el manifest: el profesor elige qué variante está activa en cada momento.
+
+| Variante | Equipo | Repositorio / URL de release |
+| --- | --- | --- |
+| **Datos A** | Hans Jefferson Arauco Sanchez (equipo individual) | https://github.com/HansJeffAS/tienda-ucjc-datos (repo **privado** a 02/11; sin `remote.js` HTTPS público todavía) |
+| **Datos B** | Juan Pedro Faba Prados, Gonzalo Civera Núñez, Alberto Celada Ortega, Pablo Blanco Martín | **Pendiente:** aún no han comunicado repositorio ni URL de despliegue |
+
 Detalle técnico (formato de `remote.js`, Vite en modo librería, workflow de tags, formatos de manifest): [`docs/CONTRATO-CARGA.md`](docs/CONTRATO-CARGA.md).
 
 ## 4. Equipos y repositorios
@@ -37,7 +46,8 @@ Detalle técnico (formato de `remote.js`, Vite en modo librería, workflow de ta
 | Descubrimiento | Catálogo, búsqueda y ficha | https://github.com/dani84mol/tienda-ucjc-descubrimiento | Hay `<ucjc-descubrimiento>` con catálogo en `main`. Tag Git `v1.0.0` (30/10), pero **sin** GitHub Pages ni `remote.js` HTTPS. Sin Vite en modo librería y sin `export default`. Sin PR a contratos. Eventos en código/README con nombres no canónicos (`ucjc:cart:add-item`, …). Registro de horas como `TIEMPO.md` (singular). |
 | Compra | Carrito y proceso de compra | https://github.com/Alcompar77/tienda-ucjc-compra | Hay `<ucjc-compra>` mínimo («Soy Compra»), README con equipo y borrador de eventos, y `TIEMPOS.md`. **Sin** tag, **sin** Pages ni `remote.js`. Sin PR a contratos. Nombres de evento en borrador con sufijo `:v1` (no `@n`). |
 | Identidad | Usuario y sesión | https://github.com/ucjc-ecommerce-identidad/tienda-ucjc-identidad | Hay `<ucjc-identidad>` mínimo y borrador de eventos en el README. Último commit en `main`: 24/10. **Sin** tag, **sin** Pages ni `remote.js`. Sin PR a contratos. |
-| Datos | Pedidos y persistencia simulada | https://github.com/HansJeffAS/tienda-ucjc-datos (**privado**) | Repo privado con acceso del profesor. Tag `v0.1.0`, Vite en modo librería y `<ucjc-datos>` mínimo («Soy Datos»). **Atención:** el contrato de carga exige `<ucjc-pedidos>`; el artefacto se llama `index.js`, no `remote.js`; sin Pages públicas. El README solo lista a Hans Arauco Sanchez. |
+| Datos A | Pedidos y persistencia (variante A/B) | https://github.com/HansJeffAS/tienda-ucjc-datos (**privado**) | Responsable: Hans Arauco Sanchez. Tag `v0.1.0`, Vite en librería, CE actual `<ucjc-datos>` (canon: `<ucjc-pedidos>`), artefacto `index.js` (canon: `remote.js`), sin Pages públicas. |
+| Datos B | Pedidos y persistencia (variante A/B) | *URL no asignada todavía* | Equipo: Faba, Civera, Celada, Blanco. Sin repositorio ni release comunicados al profesor a 02/11. |
 
 Los integrantes y el responsable de cada pieza figuran en el **README del repositorio del equipo**. No se duplican aquí.
 

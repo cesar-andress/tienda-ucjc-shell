@@ -88,7 +88,7 @@ El fichero real `manifest.json` del shell apunta a los **cuatro rellenos del pro
 }
 ```
 
-Ninguna URL de repositorio GitHub de alumnos forma parte del manifest. A esta fecha no hay `remote.js` HTTPS de estudiante verificable en Pages (Descubrimiento: tag `v1.0.0` sin despliegue; Compra e Identidad: sin tag; Datos: repo privado `HansJeffAS/tienda-ucjc-datos` con tag `v0.1.0`, sin Pages públicas y con custom element `ucjc-datos` en lugar de `ucjc-pedidos`).
+Ninguna URL de repositorio GitHub de alumnos forma parte del manifest. A esta fecha no hay `remote.js` HTTPS de estudiante verificable en Pages (Descubrimiento: tag `v1.0.0` sin despliegue; Compra e Identidad: sin tag; **Datos A** Hans: repo privado `HansJeffAS/tienda-ucjc-datos` con tag `v0.1.0`, sin Pages y con CE `ucjc-datos` en lugar de `ucjc-pedidos`; **Datos B**: sin URL de repo/release asignada todavía). El hueco `datos` del shell admite solo una variante activa a la vez (A/B testing docente).
 
 ### B. Estado futuro (ilustrativo)
 
