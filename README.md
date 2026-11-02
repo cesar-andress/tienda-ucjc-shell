@@ -73,6 +73,7 @@ Flujo: **fork + Pull Request** (los equipos no tienen push al original). Ahora e
 | Release activa | Lo que figura **ahora** en `manifest.json` |
 
 Hasta haber `remote.js` público y probado, el manifest apunta a los **rellenos** (`relleno/*.js`, `0.0.0`).  
+Esos rellenos son una **demo del bus** con los tres eventos del [PR #2](https://github.com/cesar-andress/tienda-ucjc-contratos/pull/2): login → añadir → confirmar → ver pedidos.  
 A **02/11/2026** ninguna pieza de alumno está en el manifest.
 
 ## 8. Ejecutar el shell en local
