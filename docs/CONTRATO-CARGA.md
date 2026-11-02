@@ -75,7 +75,7 @@ git push origin v0.1.0
 
 ## Manifest
 
-### A. Estado actual (26/10/2026)
+### A. Estado actual (02/11/2026)
 
 El fichero real `manifest.json` del shell apunta a los **cuatro rellenos del profesor**. Versión `0.0.0` y rutas relativas:
 
@@ -88,7 +88,7 @@ El fichero real `manifest.json` del shell apunta a los **cuatro rellenos del pro
 }
 ```
 
-Ninguna URL de repositorio GitHub de alumnos forma parte del manifest. Ningún `v0.1.0` de estudiante está activo todavía.
+Ninguna URL de repositorio GitHub de alumnos forma parte del manifest. A esta fecha no hay `remote.js` HTTPS de estudiante verificable en Pages (Descubrimiento tiene tag Git `v1.0.0` sin despliegue; Compra e Identidad sin tag; Datos sin repositorio).
 
 ### B. Estado futuro (ilustrativo)
 

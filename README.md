@@ -15,7 +15,7 @@ La Tienda UCJC es una práctica de micro-frontends: cuatro equipos independiente
 - Vivir fronteras de equipo, contratos de eventos y releases etiquetadas.
 - Ver en clase una tienda compuesta aunque falte alguna pieza (relleno o «pieza no disponible»).
 - Distinguir código en `main`, **tag**, URL de despliegue y **release activa** del manifest.
-- Preparar el miércoles 28/10 (12:00) la integración de las primeras `v0.1.0` válidas.
+- Integrar en el manifest solo releases con `remote.js` HTTPS probado (sin sustituir por la URL del repositorio).
 
 ## 3. Arquitectura de los cuatro micro-frontends
 
@@ -32,16 +32,18 @@ Detalle técnico (formato de `remote.js`, Vite en modo librería, workflow de ta
 
 ## 4. Equipos y repositorios
 
-| Equipo | Responsabilidad | Repositorio | Estado general (26/10) |
+| Equipo | Responsabilidad | Repositorio | Estado general (02/11/2026) |
 | --- | --- | --- | --- |
-| Descubrimiento | Catálogo, búsqueda y ficha | https://github.com/dani84mol/tienda-ucjc-descubrimiento | Repositorio activo; sin release `v0.1.0` integrada |
-| Compra | Carrito y proceso de compra | https://github.com/Alcompar77/tienda-ucjc-compra | Repositorio creado; sin release integrada |
-| Identidad | Usuario y sesión | https://github.com/ucjc-ecommerce-identidad/tienda-ucjc-identidad | Repositorio activo; sin release `v0.1.0` integrada |
-| Datos | Pedidos y persistencia simulada | Pendiente de recibir | Sin repositorio conocido |
+| Descubrimiento | Catálogo, búsqueda y ficha | https://github.com/dani84mol/tienda-ucjc-descubrimiento | Hay `<ucjc-descubrimiento>` con catálogo en `main`. Tag Git `v1.0.0` (30/10), pero **sin** GitHub Pages ni `remote.js` HTTPS. Sin Vite en modo librería y sin `export default`. Sin PR a contratos. Eventos en código/README con nombres no canónicos (`ucjc:cart:add-item`, …). Registro de horas como `TIEMPO.md` (singular). |
+| Compra | Carrito y proceso de compra | https://github.com/Alcompar77/tienda-ucjc-compra | Hay `<ucjc-compra>` mínimo («Soy Compra»), README con equipo y borrador de eventos, y `TIEMPOS.md`. **Sin** tag, **sin** Pages ni `remote.js`. Sin PR a contratos. Nombres de evento en borrador con sufijo `:v1` (no `@n`). |
+| Identidad | Usuario y sesión | https://github.com/ucjc-ecommerce-identidad/tienda-ucjc-identidad | Hay `<ucjc-identidad>` mínimo y borrador de eventos en el README. Último commit en `main`: 24/10. **Sin** tag, **sin** Pages ni `remote.js`. Sin PR a contratos. |
+| Datos | Pedidos y persistencia simulada | Pendiente de recibir | Sin repositorio conocido (búsqueda pública `tienda-ucjc*` sin pieza Datos). |
 
 Los integrantes y el responsable de cada pieza figuran en el **README del repositorio del equipo**. No se duplican aquí.
 
 **Convención de tiempos:** el fichero de registro de horas se llama `TIEMPOS.md` (plural). Si algún equipo usó otro nombre, lo unifica el propio equipo.
+
+**Contratos (02/11/2026):** en [tienda-ucjc-contratos](https://github.com/cesar-andress/tienda-ucjc-contratos) la carpeta `eventos/` sigue vacía; no hay Pull Requests ni Issues abiertos o cerrados.
 
 ## 5. Repositorio central de contratos
 
@@ -65,9 +67,9 @@ Cómo debe ser un `remote.js`, nombres de custom elements, ejemplo de `vite.conf
 | **Release activa** | La versión/URL que figura **ahora** en `manifest.json` | Puede no ser el último tag del equipo |
 
 Hasta que un equipo tenga un `remote.js` público y probado, el manifest del shell sigue apuntando a los **rellenos del profesor** (`relleno/*.js`, versión `0.0.0`).  
-**No** se usan las URLs de los repos de alumnos como si fueran módulos. El miércoles 28 el profesor actualizará el manifest **a mano** solo con releases válidas. Cambiar la URL en el manifest a un tag anterior es el mecanismo de **rollback**.
+**No** se usan las URLs de los repos de alumnos como si fueran módulos. El profesor actualiza el manifest **a mano** solo con releases válidas. Cambiar la URL en el manifest a un tag anterior es el mecanismo de **rollback**.
 
-La convención de URLs del viernes 30/10 (incertidumbre 1) **no** está activa en el manifest actual.
+A fecha **02/11/2026** ninguna pieza de alumno está en el manifest: no hay `remote.js` HTTPS verificable en las URLs previstas de Pages.
 
 ## 8. Ejecutar el shell en local
 
