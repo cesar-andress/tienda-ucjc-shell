@@ -89,3 +89,11 @@ http://127.0.0.1:4173/ — cuatro huecos con relleno.
 https://cesar-andress.github.io/tienda-ucjc-shell/
 
 Contenido estático en la raíz (`index.html`, `manifest.json`, `relleno/`, `.nojekyll`).
+
+## Si Pages da 404
+
+1. El repositorio del shell debe ser **público**.
+2. *Settings → Pages*:
+   - **Opción A:** Source **GitHub Actions** (workflow `.github/workflows/pages.yml` en `main`), o
+   - **Opción B:** Source **Deploy from a branch** → rama **`gh-pages`** → carpeta `/`.
+3. Espera 1–2 minutos y abre https://cesar-andress.github.io/tienda-ucjc-shell/
