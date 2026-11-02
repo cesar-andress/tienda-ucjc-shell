@@ -1,0 +1,125 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Tienda UCJC</title>
+  <style>
+    :root { font-family: system-ui, sans-serif; color: #111; background: #fafafa; }
+    body { margin: 0; }
+    header {
+      padding: 1rem 1.5rem; border-bottom: 1px solid #ddd; background: #fff;
+      display: flex; justify-content: space-between; align-items: baseline; gap: 1rem;
+    }
+    header h1 { margin: 0; font-size: 1.25rem; }
+    header small { color: #666; }
+    main {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;
+      padding: 1rem 1.5rem; max-width: 1200px; margin: 0 auto;
+    }
+    section {
+      background: #fff; border: 1px solid #ddd; border-radius: 6px;
+      padding: 1rem; min-height: 8rem;
+    }
+    section > h2 {
+      margin: 0 0 .5rem; font-size: .8rem; text-transform: uppercase;
+      letter-spacing: .05em; color: #666; display: flex; justify-content: space-between; gap: .5rem;
+    }
+    section > h2 span { font-weight: normal; }
+    .no-disponible { color: #a33; margin: 0; }
+    footer { padding: 1rem 1.5rem; font-size: .8rem; color: #666; }
+    @media (max-width: 720px) { main { grid-template-columns: 1fr; } }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Tienda UCJC</h1>
+    <small id="estado">cargando manifest…</small>
+  </header>
+  <main>
+    <section id="identidad">
+      <h2>Identidad <span></span></h2>
+      <div class="hueco"></div>
+    </section>
+    <section id="descubrimiento">
+      <h2>Descubrimiento <span></span></h2>
+      <div class="hueco"></div>
+    </section>
+    <section id="compra">
+      <h2>Compra <span></span></h2>
+      <div class="hueco"></div>
+    </section>
+    <section id="datos">
+      <h2>Datos · Mis pedidos <span></span></h2>
+      <div class="hueco"></div>
+    </section>
+  </main>
+  <footer>
+    Shell de integración. Solo carga releases etiquetadas según
+    <code>manifest.json</code>. Las piezas se comunican únicamente con
+    <code>CustomEvent</code> en <code>window</code>.
+  </footer>
+  <script type="module">
+    const ELEMENTO = {
+      identidad: 'ucjc-identidad',
+      descubrimiento: 'ucjc-descubrimiento',
+      compra: 'ucjc-compra',
+      datos: 'ucjc-pedidos',
+    };
+
+    // Semana 1: cada entrada trae su url.
+    // Desde el viernes 30/10 (incertidumbre 1): { base, piezas } y el shell construye
+    // `${base}/tienda-ucjc-${pieza}/v${version}/remote.js`
+    function resolverEntradas(manifest) {
+      if (manifest.piezas) {
+        return Object.entries(manifest.piezas).map(([pieza, version]) => {
+          const base = typeof manifest.base === 'string'
+            ? manifest.base
+            : (manifest.base && manifest.base[pieza]);
+          if (!base) throw new Error(`falta base para la pieza "${pieza}"`);
+          return [pieza, {
+            version,
+            url: `${base.replace(/\/$/, '')}/tienda-ucjc-${pieza}/v${version}/remote.js`,
+          }];
+        });
+      }
+      return Object.entries(manifest);
+    }
+
+    // Traza todos los eventos ucjc:* para verlos en clase.
+    const despachoOriginal = EventTarget.prototype.dispatchEvent;
+    EventTarget.prototype.dispatchEvent = function (evento) {
+      if (evento && typeof evento.type === 'string' && evento.type.startsWith('ucjc:')) {
+        console.log('[evento ucjc]', evento.type, evento.detail);
+      }
+      return despachoOriginal.call(this, evento);
+    };
+
+    const manifest = await (await fetch('./manifest.json', { cache: 'no-store' })).json();
+    const entradas = resolverEntradas(manifest);
+    document.getElementById('estado').textContent =
+      `manifest: ${entradas.map(([p, { version }]) => `${p}@${version}`).join(' · ')}`;
+
+    for (const [pieza, { version, url }] of entradas) {
+      const seccion = document.getElementById(pieza);
+      const etiqueta = seccion.querySelector('h2 span');
+      const hueco = seccion.querySelector('.hueco');
+      try {
+        const mod = await import(url);
+        const tag = ELEMENTO[pieza];
+        if (!tag) throw new Error(`pieza desconocida "${pieza}"`);
+        if (!customElements.get(tag)) {
+          throw new Error(`el módulo no ha registrado <${tag}>`);
+        }
+        hueco.replaceChildren(document.createElement(tag));
+        etiqueta.textContent = `v${version}`;
+        console.info(`[shell] ${pieza} v${version} cargada`, mod.default);
+      } catch (err) {
+        hueco.innerHTML = `<p class="no-disponible">${pieza}: pieza no disponible</p>`;
+        etiqueta.textContent = `v${version} · error`;
+        console.error(`[shell] ${pieza} v${version} no carga desde ${url}`, err);
+      }
+    }
+  </script>
+</body>
+</html>
