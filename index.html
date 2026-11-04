@@ -36,6 +36,13 @@
     <h1>Tienda UCJC</h1>
     <small id="estado">cargando manifest…</small>
   </header>
+  <p id="aviso-relleno" style="margin:0;padding:.65rem 1.5rem;background:#fff8e6;border-bottom:1px solid #edd;font-size:.85rem;color:#444">
+    Shell público · Pages activo. Mientras el manifest diga <code>0.0.0</code>,
+    los huecos cargan <strong>rellenos del profesor</strong> (demo del bus de eventos).
+    Las piezas de alumnos solo entran cuando hay <code>remote.js</code> HTTPS
+    y el profesor actualiza el manifest. Los mensajes canónicos llevan sufijo <code>@1</code>
+    (versión del contrato; no confundir con el tag <code>v0.2.0</code> de cada equipo).
+  </p>
   <main>
     <section id="identidad">
       <h2>Identidad <span></span></h2>
@@ -55,9 +62,10 @@
     </section>
   </main>
   <footer>
-    Shell de integración. Solo carga releases etiquetadas según
-    <code>manifest.json</code>. Las piezas se comunican únicamente con
-    <code>CustomEvent</code> en <code>window</code>.
+    Shell de integración (repo y Pages públicos).
+    Solo carga lo que figura en <code>manifest.json</code>.
+    Comunicación entre piezas: <code>CustomEvent</code> en <code>window</code>
+    con nombres del repo de contratos. Consola: traza <code>[evento ucjc]</code>.
   </footer>
   <script type="module">
     const ELEMENTO = {

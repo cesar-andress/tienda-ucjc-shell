@@ -75,9 +75,9 @@ git push origin v0.1.0
 
 ## Manifest
 
-### A. Estado actual (02/11/2026)
+### A. Estado actual (04/11/2026)
 
-El fichero real `manifest.json` del shell apunta a los **cuatro rellenos del profesor**. Versión `0.0.0` y rutas relativas:
+El `manifest.json` del shell (público en Pages) apunta a los **cuatro rellenos del profesor**. Versión `0.0.0` y rutas relativas:
 
 ```json
 {
@@ -88,27 +88,27 @@ El fichero real `manifest.json` del shell apunta a los **cuatro rellenos del pro
 }
 ```
 
-Ninguna URL de repositorio GitHub de alumnos forma parte del manifest. A esta fecha (02/11/2026) no hay `remote.js` HTTPS de estudiante verificable en Pages:
+Ninguna pieza de alumno está aún en el manifest. Varios equipos **sí** tienen ya `remote.js` HTTPS (candidatos a enchufar tras OK de contratos y prueba del profesor):
 
-| Pieza | Repo | Tag | Pages / `remote.js` | CE vs canon |
-| --- | --- | --- | --- | --- |
-| Descubrimiento | `dani84mol/tienda-ucjc-descubrimiento` | `v1.0.0` | no | `ucjc-descubrimiento` OK |
-| Compra | `Alcompar77/tienda-ucjc-compra` | — | no | `ucjc-compra` OK |
-| Identidad | `ucjc-ecommerce-identidad/tienda-ucjc-identidad` | — | no | `ucjc-identidad` OK |
-| Datos A | `HansJeffAS/tienda-ucjc-datos` (**privado**) | `v0.1.0` | no | `ucjc-datos` → debe ser **`ucjc-pedidos`** |
-| Datos B | `Juampee/ucjc-datos-alt2` (público) | `v0.1.0` | no | `ucjc-datos` → debe ser **`ucjc-pedidos`** |
+| Pieza | Repo (público) | Tag / URL de `remote.js` | CE |
+| --- | --- | --- | --- |
+| Descubrimiento | `dani84mol/tienda-ucjc-descubrimiento` | Raíz de Pages: `…/remote.js` (200) | `ucjc-descubrimiento` |
+| Compra | `tienda-ucjc-compra/tienda-ucjc-compra` | Tag `v0.2.0`; Pages org aún 404 | `ucjc-compra` |
+| Identidad | `ucjc-ecommerce-identidad/tienda-ucjc-identidad` | `…/v0.2.1/remote.js` (200) | `ucjc-identidad` |
+| Datos A | `HansJeffAS/tienda-ucjc-datos` | `…/v0.2.0/remote.js` (200) | `ucjc-pedidos` |
+| Datos B | `Juampee/ucjc-datos-alt2` | Pendiente PR #2 + Pages `v0.2.0` | `ucjc-pedidos` |
 
-El hueco `datos` del shell admite solo una variante activa a la vez (A/B testing docente).
+El hueco `datos` admite solo una variante activa a la vez (A/B docente).
 
-### B. Estado futuro (ilustrativo)
+### B. Cuando el profesor enchufa una pieza
 
-Cuando un equipo publique un `remote.js` HTTPS **probado**, el profesor sustituirá **solo esa entrada** en el manifest. Ejemplo ficticio (no son URLs reales):
+Sustituye **solo esa entrada** del manifest por la URL HTTPS probada. Ejemplo ilustrativo:
 
 ```json
 {
   "descubrimiento": {
-    "version": "0.1.0",
-    "url": "https://<usuario>.github.io/tienda-ucjc-descubrimiento/v0.1.0/remote.js"
+    "version": "0.2.0",
+    "url": "https://dani84mol.github.io/tienda-ucjc-descubrimiento/remote.js"
   },
   "compra":         { "version": "0.0.0", "url": "./relleno/compra.js" },
   "identidad":      { "version": "0.0.0", "url": "./relleno/identidad.js" },
@@ -116,7 +116,7 @@ Cuando un equipo publique un `remote.js` HTTPS **probado**, el profesor sustitui
 }
 ```
 
-El resto puede seguir en relleno hasta tener release válida. Volver a una URL/versión anterior en el manifest es el **rollback**.
+El resto puede seguir en relleno. Volver a una URL/versión anterior en el manifest es el **rollback**.
 
 ### C. Formato alternativo (viernes 30/10 — incertidumbre 1)
 
