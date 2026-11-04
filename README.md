@@ -20,6 +20,16 @@ El `0.0.0` del manifest **no** es la versión que deben publicar los equipos. Es
 
 Demo del bus con rellenos: inicio de sesión → añadir al carrito → confirmar pedido → ver pedidos.
 
+### Cómo pensarlo (para alumnos)
+
+Los ficheros de [`relleno/`](relleno/) (por ejemplo [`relleno/compra.js`](relleno/compra.js)) son la **maqueta del comportamiento**:
+
+1. Registran el custom element correcto (`ucjc-compra`, `ucjc-identidad`, …).
+2. Escuchan y emiten los mensajes con el **nombre exacto** del contrato (`…@1`).
+3. Usan en `detail` los **campos** acordados (p. ej. Compra: `pedidoId`, `usuarioId`, `creadoEn`, `total`, `lineas`).
+
+**Vuestra pieza tiene que hacer lo mismo**, pero en vuestro repositorio, con vuestra UI y publicada como `remote.js` HTTPS — no copiando el relleno al shell. El relleno es la referencia de «qué escucha / qué emite»; el contrato escrito (cuando esté `firmado` en `eventos/`) es la norma. Si el relleno y vuestro código hablan distinto, la tienda no encaja.
+
 ## 1. Presentación
 
 La Tienda UCJC es una práctica de micro-frontends: cuatro equipos independientes construyen cada uno una pieza. El **shell** las carga en tiempo de ejecución desde `manifest.json`. Las piezas no se importan entre sí; se comunican solo con `CustomEvent` en `window`, según el repositorio de contratos.
