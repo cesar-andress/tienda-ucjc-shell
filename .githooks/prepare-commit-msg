@@ -1,0 +1,13 @@
+#!/usr/bin/env bash
+# Strip Cursor co-author trailers before the commit message is finalized.
+set -euo pipefail
+msg_file=${1:?}
+tmp=$(mktemp)
+# Remove Co-authored-by lines for Cursor / cursoragent / aiserv
+grep -viE '^[[:space:]]*Co-authored-by:[[:space:]]*(Cursor|cursoragent).*' "$msg_file" \
+  | grep -viE '^[[:space:]]*Co-authored-by:.*cursor(agent)?@' \
+  | grep -viE '^[[:space:]]*Co-authored-by:.*aiserv' \
+  > "$tmp" || true
+# Trim trailing blank lines left by removals
+awk 'BEGIN{n=0} {lines[++n]=$0} END{while(n>0 && lines[n]~/^[[:space:]]*$/) n--; for(i=1;i<=n;i++) print lines[i]}' "$tmp" > "$msg_file"
+rm -f "$tmp"

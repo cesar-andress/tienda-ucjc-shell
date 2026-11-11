@@ -1,0 +1,18 @@
+#!/usr/bin/env bash
+# Enforce UCJC author identity for Tienda UCJC profesor repos.
+set -euo pipefail
+email=$(git config --local --get user.email 2>/dev/null || true)
+name=$(git config --local --get user.name 2>/dev/null || true)
+if [[ "$email" != "cesar.andress@ucjc.edu" ]]; then
+  echo "pre-commit: user.email local debe ser cesar.andress@ucjc.edu (ahora: '${email:-<vacío>}')" >&2
+  echo "  git config --local user.email cesar.andress@ucjc.edu" >&2
+  echo "  git config --local user.name 'César Andrés'" >&2
+  exit 1
+fi
+if [[ -z "$name" ]]; then
+  echo "pre-commit: falta user.name local" >&2
+  exit 1
+fi
+case "$email" in
+  *aiserv*|*cursor*) echo "pre-commit: email prohibido: $email" >&2; exit 1 ;;
+esac

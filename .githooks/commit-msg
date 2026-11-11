@@ -1,0 +1,12 @@
+#!/usr/bin/env bash
+# Reject commit messages that still credit Cursor or aiserv.
+set -euo pipefail
+msg_file=${1:?}
+if grep -qiE 'Co-authored-by:[[:space:]]*(Cursor|cursoragent)' "$msg_file"; then
+  echo "commit-msg: prohibido Co-authored-by: Cursor" >&2
+  exit 1
+fi
+if grep -qiE 'cursoragent@|c\.andres@aiserv\.es' "$msg_file"; then
+  echo "commit-msg: email/identidad prohibida en el mensaje" >&2
+  exit 1
+fi

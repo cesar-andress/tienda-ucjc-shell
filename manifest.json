@@ -1,0 +1,18 @@
+{
+  "identidad": {
+    "version": "0.2.2",
+    "url": "https://ucjc-ecommerce-identidad.github.io/tienda-ucjc-identidad/v0.2.2/remote.js"
+  },
+  "descubrimiento": {
+    "version": "0.2.0",
+    "url": "https://dani84mol.github.io/tienda-ucjc-descubrimiento/remote.js"
+  },
+  "compra": {
+    "version": "0.2.0",
+    "url": "https://tienda-ucjc-compra.github.io/tienda-ucjc-compra/v0.2.0/remote.js"
+  },
+  "datos": {
+    "version": "0.2.0",
+    "url": "https://hansjeffas.github.io/tienda-ucjc-datos/v0.2.0/remote.js"
+  }
+}
