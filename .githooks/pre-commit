@@ -1,10 +1,9 @@
 #!/usr/bin/env bash
-# Fallar si el autor/committer no es cesar.andress@ucjc.edu.
+# ABSOLUTO: solo cesar.andress@ucjc.edu como author y committer.
 set -euo pipefail
 REQUIRED='cesar.andress@ucjc.edu'
 
 email_from_ident() {
-  # "Name <email> timestamp tz" → email
   sed -n 's/.*<\([^>]*\)>.*/\1/p'
 }
 
@@ -13,36 +12,15 @@ committer_email=$(git var GIT_COMMITTER_IDENT 2>/dev/null | email_from_ident || 
 local_email=$(git config --local --get user.email 2>/dev/null || true)
 local_name=$(git config --local --get user.name 2>/dev/null || true)
 
-if [[ "$author_email" != "$REQUIRED" ]]; then
-  echo "pre-commit: el autor debe ser ${REQUIRED} (ahora: '${author_email:-<vacío>}')" >&2
-  echo "  git config --local user.email ${REQUIRED}" >&2
-  echo "  git config --local user.name 'César Andrés'" >&2
-  echo "  unset GIT_AUTHOR_EMAIL GIT_COMMITTER_EMAIL  # si estaban forzados" >&2
-  exit 1
-fi
+fail() { echo "pre-commit: $*" >&2; exit 1; }
 
-if [[ "$committer_email" != "$REQUIRED" ]]; then
-  echo "pre-commit: el committer debe ser ${REQUIRED} (ahora: '${committer_email:-<vacío>}')" >&2
-  echo "  git config --local user.email ${REQUIRED}" >&2
-  echo "  unset GIT_COMMITTER_EMAIL" >&2
-  exit 1
-fi
+[[ "$author_email" == "$REQUIRED" ]] || fail "autor debe ser ${REQUIRED} (ahora: '${author_email:-<vacío>}')"
+[[ "$committer_email" == "$REQUIRED" ]] || fail "committer debe ser ${REQUIRED} (ahora: '${committer_email:-<vacío>}')"
+[[ "$local_email" == "$REQUIRED" ]] || fail "user.email local debe ser ${REQUIRED} (ahora: '${local_email:-<vacío>}')"
+[[ -n "${local_name}" ]] || fail "falta user.name local"
 
-if [[ "$local_email" != "$REQUIRED" ]]; then
-  echo "pre-commit: user.email local debe ser ${REQUIRED} (ahora: '${local_email:-<vacío>}')" >&2
-  echo "  git config --local user.email ${REQUIRED}" >&2
-  echo "  git config --local user.name 'César Andrés'" >&2
-  exit 1
-fi
-
-if [[ -z "${local_name}" ]]; then
-  echo "pre-commit: falta user.name local" >&2
-  exit 1
-fi
-
-case "$author_email$committer_email$local_email" in
-  *aiserv*|*cursor*)
-    echo "pre-commit: email prohibido (aiserv/cursor)" >&2
-    exit 1
+case "$author_email$committer_email$local_email$local_name" in
+  *aiserv*|*cursor*|*Cursor*|*noreply*)
+    fail "identidad prohibida (cursor/aiserv/noreply)"
     ;;
 esac

@@ -1,12 +1,21 @@
 #!/usr/bin/env bash
-# Reject commit messages that still credit Cursor or aiserv.
+# ABSOLUTO: ningún Co-authored-by ajeno; cero Cursor/aiserv en el mensaje.
 set -euo pipefail
 msg_file=${1:?}
-if grep -qiE 'Co-authored-by:[[:space:]]*(Cursor|cursoragent)' "$msg_file"; then
-  echo "commit-msg: prohibido Co-authored-by: Cursor" >&2
-  exit 1
+
+if grep -qiE '^[[:space:]]*Co-authored-by:' "$msg_file"; then
+  # Solo se tolera coautor explícitamente UCJC (casi nunca hace falta).
+  if ! grep -qiE '^[[:space:]]*Co-authored-by:[[:space:]]*.*cesar\.andress@ucjc\.edu' "$msg_file"; then
+    echo "commit-msg: prohibido Co-authored-by que no sea cesar.andress@ucjc.edu" >&2
+    exit 1
+  fi
+  if grep -qiE '^[[:space:]]*Co-authored-by:.*(Cursor|cursoragent|aiserv)' "$msg_file"; then
+    echo "commit-msg: prohibido Co-authored-by Cursor/aiserv" >&2
+    exit 1
+  fi
 fi
-if grep -qiE 'cursoragent@|c\.andres@aiserv\.es' "$msg_file"; then
-  echo "commit-msg: email/identidad prohibida en el mensaje" >&2
+
+if grep -qiE 'cursoragent@|c\.andres@aiserv\.es|@cursor\.|@aiserv\.' "$msg_file"; then
+  echo "commit-msg: email/identidad de herramienta prohibida en el mensaje" >&2
   exit 1
 fi

@@ -1,13 +1,14 @@
 #!/usr/bin/env bash
-# Strip Cursor co-author trailers before the commit message is finalized.
+# ABSOLUTO: eliminar trailers de herramientas antes de finalizar el mensaje.
 set -euo pipefail
 msg_file=${1:?}
 tmp=$(mktemp)
-# Remove Co-authored-by lines for Cursor / cursoragent / aiserv
-grep -viE '^[[:space:]]*Co-authored-by:[[:space:]]*(Cursor|cursoragent).*' "$msg_file" \
-  | grep -viE '^[[:space:]]*Co-authored-by:.*cursor(agent)?@' \
-  | grep -viE '^[[:space:]]*Co-authored-by:.*aiserv' \
-  > "$tmp" || true
-# Trim trailing blank lines left by removals
-awk 'BEGIN{n=0} {lines[++n]=$0} END{while(n>0 && lines[n]~/^[[:space:]]*$/) n--; for(i=1;i<=n;i++) print lines[i]}' "$tmp" > "$msg_file"
+
+# Quitar TODO Co-authored-by que no sea cesar.andress@ucjc.edu
+grep -viE '^[[:space:]]*Co-authored-by:' "$msg_file" > "$tmp" || true
+# Si había una línea UCJC legítima, no la recuperamos: en estos repos no queremos coautores.
+# (Un único author cesar.andress@ucjc.edu basta.)
+
+awk 'BEGIN{n=0} {lines[++n]=$0} END{while(n>0 && lines[n]~/^[[:space:]]*$/) n--; for(i=1;i<=n;i++) print lines[i]}' \
+  "$tmp" > "$msg_file"
 rm -f "$tmp"
