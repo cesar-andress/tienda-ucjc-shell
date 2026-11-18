@@ -17,7 +17,7 @@ Este repositorio lo mantiene el profesor. Los equipos de alumnos **no** tienen e
 | `manifest.json` | **Cuatro piezas de alumnos** (HTTPS `remote.js`; mismas URLs que el 11/11) |
 | Rellenos del profesor | Reserva en `relleno/` si alguna URL falla |
 | Contratos `@1` | **`firmado`** en [tienda-ucjc-contratos](https://github.com/cesar-andress/tienda-ucjc-contratos) (tag `v0.2.0`) · **sin** eventos `propuesto` nuevos aún |
-| Datos activo | **A por defecto**; **B conmutable en vivo** con `?datos=b` (botones A/B en la cabecera) |
+| Datos activo (18/11) | **B por defecto** (sorpresa de aula); A con `?datos=a`; botones A/B en cabecera |
 | Siguiente corte | Evolución **sin mutar `@1`** (evento nuevo en `propuesto` / release shell `v0.3.x` cuando proceda) |
 
 ### Releases enchufadas ahora
@@ -32,10 +32,11 @@ Este repositorio lo mantiene el profesor. Los equipos de alumnos **no** tienen e
 
 **Conmutar A/B en clase (sin editar el JSON a mano):**
 
-- A (defecto): https://cesar-andress.github.io/tienda-ucjc-shell/?datos=a  
+- Sin query / defecto hoy: https://cesar-andress.github.io/tienda-ucjc-shell/ → **Datos B**  
+- A: https://cesar-andress.github.io/tienda-ucjc-shell/?datos=a  
 - B: https://cesar-andress.github.io/tienda-ucjc-shell/?datos=b  
 
-Hay que **recargar** al cambiar (las dos implementan el mismo CE `ucjc-pedidos`). Las URLs viven en `datosVariantes` del `manifest.json`.
+Hay que **recargar** al cambiar (mismo CE `ucjc-pedidos`). URLs en `datosVariantes`. Banner rojo = modo auditoría del 18/11.
 
 El número del manifest es la **release** del micro-frontend. Los mensajes del bus usan el sufijo de contrato **`@1`** (otro número).
 

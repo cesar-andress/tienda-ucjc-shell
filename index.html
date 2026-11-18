@@ -53,13 +53,14 @@
     </nav>
     <small id="estado">cargando manifest…</small>
   </header>
-  <p id="aviso-relleno" style="margin:0;padding:.65rem 1.5rem;background:#eef6ff;border-bottom:1px solid #cde;font-size:.85rem;color:#333">
-    Shell público · Pages activo. El <code>manifest.json</code> carga
-    <strong>releases de alumnos</strong> (<code>remote.js</code> HTTPS).
-    Mensajes canónicos con sufijo <code>@1</code>
-    (versión del contrato; no confundir con el tag <code>v0.2.x</code> de cada equipo).
-    Variante de Datos: <strong id="etiqueta-datos">…</strong>
-    (conmutador A/B arriba; hace falta recargar para cambiar de implementación).
+  <p id="aviso-incidente" style="margin:0;padding:.75rem 1.5rem;background:#7f1d1d;border-bottom:1px solid #450a0a;font-size:.9rem;color:#fff">
+    <strong>RETO 18/11 · modo auditoría.</strong>
+    Hoy no empezáis «mejorando lo vuestro».
+    Abrid la consola, recorred login → añadir → confirmar → pedidos
+    y <strong>cazad incumplimientos</strong> frente a los contratos
+    <code>@1</code> (nombres de evento, <code>export default.nombre</code>, CE).
+    Variante Datos ahora: <strong id="etiqueta-datos">…</strong>
+    · conmutad A/B arriba (recarga).
   </p>
   <main>
     <section id="identidad">
@@ -111,10 +112,11 @@
     }
 
     function elegirVarianteDatos(manifest) {
+      // 18/11: sin ?datos= el defecto es B (sorpresa de aula).
       const params = new URLSearchParams(location.search);
-      const pedida = (params.get('datos') || 'a').toLowerCase();
+      const pedida = (params.get('datos') || 'b').toLowerCase();
       const variantes = manifest.datosVariantes || {};
-      const clave = variantes[pedida] ? pedida : 'a';
+      const clave = variantes[pedida] ? pedida : 'b';
       const elegida = variantes[clave] || manifest.datos;
       return { clave, elegida };
     }
@@ -140,11 +142,19 @@
     document.getElementById('btn-datos-b').setAttribute(
       'aria-current', datosClave === 'b' ? 'page' : 'false',
     );
-    const etiqueta = datosClave === 'b' ? 'B (reserva / alternativa)' : 'A (por defecto)';
+    const etiqueta = datosClave === 'b'
+      ? 'B (defecto de hoy · sorpresa)'
+      : 'A';
     document.getElementById('etiqueta-datos').textContent = etiqueta;
 
     document.getElementById('estado').textContent =
       `manifest: ${entradas.map(([p, { version }]) => `${p}@${version}`).join(' · ')} · datos=${datosClave}`;
+
+    console.info(
+      '[reto 18/11] Modo auditoría. Contrastad [evento ucjc] y export default con',
+      'https://github.com/cesar-andress/tienda-ucjc-contratos (tag v0.2.0).',
+      `Hueco datos = ${datosClave}. Conmutad ?datos=a|b`,
+    );
 
     for (const [pieza, { version, url }] of entradas) {
       const seccion = document.getElementById(pieza);

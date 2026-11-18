@@ -115,8 +115,8 @@ El `manifest.json` del shell (público en Pages) apunta a **releases HTTPS de al
 | Descubrimiento | `dani84mol/tienda-ucjc-descubrimiento` | Raíz de Pages: `…/remote.js` | `ucjc-descubrimiento` | Sí |
 | Compra | `tienda-ucjc-compra/tienda-ucjc-compra` | `…/v0.2.0/remote.js` | `ucjc-compra` | Sí |
 | Identidad | `ucjc-ecommerce-identidad/tienda-ucjc-identidad` | `…/v0.2.2/remote.js` | `ucjc-identidad` | Sí |
-| Datos A | `HansJeffAS/tienda-ucjc-datos` | `…/v0.2.0/remote.js` | `ucjc-pedidos` | Sí (`?datos=a`, defecto) |
-| Datos B | `Juampee/ucjc-datos-alt2` | `…/v0.2.0/remote.js` | `ucjc-pedidos` | Sí (`?datos=b`) |
+| Datos A | `HansJeffAS/tienda-ucjc-datos` | `…/v0.2.0/remote.js` | `ucjc-pedidos` | Sí (`?datos=a`) |
+| Datos B | `Juampee/ucjc-datos-alt2` | `…/v0.2.0/remote.js` | `ucjc-pedidos` | Sí (defecto 18/11; `?datos=b` o sin query) |
 
 ### B. Cómo conmutar Datos A/B (aula) y rollback
 
