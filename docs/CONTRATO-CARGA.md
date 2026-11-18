@@ -77,7 +77,8 @@ git push origin v0.1.0
 
 ### A. Estado actual (18/11/2026)
 
-El `manifest.json` del shell (público en Pages) apunta a **releases HTTPS de alumnos**. El hueco `datos` admite conmutación A/B en vivo:
+El `manifest.json` del shell (público en Pages) apunta a **releases HTTPS de alumnos**.
+Hay **como máximo un** experimento A/B (`ab.pieza` + `ab.variantes`); hoy es `datos`:
 
 ```json
 {
@@ -95,16 +96,20 @@ El `manifest.json` del shell (público en Pages) apunta a **releases HTTPS de al
   },
   "datos": {
     "version": "0.2.0",
-    "url": "https://hansjeffas.github.io/tienda-ucjc-datos/v0.2.0/remote.js"
+    "url": "https://juampee.github.io/ucjc-datos-alt2/v0.2.0/remote.js"
   },
-  "datosVariantes": {
-    "a": {
-      "version": "0.2.0",
-      "url": "https://hansjeffas.github.io/tienda-ucjc-datos/v0.2.0/remote.js"
-    },
-    "b": {
-      "version": "0.2.0",
-      "url": "https://juampee.github.io/ucjc-datos-alt2/v0.2.0/remote.js"
+  "ab": {
+    "pieza": "datos",
+    "defecto": "b",
+    "variantes": {
+      "a": {
+        "version": "0.2.0",
+        "url": "https://hansjeffas.github.io/tienda-ucjc-datos/v0.2.0/remote.js"
+      },
+      "b": {
+        "version": "0.2.0",
+        "url": "https://juampee.github.io/ucjc-datos-alt2/v0.2.0/remote.js"
+      }
     }
   }
 }
@@ -115,19 +120,16 @@ El `manifest.json` del shell (público en Pages) apunta a **releases HTTPS de al
 | Descubrimiento | `dani84mol/tienda-ucjc-descubrimiento` | Raíz de Pages: `…/remote.js` | `ucjc-descubrimiento` | Sí |
 | Compra | `tienda-ucjc-compra/tienda-ucjc-compra` | `…/v0.2.0/remote.js` | `ucjc-compra` | Sí |
 | Identidad | `ucjc-ecommerce-identidad/tienda-ucjc-identidad` | `…/v0.2.2/remote.js` | `ucjc-identidad` | Sí |
-| Datos A | `HansJeffAS/tienda-ucjc-datos` | `…/v0.2.0/remote.js` | `ucjc-pedidos` | Sí (`?datos=a`) |
-| Datos B | `Juampee/ucjc-datos-alt2` | `…/v0.2.0/remote.js` | `ucjc-pedidos` | Sí (defecto 18/11; `?datos=b` o sin query) |
+| Datos A | `HansJeffAS/tienda-ucjc-datos` | `…/v0.2.0/remote.js` | `ucjc-pedidos` | Sí (`ab` · `?ab=a`) |
+| Datos B | `Juampee/ucjc-datos-alt2` | `…/v0.2.0/remote.js` | `ucjc-pedidos` | Sí (`ab` · defecto `b`) |
 
-### B. Cómo conmutar Datos A/B (aula) y rollback
+### B. Cómo conmutar A/B (aula) y rollback
 
-**En aula (preferido):** botones **A / B** de la cabecera, o URLs:
+**Regla:** solo **una** pieza tiene variantes A/B en el shell. Hoy es `datos`. Otra pieza (p. ej. Compra) puede pasar a ser el slot cambiando `ab.pieza` (y las URLs); no se mantienen dos experimentos a la vez.
 
-- `…/tienda-ucjc-shell/?datos=a`
-- `…/tienda-ucjc-shell/?datos=b`
+**En aula:** botones **A / B**, o `?ab=a` / `?ab=b` (alias `?datos=` si `ab.pieza` es `datos`). Recargar.
 
-Al cambiar hay que recargar la página (mismo nombre de custom element).
-
-**Rollback / cambio permanente de defecto:** editad la entrada `datos` (y, si hace falta, `datosVariantes`) en `manifest.json`, commit y push a `main`.
+**Rollback / cambiar defecto o pieza del experimento:** editar `ab` (y la entrada canónica de esa pieza) en `manifest.json`, commit y push a `main`.
 
 ### C. Formato alternativo (viernes 30/10 — incertidumbre 1)
 

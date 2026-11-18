@@ -17,7 +17,7 @@ Este repositorio lo mantiene el profesor. Los equipos de alumnos **no** tienen e
 | `manifest.json` | **Cuatro piezas de alumnos** (HTTPS `remote.js`; mismas URLs que el 11/11) |
 | Rellenos del profesor | Reserva en `relleno/` si alguna URL falla |
 | Contratos `@1` | **`firmado`** en [tienda-ucjc-contratos](https://github.com/cesar-andress/tienda-ucjc-contratos) (tag `v0.2.0`) · **sin** eventos `propuesto` nuevos aún |
-| Datos activo (18/11) | **B por defecto** (sorpresa de aula); A con `?datos=a`; botones A/B en cabecera |
+| A/B (18/11) | Bloque `ab` del manifest: **una sola pieza** (hoy `datos`); defecto **B**; `?ab=a|b` |
 | Siguiente corte | Evolución **sin mutar `@1`** (evento nuevo en `propuesto` / release shell `v0.3.x` cuando proceda) |
 
 ### Releases enchufadas ahora
@@ -30,13 +30,13 @@ Este repositorio lo mantiene el profesor. Los equipos de alumnos **no** tienen e
 | Datos A | `0.2.0` | https://hansjeffas.github.io/tienda-ucjc-datos/v0.2.0/remote.js |
 | Datos B | `0.2.0` | https://juampee.github.io/ucjc-datos-alt2/v0.2.0/remote.js |
 
-**Conmutar A/B en clase (sin editar el JSON a mano):**
+**Conmutar A/B (un solo hueco en todo el shell):**
 
-- Sin query / defecto hoy: https://cesar-andress.github.io/tienda-ucjc-shell/ → **Datos B**  
-- A: https://cesar-andress.github.io/tienda-ucjc-shell/?datos=a  
-- B: https://cesar-andress.github.io/tienda-ucjc-shell/?datos=b  
+- Configuración: bloque `ab` en `manifest.json` (`pieza` + `variantes` a/b). Hoy `pieza: datos`.
+- Sin query / defecto: https://cesar-andress.github.io/tienda-ucjc-shell/ → variante `defecto` (**B**)
+- A / B: `?ab=a` · `?ab=b` (alias legado `?datos=` si la pieza es datos)
 
-Hay que **recargar** al cambiar (mismo CE `ucjc-pedidos`). URLs en `datosVariantes`. Banner rojo = modo auditoría del 18/11.
+Recargar al cambiar. **No** se abren dos A/B a la vez: si mañana la prueba pasa a Compra, se cambia `ab.pieza` y se quitan las variantes de Datos. Banner rojo = reto 18/11.
 
 El número del manifest es la **release** del micro-frontend. Los mensajes del bus usan el sufijo de contrato **`@1`** (otro número).
 

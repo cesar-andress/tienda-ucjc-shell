@@ -46,20 +46,21 @@
 <body>
   <header>
     <h1>Tienda UCJC</h1>
-    <nav class="conmutador" aria-label="Variante de Datos">
-      <span>Datos:</span>
-      <a id="btn-datos-a" href="?datos=a">A</a>
-      <a id="btn-datos-b" href="?datos=b">B</a>
+    <nav class="conmutador" id="nav-ab" aria-label="Prueba A/B (un solo hueco)">
+      <span id="ab-label">A/B:</span>
+      <a id="btn-ab-a" href="?ab=a">A</a>
+      <a id="btn-ab-b" href="?ab=b">B</a>
     </nav>
     <small id="estado">cargando manifest…</small>
   </header>
   <p id="aviso-incidente" style="margin:0;padding:.75rem 1.5rem;background:#7f1d1d;border-bottom:1px solid #450a0a;font-size:.9rem;color:#fff">
     <strong>RETO 18/11 · auditoría + puerta de integración.</strong>
     1) Cazad incumplimientos de contratos <code>@1</code> (consola).
-    2) Hoy debéis <strong>publicar un tag</strong> que cierre un hallazgo
-    y pasar el acta con el profesor antes de salir.
-    Variante Datos: <strong id="etiqueta-datos">…</strong>
-    · A/B arriba (recarga).
+    2) Hoy: <strong>tag + acta</strong> antes de salir.
+    3) Prueba A/B: <strong>un solo hueco</strong> a la vez
+    (<span id="etiqueta-ab-pieza">…</span> =
+    <strong id="etiqueta-ab-clave">…</strong>).
+    Conmutad A/B arriba (recarga). Más adelante: otra pieza, pero solo una.
   </p>
   <main>
     <section id="identidad">
@@ -80,11 +81,10 @@
     </section>
   </main>
   <footer>
-    Shell de integración (repo y Pages públicos).
-    Solo carga lo que figura en <code>manifest.json</code> (+ variante
-    <code>?datos=a|b</code>).
-    Comunicación entre piezas: <code>CustomEvent</code> en <code>window</code>
-    con nombres del repo de contratos. Consola: traza <code>[evento ucjc]</code>.
+    Shell de integración. A/B: bloque <code>ab</code> del manifest
+    (como máximo <strong>una</strong> pieza con variantes).
+    Query <code>?ab=a|b</code> (alias legado <code>?datos=</code> si la pieza es datos).
+    Consola: <code>[evento ucjc]</code>.
   </footer>
   <script type="module">
     const ELEMENTO = {
@@ -93,6 +93,32 @@
       compra: 'ucjc-compra',
       datos: 'ucjc-pedidos',
     };
+
+    const TITULO = {
+      identidad: 'Identidad',
+      descubrimiento: 'Descubrimiento',
+      compra: 'Compra',
+      datos: 'Datos',
+    };
+
+    function normalizarAb(manifest) {
+      if (manifest.ab && manifest.ab.pieza && manifest.ab.variantes) {
+        return {
+          pieza: manifest.ab.pieza,
+          defecto: (manifest.ab.defecto || 'a').toLowerCase(),
+          variantes: manifest.ab.variantes,
+        };
+      }
+      // Legado: datosVariantes
+      if (manifest.datosVariantes) {
+        return {
+          pieza: 'datos',
+          defecto: 'b',
+          variantes: manifest.datosVariantes,
+        };
+      }
+      return null;
+    }
 
     function resolverEntradas(manifest) {
       if (manifest.piezas) {
@@ -107,20 +133,21 @@
           }];
         });
       }
-      return Object.entries(manifest).filter(([k]) => k !== 'datosVariantes');
+      return Object.entries(manifest).filter(([k]) => k !== 'ab' && k !== 'datosVariantes');
     }
 
-    function elegirVarianteDatos(manifest) {
-      // 18/11: sin ?datos= el defecto es B (sorpresa de aula).
+    function elegirAb(ab) {
       const params = new URLSearchParams(location.search);
-      const pedida = (params.get('datos') || 'b').toLowerCase();
-      const variantes = manifest.datosVariantes || {};
-      const clave = variantes[pedida] ? pedida : 'b';
-      const elegida = variantes[clave] || manifest.datos;
-      return { clave, elegida };
+      // ?ab=… o alias ?datos=… / ?compra=… según la pieza del slot
+      const pedida = (
+        params.get('ab')
+        || params.get(ab.pieza)
+        || ab.defecto
+      ).toLowerCase();
+      const clave = ab.variantes[pedida] ? pedida : ab.defecto;
+      return { clave, elegida: ab.variantes[clave] };
     }
 
-    // Traza todos los eventos ucjc:* para verlos en clase.
     const despachoOriginal = EventTarget.prototype.dispatchEvent;
     EventTarget.prototype.dispatchEvent = function (evento) {
       if (evento && typeof evento.type === 'string' && evento.type.startsWith('ucjc:')) {
@@ -130,29 +157,48 @@
     };
 
     const manifest = await (await fetch('./manifest.json', { cache: 'no-store' })).json();
-    const { clave: datosClave, elegida: datosElegida } = elegirVarianteDatos(manifest);
-    const entradas = resolverEntradas(manifest).map(([pieza, meta]) => (
-      pieza === 'datos' ? [pieza, datosElegida] : [pieza, meta]
-    ));
+    const ab = normalizarAb(manifest);
+    let abClave = null;
+    let entradas = resolverEntradas(manifest);
 
-    document.getElementById('btn-datos-a').setAttribute(
-      'aria-current', datosClave === 'a' ? 'page' : 'false',
-    );
-    document.getElementById('btn-datos-b').setAttribute(
-      'aria-current', datosClave === 'b' ? 'page' : 'false',
-    );
-    const etiqueta = datosClave === 'b'
-      ? 'B (defecto de hoy · sorpresa)'
-      : 'A';
-    document.getElementById('etiqueta-datos').textContent = etiqueta;
+    if (ab) {
+      const { clave, elegida } = elegirAb(ab);
+      abClave = clave;
+      entradas = entradas.map(([pieza, meta]) => (
+        pieza === ab.pieza ? [pieza, elegida] : [pieza, meta]
+      ));
+
+      const titulo = TITULO[ab.pieza] || ab.pieza;
+      document.getElementById('ab-label').textContent = `${titulo}:`;
+      document.getElementById('nav-ab').setAttribute(
+        'aria-label',
+        `Prueba A/B de ${titulo} (un solo hueco)`,
+      );
+      document.getElementById('btn-ab-a').href = `?ab=a`;
+      document.getElementById('btn-ab-b').href = `?ab=b`;
+      document.getElementById('btn-ab-a').setAttribute(
+        'aria-current', clave === 'a' ? 'page' : 'false',
+      );
+      document.getElementById('btn-ab-b').setAttribute(
+        'aria-current', clave === 'b' ? 'page' : 'false',
+      );
+      document.getElementById('etiqueta-ab-pieza').textContent = titulo;
+      document.getElementById('etiqueta-ab-clave').textContent =
+        clave === ab.defecto ? `${clave.toUpperCase()} (defecto)` : clave.toUpperCase();
+    } else {
+      document.getElementById('nav-ab').hidden = true;
+      document.getElementById('etiqueta-ab-pieza').textContent = 'ninguno';
+      document.getElementById('etiqueta-ab-clave').textContent = '—';
+    }
 
     document.getElementById('estado').textContent =
-      `manifest: ${entradas.map(([p, { version }]) => `${p}@${version}`).join(' · ')} · datos=${datosClave}`;
+      `manifest: ${entradas.map(([p, { version }]) => `${p}@${version}`).join(' · ')}`
+      + (ab ? ` · ab:${ab.pieza}=${abClave}` : '');
 
     console.info(
-      '[reto 18/11] Modo auditoría. Contrastad [evento ucjc] y export default con',
-      'https://github.com/cesar-andress/tienda-ucjc-contratos (tag v0.2.0).',
-      `Hueco datos = ${datosClave}. Conmutad ?datos=a|b`,
+      '[reto 18/11] A/B: como máximo una pieza. Ahora:',
+      ab ? `${ab.pieza}=${abClave}` : 'ninguna',
+      '· ?ab=a|b',
     );
 
     for (const [pieza, { version, url }] of entradas) {
@@ -167,8 +213,8 @@
           throw new Error(`el módulo no ha registrado <${tag}>`);
         }
         hueco.replaceChildren(document.createElement(tag));
-        etiquetaPieza.textContent = pieza === 'datos'
-          ? `v${version} · ${datosClave.toUpperCase()}`
+        etiquetaPieza.textContent = (ab && pieza === ab.pieza)
+          ? `v${version} · ${abClave.toUpperCase()}`
           : `v${version}`;
         console.info(`[shell] ${pieza} v${version} cargada`, mod.default);
       } catch (err) {

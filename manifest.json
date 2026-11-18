@@ -15,14 +15,18 @@
     "version": "0.2.0",
     "url": "https://juampee.github.io/ucjc-datos-alt2/v0.2.0/remote.js"
   },
-  "datosVariantes": {
-    "a": {
-      "version": "0.2.0",
-      "url": "https://hansjeffas.github.io/tienda-ucjc-datos/v0.2.0/remote.js"
-    },
-    "b": {
-      "version": "0.2.0",
-      "url": "https://juampee.github.io/ucjc-datos-alt2/v0.2.0/remote.js"
+  "ab": {
+    "pieza": "datos",
+    "defecto": "b",
+    "variantes": {
+      "a": {
+        "version": "0.2.0",
+        "url": "https://hansjeffas.github.io/tienda-ucjc-datos/v0.2.0/remote.js"
+      },
+      "b": {
+        "version": "0.2.0",
+        "url": "https://juampee.github.io/ucjc-datos-alt2/v0.2.0/remote.js"
+      }
     }
   }
 }
