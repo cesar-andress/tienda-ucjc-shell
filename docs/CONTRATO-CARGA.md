@@ -77,7 +77,7 @@ git push origin v0.1.0
 
 ### A. Estado actual (18/11/2026)
 
-El `manifest.json` del shell (público en Pages) apunta a **releases HTTPS de alumnos** (sin cambio de URLs respecto al corte `v0.2.0` del 11/11):
+El `manifest.json` del shell (público en Pages) apunta a **releases HTTPS de alumnos**. El hueco `datos` admite conmutación A/B en vivo:
 
 ```json
 {
@@ -96,6 +96,16 @@ El `manifest.json` del shell (público en Pages) apunta a **releases HTTPS de al
   "datos": {
     "version": "0.2.0",
     "url": "https://hansjeffas.github.io/tienda-ucjc-datos/v0.2.0/remote.js"
+  },
+  "datosVariantes": {
+    "a": {
+      "version": "0.2.0",
+      "url": "https://hansjeffas.github.io/tienda-ucjc-datos/v0.2.0/remote.js"
+    },
+    "b": {
+      "version": "0.2.0",
+      "url": "https://juampee.github.io/ucjc-datos-alt2/v0.2.0/remote.js"
+    }
   }
 }
 ```
@@ -105,25 +115,19 @@ El `manifest.json` del shell (público en Pages) apunta a **releases HTTPS de al
 | Descubrimiento | `dani84mol/tienda-ucjc-descubrimiento` | Raíz de Pages: `…/remote.js` | `ucjc-descubrimiento` | Sí |
 | Compra | `tienda-ucjc-compra/tienda-ucjc-compra` | `…/v0.2.0/remote.js` | `ucjc-compra` | Sí |
 | Identidad | `ucjc-ecommerce-identidad/tienda-ucjc-identidad` | `…/v0.2.2/remote.js` | `ucjc-identidad` | Sí |
-| Datos A | `HansJeffAS/tienda-ucjc-datos` | `…/v0.2.0/remote.js` | `ucjc-pedidos` | Sí (activo) |
-| Datos B | `Juampee/ucjc-datos-alt2` | `…/v0.2.0/remote.js` | `ucjc-pedidos` | Reserva A/B |
+| Datos A | `HansJeffAS/tienda-ucjc-datos` | `…/v0.2.0/remote.js` | `ucjc-pedidos` | Sí (`?datos=a`, defecto) |
+| Datos B | `Juampee/ucjc-datos-alt2` | `…/v0.2.0/remote.js` | `ucjc-pedidos` | Sí (`?datos=b`) |
 
-El hueco `datos` admite solo una variante activa a la vez (A/B docente).
+### B. Cómo conmutar Datos A/B (aula) y rollback
 
-### B. Cómo conmutar / hacer rollback
+**En aula (preferido):** botones **A / B** de la cabecera, o URLs:
 
-Sustituye **solo esa entrada** del manifest por otra URL HTTPS probada (otra release, o un relleno `./relleno/…`). Ejemplo: volver Datos a relleno o pasar a la variante B:
+- `…/tienda-ucjc-shell/?datos=a`
+- `…/tienda-ucjc-shell/?datos=b`
 
-```json
-{
-  "datos": {
-    "version": "0.2.0",
-    "url": "https://juampee.github.io/ucjc-datos-alt2/v0.2.0/remote.js"
-  }
-}
-```
+Al cambiar hay que recargar la página (mismo nombre de custom element).
 
-Volver a una URL/versión anterior en el manifest es el **rollback**.
+**Rollback / cambio permanente de defecto:** editad la entrada `datos` (y, si hace falta, `datosVariantes`) en `manifest.json`, commit y push a `main`.
 
 ### C. Formato alternativo (viernes 30/10 — incertidumbre 1)
 

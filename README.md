@@ -17,7 +17,7 @@ Este repositorio lo mantiene el profesor. Los equipos de alumnos **no** tienen e
 | `manifest.json` | **Cuatro piezas de alumnos** (HTTPS `remote.js`; mismas URLs que el 11/11) |
 | Rellenos del profesor | Reserva en `relleno/` si alguna URL falla |
 | Contratos `@1` | **`firmado`** en [tienda-ucjc-contratos](https://github.com/cesar-andress/tienda-ucjc-contratos) (tag `v0.2.0`) · **sin** eventos `propuesto` nuevos aún |
-| Datos activo | **Variante A** (Hans). B publicada y disponible para conmutar |
+| Datos activo | **A por defecto**; **B conmutable en vivo** con `?datos=b` (botones A/B en la cabecera) |
 | Siguiente corte | Evolución **sin mutar `@1`** (evento nuevo en `propuesto` / release shell `v0.3.x` cuando proceda) |
 
 ### Releases enchufadas ahora
@@ -28,9 +28,14 @@ Este repositorio lo mantiene el profesor. Los equipos de alumnos **no** tienen e
 | Descubrimiento | `0.2.0` | https://dani84mol.github.io/tienda-ucjc-descubrimiento/remote.js |
 | Compra | `0.2.0` | https://tienda-ucjc-compra.github.io/tienda-ucjc-compra/v0.2.0/remote.js |
 | Datos A | `0.2.0` | https://hansjeffas.github.io/tienda-ucjc-datos/v0.2.0/remote.js |
+| Datos B | `0.2.0` | https://juampee.github.io/ucjc-datos-alt2/v0.2.0/remote.js |
 
-**Alternativa Datos B** (no activa en el manifest):  
-https://juampee.github.io/ucjc-datos-alt2/v0.2.0/remote.js
+**Conmutar A/B en clase (sin editar el JSON a mano):**
+
+- A (defecto): https://cesar-andress.github.io/tienda-ucjc-shell/?datos=a  
+- B: https://cesar-andress.github.io/tienda-ucjc-shell/?datos=b  
+
+Hay que **recargar** al cambiar (las dos implementan el mismo CE `ucjc-pedidos`). Las URLs viven en `datosVariantes` del `manifest.json`.
 
 El número del manifest es la **release** del micro-frontend. Los mensajes del bus usan el sufijo de contrato **`@1`** (otro número).
 
@@ -39,7 +44,6 @@ El número del manifest es la **release** del micro-frontend. Los mensajes del b
 - Ningún equipo ha publicado una release nueva en el shell desde principios de noviembre; el manifest sigue en `v0.2.x`.
 - Descubrimiento: `remote.js` en la **raíz** de Pages (no `/v0.2.0/`); `export default.nombre` suele ser `"ucjc-descubrimiento"` (el contrato de carga pide `"descubrimiento"`).
 - Compra: historial `gh-pages` algo sucio; la URL versionada `…/v0.2.0/remote.js` responde 200.
-- Datos B: lista para prueba A/B cambiando solo la entrada `datos` del manifest.
 
 ### Cómo pensarlo (para alumnos)
 
