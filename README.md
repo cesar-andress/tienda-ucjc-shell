@@ -6,17 +6,19 @@
 
 Este repositorio lo mantiene el profesor. Los equipos de alumnos **no** tienen escritura aquí.
 
-## Situación actual (11/11/2026) · tag `v0.2.0`
+## Situación actual (18/11/2026) · tag `v0.2.0`
 
 | Hecho | Estado |
 | --- | --- |
-| Tag / release del shell | **`v0.2.0`** — primera tienda en vivo con piezas de alumnos |
-| Shell en GitHub Pages | **Activo** |
+| Tag / release del shell | **`v0.2.0`** — tienda en vivo con piezas de alumnos (sin cambio de tag desde el 11/11) |
+| Shell en GitHub Pages | **Activo** · flujo mínimo operable |
 | Repositorio del shell | **Público** |
-| `manifest.json` | **Cuatro piezas de alumnos** (HTTPS `remote.js`) |
+| Semana 1 | **Cerrada** (arranque + primer enchufe) |
+| `manifest.json` | **Cuatro piezas de alumnos** (HTTPS `remote.js`; mismas URLs que el 11/11) |
 | Rellenos del profesor | Reserva en `relleno/` si alguna URL falla |
-| Contratos `@1` | **`firmado`** en [tienda-ucjc-contratos](https://github.com/cesar-andress/tienda-ucjc-contratos) (tag `v0.2.0`) |
+| Contratos `@1` | **`firmado`** en [tienda-ucjc-contratos](https://github.com/cesar-andress/tienda-ucjc-contratos) (tag `v0.2.0`) · **sin** eventos `propuesto` nuevos aún |
 | Datos activo | **Variante A** (Hans). B publicada y disponible para conmutar |
+| Siguiente corte | Evolución **sin mutar `@1`** (evento nuevo en `propuesto` / release shell `v0.3.x` cuando proceda) |
 
 ### Releases enchufadas ahora
 
@@ -31,6 +33,13 @@ Este repositorio lo mantiene el profesor. Los equipos de alumnos **no** tienen e
 https://juampee.github.io/ucjc-datos-alt2/v0.2.0/remote.js
 
 El número del manifest es la **release** del micro-frontend. Los mensajes del bus usan el sufijo de contrato **`@1`** (otro número).
+
+### Notas a 18/11 (no bloquean la demo)
+
+- Ningún equipo ha publicado una release nueva en el shell desde principios de noviembre; el manifest sigue en `v0.2.x`.
+- Descubrimiento: `remote.js` en la **raíz** de Pages (no `/v0.2.0/`); `export default.nombre` suele ser `"ucjc-descubrimiento"` (el contrato de carga pide `"descubrimiento"`).
+- Compra: historial `gh-pages` algo sucio; la URL versionada `…/v0.2.0/remote.js` responde 200.
+- Datos B: lista para prueba A/B cambiando solo la entrada `datos` del manifest.
 
 ### Cómo pensarlo (para alumnos)
 
@@ -63,17 +72,17 @@ Un fallo al cargar una URL **no** impide cargar el resto.
 
 Hay **dos** implementaciones de Datos. Ambas deben cumplir el mismo contrato de carga (`ucjc-pedidos`, `remote.js`, mismos eventos). El shell solo tiene **un** hueco `datos`: el profesor elige la variante activa (hoy **A**).
 
-## 4. Equipos y repositorios (11/11/2026)
+## 4. Equipos y repositorios (18/11/2026)
 
-Todos los repositorios de alumnos listados aquí son **públicos** (necesario para Pages).
+Todos los repositorios de alumnos listados aquí son **públicos** (necesario para Pages). Última actividad relevante de código: **3–5/11/2026**.
 
 | Equipo | Repositorio | Estado resumido |
 | --- | --- | --- |
-| Descubrimiento | https://github.com/dani84mol/tienda-ucjc-descubrimiento | Tag `v0.2.0`. `remote.js` en la **raíz** de Pages (activo en el shell). |
-| Compra | https://github.com/tienda-ucjc-compra/tienda-ucjc-compra | Tag `v0.2.0`. Pages org OK: `…/v0.2.0/remote.js` (activo). |
-| Identidad | https://github.com/ucjc-ecommerce-identidad/tienda-ucjc-identidad | Tags hasta `v0.2.2`. Activo: `…/v0.2.2/remote.js`. |
-| Datos A | https://github.com/HansJeffAS/tienda-ucjc-datos | Público. Tag `v0.2.0`. **Activo** en el hueco `datos`. |
-| Datos B | https://github.com/Juampee/ucjc-datos-alt2 | Público. Tag `v0.2.0` + Pages OK. Reserva A/B. |
+| Descubrimiento | https://github.com/dani84mol/tienda-ucjc-descubrimiento | Tag `v0.2.0`. `remote.js` en la **raíz** de Pages (activo). Emite `@1` bien; flecos de carga (`nombre` / URL versionada). |
+| Compra | https://github.com/tienda-ucjc-compra/tienda-ucjc-compra | Tag `v0.2.0`. `…/v0.2.0/remote.js` activo; escucha sesión + añadir; bloquea confirmar sin sesión. |
+| Identidad | https://github.com/ucjc-ecommerce-identidad/tienda-ucjc-identidad | Tags hasta `v0.2.2` (activo). Login/registro + `sesion-cambiada@1`. |
+| Datos A | https://github.com/HansJeffAS/tienda-ucjc-datos | Tag `v0.2.0`. **Activo** en el hueco `datos` (`ucjc-pedidos`). |
+| Datos B | https://github.com/Juampee/ucjc-datos-alt2 | Tag `v0.2.0` + Pages OK. Reserva A/B (mismo CE). |
 
 **Contratos:** https://github.com/cesar-andress/tienda-ucjc-contratos — tres eventos `@1` **`firmado`** en `eventos/`.
 

@@ -75,9 +75,9 @@ git push origin v0.1.0
 
 ## Manifest
 
-### A. Estado actual (11/11/2026)
+### A. Estado actual (18/11/2026)
 
-El `manifest.json` del shell (público en Pages) apunta a **releases HTTPS de alumnos**:
+El `manifest.json` del shell (público en Pages) apunta a **releases HTTPS de alumnos** (sin cambio de URLs respecto al corte `v0.2.0` del 11/11):
 
 ```json
 {
