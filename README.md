@@ -175,10 +175,10 @@ http://127.0.0.1:4173/
 
 ## 8. GitHub Pages (configuración actual)
 
-- Source: **GitHub Actions** (workflow `pages` en push a `main`)
-- Ficheros publicados: `index.html`, `manifest.json`, `relleno/`, `.nojekyll`, `README.md`
+- Source: rama **`main`** / (deployer nativo de GitHub Pages). El workflow Actions `pages` se retiró: chocaba con el deployer nativo y dejaba el run en rojo aunque el site ya estuviera publicado.
+- Ficheros publicados desde la raíz de `main`: `index.html`, `manifest.json`, `relleno/`, `.nojekyll`, `README.md`
 
-Si volviera a dar 404: comprobar que el repo sigue **público** y que el workflow de Pages ha terminado en verde. Esperar 1–2 minutos tras un push.
+Si volviera a dar 404: comprobar que el repo sigue **público** y que Settings → Pages sigue en **Deploy from a branch** → `main` /. Esperar 1–2 minutos tras un push.
 
 ## 9. Autoría
 
