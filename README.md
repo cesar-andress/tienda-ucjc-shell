@@ -105,7 +105,7 @@ Un fallo al cargar una URL **no** impide cargar el resto.
 
 Hay **dos** implementaciones de Identidad, Datos y Compra. Todas deben cumplir el mismo contrato de carga (CE fijo, `remote.js`, mismos eventos firmados). El shell tiene un hueco por pieza; el profesor (o la query) elige la variante activa.
 
-**No** hay clave `c` en el shell. Las «hojas A/B/C» de Semana 1 son material de aula, no variantes del micro-frontend.
+En el corte actual solo hay claves **`a`** / **`b`** enchufadas. Compra **C** está **reservada** (repo Dani) pero **sin** entrada en el manifest mientras no haya `remote.js` HTTPS. Las «hojas A/B/C» de Semana 1 siguen siendo material de aula, no variantes del micro-frontend.
 
 ## 4. Equipos y repositorios (23/11/2026)
 
@@ -123,11 +123,14 @@ Todos los repositorios de alumnos listados aquí son **públicos** (necesario pa
 | Datos A | https://github.com/HansJeffAS/tienda-ucjc-datos | `v0.2.4` | https://hansjeffas.github.io/tienda-ucjc-datos/v0.2.4/remote.js |
 | Datos B | https://github.com/Juampee/ucjc-datos-alt2 | `v0.2.1` | https://juampee.github.io/ucjc-datos-alt2/v0.2.1/remote.js |
 
-### Otras pruebas A/B (repos existentes · **no** en el manifest)
+### Otras pruebas A/B/C (repos existentes · **no** en el manifest)
 
-| Repo | Quién | Estado |
-| --- | --- | --- |
-| https://github.com/tienda-ucjc-compra/tienda-ucjc-descubrimiento-B | equipo Compra | Vacío / no usable en Pages |
+| Slot reservado | Repo | Quién | Estado |
+| --- | --- | --- | --- |
+| Compra **C** (reserva) | https://github.com/dani84mol/tienda-ucjc-compra | Dani (Descubrimiento) | Repo **vacío** (23/11) · sin tag · sin Pages · **no** enchufado (evitar 404 en vivo) |
+| — | https://github.com/tienda-ucjc-compra/tienda-ucjc-descubrimiento-B | equipo Compra | Vacío / no usable en Pages |
+
+Cuando Compra C publique un tag con `remote.js` HTTPS usable, se podrá añadir variante `c` en `ab.compra` del manifest (p. ej. `?compra=c`). Hasta entonces **no** entra en `manifest.json`.
 
 **Contratos:** https://github.com/cesar-andress/tienda-ucjc-contratos — tres eventos `@1` **`firmado`** en `eventos/`; Black Friday en `propuesto`.
 
