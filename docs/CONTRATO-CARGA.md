@@ -143,3 +143,7 @@ Cada viernes a las 14:00 se revisan las versiones etiquetadas. El historial de `
 | 28/10 | — | — | — | — | Arranque |
 | 04/11 | relleno | relleno | relleno | relleno | Shell + Pages; candidatos HTTPS aún no enchufados |
 | 11/11 | `0.2.0` (raíz Pages) | `0.2.0` | `0.2.2` | A `0.2.0` | Tag shell **`v0.2.0`**; contratos **`v0.2.0`**; B en reserva |
+| 18/11 | `0.2.3` | `0.2.0` | `0.2.3` | B `0.2.1` (defecto) · A `0.2.0` | Slot A/B genérico (una pieza); reto auditoría |
+| 23/11 | `0.2.3` | A `0.2.0` · B `compra-b` `0.2.0` | `0.2.3` | A `0.2.4` · B `0.2.1` (defecto) | Shell **`v0.3.0`** · A/B multi · contratos **`v0.2.4`** (BF `propuesto`) |
+
+No hay clave **`c`** en el manifest. Las hojas A/B/C de Semana 1 son material de aula, no variantes del micro-frontend.
