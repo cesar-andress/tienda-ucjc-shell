@@ -6,11 +6,11 @@
 
 Este repositorio lo mantiene el profesor. Los equipos de alumnos **no** tienen escritura aquí.
 
-## Situación actual (23/11/2026) · tag `v0.3.1`
+## Situación actual (23/11/2026) · tag `v0.3.2`
 
 | Hecho | Estado |
 | --- | --- |
-| Tag / release del shell | **`v0.3.1`** — A/B multi: **identidad** + datos + compra |
+| Tag / release del shell | **`v0.3.2`** — Identidad A `0.2.5` + A/B multi |
 | Shell en GitHub Pages | **Activo** · push a `main` |
 | Repositorio del shell | **Público** |
 | Semana 1 | **Cerrada** |
@@ -22,7 +22,7 @@ Este repositorio lo mantiene el profesor. Los equipos de alumnos **no** tienen e
 
 | Pieza | Variante | Versión | URL activa |
 | --- | --- | --- | --- |
-| Identidad | **A** (defecto) | `0.2.3` | https://ucjc-ecommerce-identidad.github.io/tienda-ucjc-identidad/v0.2.3/remote.js |
+| Identidad | **A** (defecto) | `0.2.5` | https://ucjc-ecommerce-identidad.github.io/tienda-ucjc-identidad/v0.2.5/remote.js |
 | Identidad | **B** | `0.3.0` | https://cdn.jsdelivr.net/gh/Juampee/ucjc-identidad-plus@gh-pages/v0.3.0/remote.js |
 | Descubrimiento | — | `0.2.3` | https://dani84mol.github.io/tienda-ucjc-descubrimiento/v0.2.3/remote.js |
 | Compra | **A** (defecto) | `0.2.0` | https://tienda-ucjc-compra.github.io/tienda-ucjc-compra/v0.2.0/remote.js |
@@ -62,7 +62,7 @@ El número del manifest es la **release** del micro-frontend. Los mensajes del b
   "identidad": {
     "defecto": "a",
     "variantes": {
-      "a": { "version": "0.2.3", "url": "https://ucjc-ecommerce-identidad.github.io/tienda-ucjc-identidad/v0.2.3/remote.js" },
+      "a": { "version": "0.2.5", "url": "https://ucjc-ecommerce-identidad.github.io/tienda-ucjc-identidad/v0.2.5/remote.js" },
       "b": { "version": "0.3.0", "url": "https://cdn.jsdelivr.net/gh/Juampee/ucjc-identidad-plus@gh-pages/v0.3.0/remote.js" }
     }
   },
@@ -111,11 +111,11 @@ Hay **dos** implementaciones de Identidad, Datos y Compra. Todas deben cumplir e
 
 Todos los repositorios de alumnos listados aquí son **públicos** (necesario para Pages).
 
-### Enchufados en el shell (`v0.3.1`)
+### Enchufados en el shell (`v0.3.2`)
 
 | Equipo / variante | Repositorio | Tag en shell | `remote.js` |
 | --- | --- | --- | --- |
-| Identidad A | https://github.com/ucjc-ecommerce-identidad/tienda-ucjc-identidad | `v0.2.3` | https://ucjc-ecommerce-identidad.github.io/tienda-ucjc-identidad/v0.2.3/remote.js |
+| Identidad A | https://github.com/ucjc-ecommerce-identidad/tienda-ucjc-identidad | `v0.2.5` | https://ucjc-ecommerce-identidad.github.io/tienda-ucjc-identidad/v0.2.5/remote.js |
 | Identidad B | https://github.com/Juampee/ucjc-identidad-plus | `v0.3.0` | https://cdn.jsdelivr.net/gh/Juampee/ucjc-identidad-plus@gh-pages/v0.3.0/remote.js *(espejo; ver aviso arriba)* |
 | Descubrimiento | https://github.com/dani84mol/tienda-ucjc-descubrimiento | `v0.2.3` | https://dani84mol.github.io/tienda-ucjc-descubrimiento/v0.2.3/remote.js |
 | Compra A | https://github.com/tienda-ucjc-compra/tienda-ucjc-compra | `v0.2.0` | https://tienda-ucjc-compra.github.io/tienda-ucjc-compra/v0.2.0/remote.js |

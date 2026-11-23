@@ -1,7 +1,7 @@
 {
   "identidad": {
-    "version": "0.2.3",
-    "url": "https://ucjc-ecommerce-identidad.github.io/tienda-ucjc-identidad/v0.2.3/remote.js"
+    "version": "0.2.5",
+    "url": "https://ucjc-ecommerce-identidad.github.io/tienda-ucjc-identidad/v0.2.5/remote.js"
   },
   "descubrimiento": {
     "version": "0.2.3",
@@ -20,8 +20,8 @@
       "defecto": "a",
       "variantes": {
         "a": {
-          "version": "0.2.3",
-          "url": "https://ucjc-ecommerce-identidad.github.io/tienda-ucjc-identidad/v0.2.3/remote.js"
+          "version": "0.2.5",
+          "url": "https://ucjc-ecommerce-identidad.github.io/tienda-ucjc-identidad/v0.2.5/remote.js"
         },
         "b": {
           "version": "0.3.0",

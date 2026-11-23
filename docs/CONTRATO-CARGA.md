@@ -75,7 +75,7 @@ git push origin v0.1.0
 
 ## Manifest
 
-### A. Estado actual · shell tag `v0.3.1`
+### A. Estado actual · shell tag `v0.3.2`
 
 El `manifest.json` apunta a releases HTTPS de alumnos.  
 `ab` es un **mapa** pieza → `{ defecto, variantes }`. Podéis tener A/B en varias piezas a la vez (identidad, datos, compra).
@@ -85,7 +85,7 @@ El `manifest.json` apunta a releases HTTPS de alumnos.
   "identidad": {
     "defecto": "a",
     "variantes": {
-      "a": { "version": "0.2.3", "url": "https://ucjc-ecommerce-identidad.github.io/tienda-ucjc-identidad/v0.2.3/remote.js" },
+      "a": { "version": "0.2.5", "url": "https://ucjc-ecommerce-identidad.github.io/tienda-ucjc-identidad/v0.2.5/remote.js" },
       "b": { "version": "0.3.0", "url": "https://cdn.jsdelivr.net/gh/Juampee/ucjc-identidad-plus@gh-pages/v0.3.0/remote.js" }
     }
   },
@@ -154,5 +154,6 @@ Cada viernes a las 14:00 se revisan las versiones etiquetadas. El historial de `
 | 18/11 | `0.2.3` | `0.2.0` | `0.2.3` | B `0.2.1` (defecto) · A `0.2.0` | Slot A/B genérico (una pieza); reto auditoría |
 | 23/11 | `0.2.3` | A `0.2.0` · B `compra-b` `0.2.0` | `0.2.3` | A `0.2.4` · B `0.2.1` (defecto) | Shell **`v0.3.0`** · A/B multi · contratos **`v0.2.4`** (BF `propuesto`) |
 | 23/11 (tarde) | `0.2.3` | A `0.2.0` · B `0.2.0` | A `0.2.3` · B plus `0.3.0` | A `0.2.4` · B `0.2.1` | Shell **`v0.3.1`** · Identidad B vía jsDelivr (Pages demo vs `gh-pages`) |
+| 23/11 (noche) | `0.2.3` | A `0.2.0` · B `0.2.0` | A `0.2.5` · B plus `0.3.0` | A `0.2.4` · B `0.2.1` | Shell **`v0.3.2`** · Identidad A rediseño; Desc `0.2.5` sigue fuera (aula) |
 
 No hay clave **`c`** en el manifest. Las hojas A/B/C de Semana 1 son material de aula, no variantes del micro-frontend.
