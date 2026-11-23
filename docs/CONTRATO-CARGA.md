@@ -75,13 +75,20 @@ git push origin v0.1.0
 
 ## Manifest
 
-### A. Estado actual · shell tag `v0.3.0`
+### A. Estado actual · shell tag `v0.3.1`
 
 El `manifest.json` apunta a releases HTTPS de alumnos.  
-`ab` es un **mapa** pieza → `{ defecto, variantes }`. Podéis tener A/B en varias piezas a la vez.
+`ab` es un **mapa** pieza → `{ defecto, variantes }`. Podéis tener A/B en varias piezas a la vez (identidad, datos, compra).
 
 ```json
 "ab": {
+  "identidad": {
+    "defecto": "a",
+    "variantes": {
+      "a": { "version": "0.2.3", "url": "https://ucjc-ecommerce-identidad.github.io/tienda-ucjc-identidad/v0.2.3/remote.js" },
+      "b": { "version": "0.3.0", "url": "https://cdn.jsdelivr.net/gh/Juampee/ucjc-identidad-plus@gh-pages/v0.3.0/remote.js" }
+    }
+  },
   "datos": {
     "defecto": "b",
     "variantes": {
@@ -99,7 +106,8 @@ El `manifest.json` apunta a releases HTTPS de alumnos.
 }
 ```
 
-Query: `?datos=a&compra=b`. El formato antiguo (`ab.pieza` + `ab.variantes`) sigue valiendo como un solo slot.
+Query: `?identidad=b&datos=a&compra=b`. El formato antiguo (`ab.pieza` + `ab.variantes`) sigue valiendo como un solo slot.  
+Identidad B usa jsDelivr mientras `juampee.github.io/.../v0.3.0/remote.js` dé 404 (Pages del repo sirve la demo, no `gh-pages`).
 
 ### B. Cómo conmutar A/B (aula)
 
@@ -145,5 +153,6 @@ Cada viernes a las 14:00 se revisan las versiones etiquetadas. El historial de `
 | 11/11 | `0.2.0` (raíz Pages) | `0.2.0` | `0.2.2` | A `0.2.0` | Tag shell **`v0.2.0`**; contratos **`v0.2.0`**; B en reserva |
 | 18/11 | `0.2.3` | `0.2.0` | `0.2.3` | B `0.2.1` (defecto) · A `0.2.0` | Slot A/B genérico (una pieza); reto auditoría |
 | 23/11 | `0.2.3` | A `0.2.0` · B `compra-b` `0.2.0` | `0.2.3` | A `0.2.4` · B `0.2.1` (defecto) | Shell **`v0.3.0`** · A/B multi · contratos **`v0.2.4`** (BF `propuesto`) |
+| 23/11 (tarde) | `0.2.3` | A `0.2.0` · B `0.2.0` | A `0.2.3` · B plus `0.3.0` | A `0.2.4` · B `0.2.1` | Shell **`v0.3.1`** · Identidad B vía jsDelivr (Pages demo vs `gh-pages`) |
 
 No hay clave **`c`** en el manifest. Las hojas A/B/C de Semana 1 son material de aula, no variantes del micro-frontend.

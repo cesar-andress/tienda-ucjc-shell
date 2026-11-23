@@ -6,23 +6,24 @@
 
 Este repositorio lo mantiene el profesor. Los equipos de alumnos **no** tienen escritura aquí.
 
-## Situación actual (23/11/2026) · tag `v0.3.0`
+## Situación actual (23/11/2026) · tag `v0.3.1`
 
 | Hecho | Estado |
 | --- | --- |
-| Tag / release del shell | **`v0.3.0`** — A/B en **varias piezas a la vez** (datos + compra) |
+| Tag / release del shell | **`v0.3.1`** — A/B multi: **identidad** + datos + compra |
 | Shell en GitHub Pages | **Activo** · push a `main` |
 | Repositorio del shell | **Público** |
 | Semana 1 | **Cerrada** |
-| `manifest.json` | Identidad `0.2.3` · Descubrimiento `0.2.3` · Compra A/B · Datos A/B (defecto **B**) |
+| `manifest.json` | Identidad A/B · Descubrimiento `0.2.3` · Compra A/B · Datos A/B (defecto **B**) |
 | Contratos `@1` | **`firmado`** en [tienda-ucjc-contratos](https://github.com/cesar-andress/tienda-ucjc-contratos) · BF `pedido-confirmado@2` y `campana-cambiada@1` en **`propuesto`** |
-| A/B multi | Bloque `ab` = mapa pieza → `{ defecto, variantes }` · query `?datos=a\|b&compra=a\|b` |
+| A/B multi | Bloque `ab` = mapa pieza → `{ defecto, variantes }` · query `?identidad=a\|b&datos=a\|b&compra=a\|b` |
 
 ### Releases enchufadas ahora
 
 | Pieza | Variante | Versión | URL activa |
 | --- | --- | --- | --- |
-| Identidad | — | `0.2.3` | https://ucjc-ecommerce-identidad.github.io/tienda-ucjc-identidad/v0.2.3/remote.js |
+| Identidad | **A** (defecto) | `0.2.3` | https://ucjc-ecommerce-identidad.github.io/tienda-ucjc-identidad/v0.2.3/remote.js |
+| Identidad | **B** | `0.3.0` | https://cdn.jsdelivr.net/gh/Juampee/ucjc-identidad-plus@gh-pages/v0.3.0/remote.js |
 | Descubrimiento | — | `0.2.3` | https://dani84mol.github.io/tienda-ucjc-descubrimiento/v0.2.3/remote.js |
 | Compra | **A** (defecto) | `0.2.0` | https://tienda-ucjc-compra.github.io/tienda-ucjc-compra/v0.2.0/remote.js |
 | Compra | **B** | `0.2.0` | https://ucjc-ecommerce-identidad.github.io/tienda-ucjc-compra-b/v0.2.0/remote.js |
@@ -31,12 +32,20 @@ Este repositorio lo mantiene el profesor. Los equipos de alumnos **no** tienen e
 
 **Conmutar A/B (varios huecos a la vez):**
 
-- Sin query: https://cesar-andress.github.io/tienda-ucjc-shell/ → Datos **B** + Compra **A**
+- Sin query: https://cesar-andress.github.io/tienda-ucjc-shell/ → Identidad **A** + Datos **B** + Compra **A**
+- Identidad B: `?identidad=b`
 - Datos A: `?datos=a`
 - Compra B: `?compra=b`
-- Combinado: `?datos=a&compra=b`
+- Combinado: `?identidad=b&datos=a&compra=b`
 
 Recargar al cambiar. Cada pieza con entrada en `ab` tiene su propio conmutador arriba.
+
+### Aviso Identidad B `v0.3.0` (Juan Pedro · `ucjc-identidad-plus`)
+
+Repo: https://github.com/Juampee/ucjc-identidad-plus · tag **`v0.3.0`** · CE `ucjc-identidad` · emite `sesion-cambiada@1`.  
+`remote.js` está en la rama `gh-pages` (`v0.3.0/remote.js`), pero GitHub Pages del repo sirve solo la **demo** (workflow `pages.yml` en `main`), así que  
+`https://juampee.github.io/ucjc-identidad-plus/v0.3.0/remote.js` responde **404**.  
+Mientras tanto el shell usa el espejo HTTPS de jsDelivr (mismo fichero, CORS OK). Cuando Pages publique la carpeta del tag, se puede cambiar la URL del manifest a `*.github.io/.../remote.js`.
 
 ### Aviso Datos A `v0.2.4`
 
@@ -50,20 +59,15 @@ El número del manifest es la **release** del micro-frontend. Los mensajes del b
 
 ```json
 "ab": {
-  "datos": {
-    "defecto": "b",
-    "variantes": {
-      "a": { "version": "0.2.4", "url": "https://hansjeffas.github.io/tienda-ucjc-datos/v0.2.4/remote.js" },
-      "b": { "version": "0.2.1", "url": "https://juampee.github.io/ucjc-datos-alt2/v0.2.1/remote.js" }
-    }
-  },
-  "compra": {
+  "identidad": {
     "defecto": "a",
     "variantes": {
-      "a": { "version": "0.2.0", "url": "https://tienda-ucjc-compra.github.io/tienda-ucjc-compra/v0.2.0/remote.js" },
-      "b": { "version": "0.2.0", "url": "https://ucjc-ecommerce-identidad.github.io/tienda-ucjc-compra-b/v0.2.0/remote.js" }
+      "a": { "version": "0.2.3", "url": "https://ucjc-ecommerce-identidad.github.io/tienda-ucjc-identidad/v0.2.3/remote.js" },
+      "b": { "version": "0.3.0", "url": "https://cdn.jsdelivr.net/gh/Juampee/ucjc-identidad-plus@gh-pages/v0.3.0/remote.js" }
     }
-  }
+  },
+  "datos": { "defecto": "b", "variantes": { "a": { "…": "…" }, "b": { "…": "…" } } },
+  "compra": { "defecto": "a", "variantes": { "a": { "…": "…" }, "b": { "…": "…" } } }
 }
 ```
 
@@ -99,7 +103,7 @@ Un fallo al cargar una URL **no** impide cargar el resto.
 
 ### Variantes A / B
 
-Hay **dos** implementaciones de Datos y **dos** de Compra. Todas deben cumplir el mismo contrato de carga (CE fijo, `remote.js`, mismos eventos firmados). El shell tiene un hueco por pieza; el profesor (o la query) elige la variante activa.
+Hay **dos** implementaciones de Identidad, Datos y Compra. Todas deben cumplir el mismo contrato de carga (CE fijo, `remote.js`, mismos eventos firmados). El shell tiene un hueco por pieza; el profesor (o la query) elige la variante activa.
 
 **No** hay clave `c` en el shell. Las «hojas A/B/C» de Semana 1 son material de aula, no variantes del micro-frontend.
 
@@ -107,11 +111,12 @@ Hay **dos** implementaciones de Datos y **dos** de Compra. Todas deben cumplir e
 
 Todos los repositorios de alumnos listados aquí son **públicos** (necesario para Pages).
 
-### Enchufados en el shell (`v0.3.0`)
+### Enchufados en el shell (`v0.3.1`)
 
 | Equipo / variante | Repositorio | Tag en shell | `remote.js` |
 | --- | --- | --- | --- |
-| Identidad | https://github.com/ucjc-ecommerce-identidad/tienda-ucjc-identidad | `v0.2.3` | https://ucjc-ecommerce-identidad.github.io/tienda-ucjc-identidad/v0.2.3/remote.js |
+| Identidad A | https://github.com/ucjc-ecommerce-identidad/tienda-ucjc-identidad | `v0.2.3` | https://ucjc-ecommerce-identidad.github.io/tienda-ucjc-identidad/v0.2.3/remote.js |
+| Identidad B | https://github.com/Juampee/ucjc-identidad-plus | `v0.3.0` | https://cdn.jsdelivr.net/gh/Juampee/ucjc-identidad-plus@gh-pages/v0.3.0/remote.js *(espejo; ver aviso arriba)* |
 | Descubrimiento | https://github.com/dani84mol/tienda-ucjc-descubrimiento | `v0.2.3` | https://dani84mol.github.io/tienda-ucjc-descubrimiento/v0.2.3/remote.js |
 | Compra A | https://github.com/tienda-ucjc-compra/tienda-ucjc-compra | `v0.2.0` | https://tienda-ucjc-compra.github.io/tienda-ucjc-compra/v0.2.0/remote.js |
 | Compra B | https://github.com/ucjc-ecommerce-identidad/tienda-ucjc-compra-b | `v0.2.0` | https://ucjc-ecommerce-identidad.github.io/tienda-ucjc-compra-b/v0.2.0/remote.js |
@@ -123,7 +128,6 @@ Todos los repositorios de alumnos listados aquí son **públicos** (necesario pa
 | Repo | Quién | Estado |
 | --- | --- | --- |
 | https://github.com/tienda-ucjc-compra/tienda-ucjc-descubrimiento-B | equipo Compra | Vacío / no usable en Pages |
-| https://github.com/Juampee/ucjc-identidad-plus | Juan Pedro | Sin `remote.js` usable para el shell |
 
 **Contratos:** https://github.com/cesar-andress/tienda-ucjc-contratos — tres eventos `@1` **`firmado`** en `eventos/`; Black Friday en `propuesto`.
 
