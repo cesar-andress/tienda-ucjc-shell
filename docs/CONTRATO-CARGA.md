@@ -156,4 +156,4 @@ Cada viernes a las 14:00 se revisan las versiones etiquetadas. El historial de `
 | 23/11 (tarde) | `0.2.3` | A `0.2.0` · B `0.2.0` | A `0.2.3` · B plus `0.3.0` | A `0.2.4` · B `0.2.1` | Shell **`v0.3.1`** · Identidad B vía jsDelivr (Pages demo vs `gh-pages`) |
 | 23/11 (noche) | `0.2.3` | A `0.2.0` · B `0.2.0` | A `0.2.5` · B plus `0.3.0` | A `0.2.4` · B `0.2.1` | Shell **`v0.3.2`** · Identidad A rediseño; Desc `0.2.5` sigue fuera (aula) |
 
-No hay clave **`c`** en el manifest. Las hojas A/B/C de Semana 1 son material de aula, no variantes del micro-frontend.
+No hay clave **`c`** en el manifest activo. Reserva documentada: Compra **C** = [`dani84mol/tienda-ucjc-compra`](https://github.com/dani84mol/tienda-ucjc-compra) (vacío 23/11 · sin tag/Pages) — **no** enchufar hasta que exista `remote.js` HTTPS. Las hojas A/B/C de Semana 1 son material de aula, no variantes del micro-frontend.
