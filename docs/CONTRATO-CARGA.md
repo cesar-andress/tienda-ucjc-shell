@@ -75,61 +75,36 @@ git push origin v0.1.0
 
 ## Manifest
 
-### A. Estado actual (23/11/2026) · shell tag `v0.2.1`
+### A. Estado actual · shell tag `v0.3.0`
 
-El `manifest.json` del shell (público en Pages) apunta a **releases HTTPS de alumnos**.
-Hay **como máximo un** experimento A/B (`ab.pieza` + `ab.variantes`); hoy es `datos`:
+El `manifest.json` apunta a releases HTTPS de alumnos.  
+`ab` es un **mapa** pieza → `{ defecto, variantes }`. Podéis tener A/B en varias piezas a la vez.
 
 ```json
-{
-  "identidad": {
-    "version": "0.2.3",
-    "url": "https://ucjc-ecommerce-identidad.github.io/tienda-ucjc-identidad/v0.2.3/remote.js"
-  },
-  "descubrimiento": {
-    "version": "0.2.3",
-    "url": "https://dani84mol.github.io/tienda-ucjc-descubrimiento/v0.2.3/remote.js"
-  },
-  "compra": {
-    "version": "0.2.0",
-    "url": "https://tienda-ucjc-compra.github.io/tienda-ucjc-compra/v0.2.0/remote.js"
-  },
+"ab": {
   "datos": {
-    "version": "0.2.1",
-    "url": "https://juampee.github.io/ucjc-datos-alt2/v0.2.1/remote.js"
-  },
-  "ab": {
-    "pieza": "datos",
     "defecto": "b",
     "variantes": {
-      "a": {
-        "version": "0.2.0",
-        "url": "https://hansjeffas.github.io/tienda-ucjc-datos/v0.2.0/remote.js"
-      },
-      "b": {
-        "version": "0.2.1",
-        "url": "https://juampee.github.io/ucjc-datos-alt2/v0.2.1/remote.js"
-      }
+      "a": { "version": "0.2.4", "url": "https://hansjeffas.github.io/tienda-ucjc-datos/v0.2.4/remote.js" },
+      "b": { "version": "0.2.1", "url": "https://juampee.github.io/ucjc-datos-alt2/v0.2.1/remote.js" }
+    }
+  },
+  "compra": {
+    "defecto": "a",
+    "variantes": {
+      "a": { "version": "0.2.0", "url": "https://tienda-ucjc-compra.github.io/tienda-ucjc-compra/v0.2.0/remote.js" },
+      "b": { "version": "0.2.0", "url": "https://ucjc-ecommerce-identidad.github.io/tienda-ucjc-compra-b/v0.2.0/remote.js" }
     }
   }
 }
 ```
 
-| Pieza | Repo (público) | Tag / URL de `remote.js` | CE | En manifest |
-| --- | --- | --- | --- | --- |
-| Descubrimiento | `dani84mol/tienda-ucjc-descubrimiento` | `…/v0.2.3/remote.js` | `ucjc-descubrimiento` | Sí |
-| Compra | `tienda-ucjc-compra/tienda-ucjc-compra` | `…/v0.2.0/remote.js` | `ucjc-compra` | Sí |
-| Identidad | `ucjc-ecommerce-identidad/tienda-ucjc-identidad` | `…/v0.2.3/remote.js` | `ucjc-identidad` | Sí |
-| Datos A | `HansJeffAS/tienda-ucjc-datos` | `…/v0.2.0/remote.js` | `ucjc-pedidos` | Sí (`ab` · `?ab=a`) |
-| Datos B | `Juampee/ucjc-datos-alt2` | `…/v0.2.1/remote.js` | `ucjc-pedidos` | Sí (`ab` · defecto `b`) |
+Query: `?datos=a&compra=b`. El formato antiguo (`ab.pieza` + `ab.variantes`) sigue valiendo como un solo slot.
 
-### B. Cómo conmutar A/B (aula) y rollback
+### B. Cómo conmutar A/B (aula)
 
-**Regla:** solo **una** pieza tiene variantes A/B en el shell. Hoy es `datos`. Otra pieza (p. ej. Compra) puede pasar a ser el slot cambiando `ab.pieza` (y las URLs); no se mantienen dos experimentos a la vez.
-
-**En aula:** botones **A / B**, o `?ab=a` / `?ab=b` (alias `?datos=` si `ab.pieza` es `datos`). Recargar.
-
-**Rollback / cambiar defecto o pieza del experimento:** editar `ab` (y la entrada canónica de esa pieza) en `manifest.json`, commit y push a `main`.
+Un conmutador por pieza listada en `ab`. Recargar tras cambiar.  
+Editar `manifest.json` y push a `main` para añadir o quitar slots.
 
 ### C. Formato alternativo (viernes 30/10 — incertidumbre 1)
 

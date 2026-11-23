@@ -14,6 +14,9 @@
     }
     header h1 { margin: 0; font-size: 1.25rem; }
     header small { color: #666; }
+    #nav-ab {
+      display: flex; flex-wrap: wrap; gap: .65rem 1rem; align-items: center;
+    }
     .conmutador {
       display: inline-flex; align-items: center; gap: .35rem;
       font-size: .85rem; color: #333;
@@ -46,23 +49,16 @@
 <body>
   <header>
     <h1>Tienda UCJC</h1>
-    <nav class="conmutador" id="nav-ab" aria-label="Prueba A/B (un solo hueco)">
-      <span id="ab-label">A/B:</span>
-      <a id="btn-ab-a" href="?ab=a">A</a>
-      <a id="btn-ab-b" href="?ab=b">B</a>
-    </nav>
+    <nav id="nav-ab" aria-label="Pruebas A/B por pieza"></nav>
     <small id="estado">cargando manifest…</small>
   </header>
   <p id="aviso-incidente" style="margin:0;padding:.75rem 1.5rem;background:#0f3d68;border-bottom:1px solid #082844;font-size:.9rem;color:#fff">
-    <strong>CORTE 23/11 · shell v0.2.1</strong>
-    (Identidad <code>0.2.3</code> · Descubrimiento <code>0.2.3</code> · Datos B <code>0.2.1</code>).
-    Compra y Datos A siguen en <code>0.2.0</code>.
-    A/B: un solo hueco
-    (<span id="etiqueta-ab-pieza">…</span> =
-    <strong id="etiqueta-ab-clave">…</strong>).
-    <em>Incertidumbre de aula:</em> el profesor puede cambiar el manifest
-    a mitad de clase (otra release, otro defecto A/B u otra pieza en el slot).
-    Recargad tras el aviso.
+    <strong>CORTE · shell v0.3.0</strong>
+    A/B en <strong>varias piezas a la vez</strong>
+    (<span id="etiqueta-ab-resumen">…</span>).
+    Query: <code>?datos=a|b&amp;compra=a|b</code>.
+    Datos A <code>v0.2.4</code> escucha <code>pedido-confirmado@2</code> (aún propuesto):
+    con Compra en <code>@1</code> no veréis pedidos nuevos en la variante A.
   </p>
   <main>
     <section id="identidad">
@@ -83,10 +79,8 @@
     </section>
   </main>
   <footer>
-    Shell de integración. A/B: bloque <code>ab</code> del manifest
-    (como máximo <strong>una</strong> pieza con variantes).
-    Query <code>?ab=a|b</code> (alias legado <code>?datos=</code> si la pieza es datos).
-    Consola: <code>[evento ucjc]</code>.
+    Shell de integración. Bloque <code>ab</code>: un mapa pieza → variantes
+    (podéis tener Datos y Compra a la vez). Consola: <code>[evento ucjc]</code>.
   </footer>
   <script type="module">
     const ELEMENTO = {
@@ -103,23 +97,39 @@
       datos: 'Datos',
     };
 
-    function normalizarAb(manifest) {
-      if (manifest.ab && manifest.ab.pieza && manifest.ab.variantes) {
+    /** Formato nuevo: ab = { datos: {defecto, variantes}, compra: {...} }
+     *  Formato viejo: ab = { pieza, defecto, variantes } → un solo slot.
+     */
+    function normalizarAbMap(manifest) {
+      const raw = manifest.ab;
+      if (!raw || typeof raw !== 'object') {
+        if (manifest.datosVariantes) {
+          return {
+            datos: {
+              defecto: 'b',
+              variantes: manifest.datosVariantes,
+            },
+          };
+        }
+        return {};
+      }
+      if (raw.pieza && raw.variantes) {
         return {
-          pieza: manifest.ab.pieza,
-          defecto: (manifest.ab.defecto || 'a').toLowerCase(),
-          variantes: manifest.ab.variantes,
+          [raw.pieza]: {
+            defecto: (raw.defecto || 'a').toLowerCase(),
+            variantes: raw.variantes,
+          },
         };
       }
-      // Legado: datosVariantes
-      if (manifest.datosVariantes) {
-        return {
-          pieza: 'datos',
-          defecto: 'b',
-          variantes: manifest.datosVariantes,
+      const mapa = {};
+      for (const [pieza, slot] of Object.entries(raw)) {
+        if (!slot || !slot.variantes) continue;
+        mapa[pieza] = {
+          defecto: (slot.defecto || 'a').toLowerCase(),
+          variantes: slot.variantes,
         };
       }
-      return null;
+      return mapa;
     }
 
     function resolverEntradas(manifest) {
@@ -135,19 +145,56 @@
           }];
         });
       }
-      return Object.entries(manifest).filter(([k]) => k !== 'ab' && k !== 'datosVariantes');
+      return Object.entries(manifest).filter(
+        ([k]) => k !== 'ab' && k !== 'datosVariantes' && k !== 'base' && k !== 'piezas',
+      );
     }
 
-    function elegirAb(ab) {
-      const params = new URLSearchParams(location.search);
-      // ?ab=… o alias ?datos=… / ?compra=… según la pieza del slot
-      const pedida = (
-        params.get('ab')
-        || params.get(ab.pieza)
-        || ab.defecto
-      ).toLowerCase();
-      const clave = ab.variantes[pedida] ? pedida : ab.defecto;
-      return { clave, elegida: ab.variantes[clave] };
+    function elegirClave(pieza, slot, params, abMap) {
+      const soloUno = Object.keys(abMap).length === 1;
+      const pedida = params.get(pieza)
+        || (soloUno ? params.get('ab') : null)
+        || slot.defecto;
+      const clave = String(pedida || slot.defecto).toLowerCase();
+      return slot.variantes[clave] ? clave : slot.defecto;
+    }
+
+    function hrefConClave(pieza, clave, params) {
+      const next = new URLSearchParams(params);
+      next.set(pieza, clave);
+      // Evitar el legado global ?ab= cuando hay varios slots.
+      next.delete('ab');
+      const q = next.toString();
+      return q ? `?${q}` : '?';
+    }
+
+    function pintarNav(abMap, elegidas, params) {
+      const nav = document.getElementById('nav-ab');
+      nav.replaceChildren();
+      const piezas = Object.keys(abMap);
+      if (!piezas.length) {
+        nav.hidden = true;
+        return;
+      }
+      nav.hidden = false;
+      for (const pieza of piezas) {
+        const slot = abMap[pieza];
+        const clave = elegidas[pieza];
+        const wrap = document.createElement('div');
+        wrap.className = 'conmutador';
+        wrap.setAttribute('aria-label', `A/B de ${TITULO[pieza] || pieza}`);
+        const label = document.createElement('span');
+        label.textContent = `${TITULO[pieza] || pieza}:`;
+        wrap.appendChild(label);
+        for (const v of Object.keys(slot.variantes)) {
+          const a = document.createElement('a');
+          a.textContent = v.toUpperCase();
+          a.href = hrefConClave(pieza, v, params);
+          a.setAttribute('aria-current', v === clave ? 'page' : 'false');
+          wrap.appendChild(a);
+        }
+        nav.appendChild(wrap);
+      }
     }
 
     const despachoOriginal = EventTarget.prototype.dispatchEvent;
@@ -159,49 +206,32 @@
     };
 
     const manifest = await (await fetch('./manifest.json', { cache: 'no-store' })).json();
-    const ab = normalizarAb(manifest);
-    let abClave = null;
+    const abMap = normalizarAbMap(manifest);
+    const params = new URLSearchParams(location.search);
     let entradas = resolverEntradas(manifest);
+    const elegidas = {};
 
-    if (ab) {
-      const { clave, elegida } = elegirAb(ab);
-      abClave = clave;
-      entradas = entradas.map(([pieza, meta]) => (
-        pieza === ab.pieza ? [pieza, elegida] : [pieza, meta]
-      ));
-
-      const titulo = TITULO[ab.pieza] || ab.pieza;
-      document.getElementById('ab-label').textContent = `${titulo}:`;
-      document.getElementById('nav-ab').setAttribute(
-        'aria-label',
-        `Prueba A/B de ${titulo} (un solo hueco)`,
-      );
-      document.getElementById('btn-ab-a').href = `?ab=a`;
-      document.getElementById('btn-ab-b').href = `?ab=b`;
-      document.getElementById('btn-ab-a').setAttribute(
-        'aria-current', clave === 'a' ? 'page' : 'false',
-      );
-      document.getElementById('btn-ab-b').setAttribute(
-        'aria-current', clave === 'b' ? 'page' : 'false',
-      );
-      document.getElementById('etiqueta-ab-pieza').textContent = titulo;
-      document.getElementById('etiqueta-ab-clave').textContent =
-        clave === ab.defecto ? `${clave.toUpperCase()} (defecto)` : clave.toUpperCase();
-    } else {
-      document.getElementById('nav-ab').hidden = true;
-      document.getElementById('etiqueta-ab-pieza').textContent = 'ninguno';
-      document.getElementById('etiqueta-ab-clave').textContent = '—';
+    for (const [pieza, slot] of Object.entries(abMap)) {
+      const clave = elegirClave(pieza, slot, params, abMap);
+      elegidas[pieza] = clave;
+      const meta = slot.variantes[clave];
+      entradas = entradas.map(([p, m]) => (p === pieza ? [p, meta] : [p, m]));
     }
+
+    pintarNav(abMap, elegidas, params);
+
+    const resumen = Object.entries(elegidas)
+      .map(([p, c]) => `${TITULO[p] || p}=${c.toUpperCase()}`)
+      .join(' · ') || 'ninguno';
+    document.getElementById('etiqueta-ab-resumen').textContent = resumen;
 
     document.getElementById('estado').textContent =
       `manifest: ${entradas.map(([p, { version }]) => `${p}@${version}`).join(' · ')}`
-      + (ab ? ` · ab:${ab.pieza}=${abClave}` : '');
+      + (Object.keys(elegidas).length
+        ? ` · ab:${Object.entries(elegidas).map(([p, c]) => `${p}=${c}`).join(',')}`
+        : '');
 
-    console.info(
-      '[corte 23/11 · shell v0.2.1] A/B: como máximo una pieza. Ahora:',
-      ab ? `${ab.pieza}=${abClave}` : 'ninguna',
-      '· ?ab=a|b · el manifest puede cambiar en clase',
-    );
+    console.info('[shell v0.3.0] A/B multi', elegidas);
 
     for (const [pieza, { version, url }] of entradas) {
       const seccion = document.getElementById(pieza);
@@ -215,8 +245,8 @@
           throw new Error(`el módulo no ha registrado <${tag}>`);
         }
         hueco.replaceChildren(document.createElement(tag));
-        etiquetaPieza.textContent = (ab && pieza === ab.pieza)
-          ? `v${version} · ${abClave.toUpperCase()}`
+        etiquetaPieza.textContent = elegidas[pieza]
+          ? `v${version} · ${elegidas[pieza].toUpperCase()}`
           : `v${version}`;
         console.info(`[shell] ${pieza} v${version} cargada`, mod.default);
       } catch (err) {

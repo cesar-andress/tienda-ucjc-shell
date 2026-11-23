@@ -16,16 +16,30 @@
     "url": "https://juampee.github.io/ucjc-datos-alt2/v0.2.1/remote.js"
   },
   "ab": {
-    "pieza": "datos",
-    "defecto": "b",
-    "variantes": {
-      "a": {
-        "version": "0.2.0",
-        "url": "https://hansjeffas.github.io/tienda-ucjc-datos/v0.2.0/remote.js"
-      },
-      "b": {
-        "version": "0.2.1",
-        "url": "https://juampee.github.io/ucjc-datos-alt2/v0.2.1/remote.js"
+    "datos": {
+      "defecto": "b",
+      "variantes": {
+        "a": {
+          "version": "0.2.4",
+          "url": "https://hansjeffas.github.io/tienda-ucjc-datos/v0.2.4/remote.js"
+        },
+        "b": {
+          "version": "0.2.1",
+          "url": "https://juampee.github.io/ucjc-datos-alt2/v0.2.1/remote.js"
+        }
+      }
+    },
+    "compra": {
+      "defecto": "a",
+      "variantes": {
+        "a": {
+          "version": "0.2.0",
+          "url": "https://tienda-ucjc-compra.github.io/tienda-ucjc-compra/v0.2.0/remote.js"
+        },
+        "b": {
+          "version": "0.2.0",
+          "url": "https://ucjc-ecommerce-identidad.github.io/tienda-ucjc-compra-b/v0.2.0/remote.js"
+        }
       }
     }
   }
