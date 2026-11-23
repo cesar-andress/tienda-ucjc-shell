@@ -75,7 +75,7 @@ git push origin v0.1.0
 
 ## Manifest
 
-### A. Estado actual (18/11/2026)
+### A. Estado actual (23/11/2026) · shell tag `v0.2.1`
 
 El `manifest.json` del shell (público en Pages) apunta a **releases HTTPS de alumnos**.
 Hay **como máximo un** experimento A/B (`ab.pieza` + `ab.variantes`); hoy es `datos`:
@@ -83,20 +83,20 @@ Hay **como máximo un** experimento A/B (`ab.pieza` + `ab.variantes`); hoy es `d
 ```json
 {
   "identidad": {
-    "version": "0.2.2",
-    "url": "https://ucjc-ecommerce-identidad.github.io/tienda-ucjc-identidad/v0.2.2/remote.js"
+    "version": "0.2.3",
+    "url": "https://ucjc-ecommerce-identidad.github.io/tienda-ucjc-identidad/v0.2.3/remote.js"
   },
   "descubrimiento": {
-    "version": "0.2.0",
-    "url": "https://dani84mol.github.io/tienda-ucjc-descubrimiento/remote.js"
+    "version": "0.2.3",
+    "url": "https://dani84mol.github.io/tienda-ucjc-descubrimiento/v0.2.3/remote.js"
   },
   "compra": {
     "version": "0.2.0",
     "url": "https://tienda-ucjc-compra.github.io/tienda-ucjc-compra/v0.2.0/remote.js"
   },
   "datos": {
-    "version": "0.2.0",
-    "url": "https://juampee.github.io/ucjc-datos-alt2/v0.2.0/remote.js"
+    "version": "0.2.1",
+    "url": "https://juampee.github.io/ucjc-datos-alt2/v0.2.1/remote.js"
   },
   "ab": {
     "pieza": "datos",
@@ -107,8 +107,8 @@ Hay **como máximo un** experimento A/B (`ab.pieza` + `ab.variantes`); hoy es `d
         "url": "https://hansjeffas.github.io/tienda-ucjc-datos/v0.2.0/remote.js"
       },
       "b": {
-        "version": "0.2.0",
-        "url": "https://juampee.github.io/ucjc-datos-alt2/v0.2.0/remote.js"
+        "version": "0.2.1",
+        "url": "https://juampee.github.io/ucjc-datos-alt2/v0.2.1/remote.js"
       }
     }
   }
@@ -117,11 +117,11 @@ Hay **como máximo un** experimento A/B (`ab.pieza` + `ab.variantes`); hoy es `d
 
 | Pieza | Repo (público) | Tag / URL de `remote.js` | CE | En manifest |
 | --- | --- | --- | --- | --- |
-| Descubrimiento | `dani84mol/tienda-ucjc-descubrimiento` | Raíz de Pages: `…/remote.js` | `ucjc-descubrimiento` | Sí |
+| Descubrimiento | `dani84mol/tienda-ucjc-descubrimiento` | `…/v0.2.3/remote.js` | `ucjc-descubrimiento` | Sí |
 | Compra | `tienda-ucjc-compra/tienda-ucjc-compra` | `…/v0.2.0/remote.js` | `ucjc-compra` | Sí |
-| Identidad | `ucjc-ecommerce-identidad/tienda-ucjc-identidad` | `…/v0.2.2/remote.js` | `ucjc-identidad` | Sí |
+| Identidad | `ucjc-ecommerce-identidad/tienda-ucjc-identidad` | `…/v0.2.3/remote.js` | `ucjc-identidad` | Sí |
 | Datos A | `HansJeffAS/tienda-ucjc-datos` | `…/v0.2.0/remote.js` | `ucjc-pedidos` | Sí (`ab` · `?ab=a`) |
-| Datos B | `Juampee/ucjc-datos-alt2` | `…/v0.2.0/remote.js` | `ucjc-pedidos` | Sí (`ab` · defecto `b`) |
+| Datos B | `Juampee/ucjc-datos-alt2` | `…/v0.2.1/remote.js` | `ucjc-pedidos` | Sí (`ab` · defecto `b`) |
 
 ### B. Cómo conmutar A/B (aula) y rollback
 

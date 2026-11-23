@@ -53,14 +53,16 @@
     </nav>
     <small id="estado">cargando manifest…</small>
   </header>
-  <p id="aviso-incidente" style="margin:0;padding:.75rem 1.5rem;background:#7f1d1d;border-bottom:1px solid #450a0a;font-size:.9rem;color:#fff">
-    <strong>RETO 18/11 · auditoría + puerta de integración.</strong>
-    1) Cazad incumplimientos de contratos <code>@1</code> (consola).
-    2) Hoy: <strong>tag + acta</strong> antes de salir.
-    3) Prueba A/B: <strong>un solo hueco</strong> a la vez
+  <p id="aviso-incidente" style="margin:0;padding:.75rem 1.5rem;background:#0f3d68;border-bottom:1px solid #082844;font-size:.9rem;color:#fff">
+    <strong>CORTE 23/11 · shell v0.2.1</strong>
+    (Identidad <code>0.2.3</code> · Descubrimiento <code>0.2.3</code> · Datos B <code>0.2.1</code>).
+    Compra y Datos A siguen en <code>0.2.0</code>.
+    A/B: un solo hueco
     (<span id="etiqueta-ab-pieza">…</span> =
     <strong id="etiqueta-ab-clave">…</strong>).
-    Conmutad A/B arriba (recarga). Más adelante: otra pieza, pero solo una.
+    <em>Incertidumbre de aula:</em> el profesor puede cambiar el manifest
+    a mitad de clase (otra release, otro defecto A/B u otra pieza en el slot).
+    Recargad tras el aviso.
   </p>
   <main>
     <section id="identidad">
@@ -196,9 +198,9 @@
       + (ab ? ` · ab:${ab.pieza}=${abClave}` : '');
 
     console.info(
-      '[reto 18/11] A/B: como máximo una pieza. Ahora:',
+      '[corte 23/11 · shell v0.2.1] A/B: como máximo una pieza. Ahora:',
       ab ? `${ab.pieza}=${abClave}` : 'ninguna',
-      '· ?ab=a|b',
+      '· ?ab=a|b · el manifest puede cambiar en clase',
     );
 
     for (const [pieza, { version, url }] of entradas) {

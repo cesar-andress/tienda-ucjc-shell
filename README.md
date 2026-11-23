@@ -6,45 +6,45 @@
 
 Este repositorio lo mantiene el profesor. Los equipos de alumnos **no** tienen escritura aquí.
 
-## Situación actual (18/11/2026) · tag `v0.2.0`
+## Situación actual (23/11/2026) · tag `v0.2.1`
 
 | Hecho | Estado |
 | --- | --- |
-| Tag / release del shell | **`v0.2.0`** — tienda en vivo con piezas de alumnos (sin cambio de tag desde el 11/11) |
-| Shell en GitHub Pages | **Activo** · flujo mínimo operable |
+| Tag / release del shell | **`v0.2.1`** — corte post-deberes del viernes 20/11 |
+| Shell en GitHub Pages | **Activo** · push a `main` |
 | Repositorio del shell | **Público** |
-| Semana 1 | **Cerrada** (arranque + primer enchufe) |
-| `manifest.json` | **Cuatro piezas de alumnos** (HTTPS `remote.js`; mismas URLs que el 11/11) |
-| Rellenos del profesor | Reserva en `relleno/` si alguna URL falla |
-| Contratos `@1` | **`firmado`** en [tienda-ucjc-contratos](https://github.com/cesar-andress/tienda-ucjc-contratos) (tag `v0.2.0`) · **sin** eventos `propuesto` nuevos aún |
-| A/B (18/11) | Bloque `ab` del manifest: **una sola pieza** (hoy `datos`); defecto **B**; `?ab=a|b` |
-| Siguiente corte | Evolución **sin mutar `@1`** (evento nuevo en `propuesto` / release shell `v0.3.x` cuando proceda) |
+| Semana 1 | **Cerrada** |
+| Deberes 20/11 | Identidad + Descubrimiento + Datos B enchufados; Compra y Datos A sin tag nuevo |
+| `manifest.json` | Identidad `0.2.3` · Descubrimiento `0.2.3` · Compra `0.2.0` · Datos B `0.2.1` (defecto) |
+| Contratos `@1` | **`firmado`** en [tienda-ucjc-contratos](https://github.com/cesar-andress/tienda-ucjc-contratos) (tag `v0.2.0`) · **sin** `propuesto` nuevos en el repo profesor |
+| A/B | Bloque `ab`: pieza `datos`; defecto **B** (`0.2.1`); `?ab=a|b` |
+| Incertidumbre de aula (23/11) | El profesor puede cambiar el manifest a mitad de clase |
 
 ### Releases enchufadas ahora
 
 | Pieza | Versión en manifest | URL activa |
 | --- | --- | --- |
-| Identidad | `0.2.2` | https://ucjc-ecommerce-identidad.github.io/tienda-ucjc-identidad/v0.2.2/remote.js |
-| Descubrimiento | `0.2.0` | https://dani84mol.github.io/tienda-ucjc-descubrimiento/remote.js |
+| Identidad | `0.2.3` | https://ucjc-ecommerce-identidad.github.io/tienda-ucjc-identidad/v0.2.3/remote.js |
+| Descubrimiento | `0.2.3` | https://dani84mol.github.io/tienda-ucjc-descubrimiento/v0.2.3/remote.js |
 | Compra | `0.2.0` | https://tienda-ucjc-compra.github.io/tienda-ucjc-compra/v0.2.0/remote.js |
 | Datos A | `0.2.0` | https://hansjeffas.github.io/tienda-ucjc-datos/v0.2.0/remote.js |
-| Datos B | `0.2.0` | https://juampee.github.io/ucjc-datos-alt2/v0.2.0/remote.js |
+| Datos B | `0.2.1` | https://juampee.github.io/ucjc-datos-alt2/v0.2.1/remote.js |
 
 **Conmutar A/B (un solo hueco en todo el shell):**
 
-- Configuración: bloque `ab` en `manifest.json` (`pieza` + `variantes` a/b). Hoy `pieza: datos`.
+- Configuración: bloque `ab` del manifest (`pieza` + `variantes` a/b). Hoy `pieza: datos`.
 - Sin query / defecto: https://cesar-andress.github.io/tienda-ucjc-shell/ → variante `defecto` (**B**)
 - A / B: `?ab=a` · `?ab=b` (alias legado `?datos=` si la pieza es datos)
 
-Recargar al cambiar. **No** se abren dos A/B a la vez: si mañana la prueba pasa a Compra, se cambia `ab.pieza` y se quitan las variantes de Datos. Banner rojo = reto 18/11.
+Recargar al cambiar. **No** se abren dos A/B a la vez.
 
 El número del manifest es la **release** del micro-frontend. Los mensajes del bus usan el sufijo de contrato **`@1`** (otro número).
 
-### Notas a 18/11 (no bloquean la demo)
+### Notas a 23/11
 
-- Ningún equipo ha publicado una release nueva en el shell desde principios de noviembre; el manifest sigue en `v0.2.x`.
-- Descubrimiento: `remote.js` en la **raíz** de Pages (no `/v0.2.0/`); `export default.nombre` suele ser `"ucjc-descubrimiento"` (el contrato de carga pide `"descubrimiento"`).
-- Compra: historial `gh-pages` algo sucio; la URL versionada `…/v0.2.0/remote.js` responde 200.
+- Descubrimiento tiene también `v0.2.5` (selector EUR/USD) **fuera** del manifest de apertura: se puede enchufar en aula para enseñar el problema de `moneda` sin contrato firmado.
+- Compra y Datos A no publicaron tag nuevo el 20/11: siguen en `0.2.0`.
+- Datos B tiene código `0.3.0` (moneda) en `main` sin Pages usable; el shell usa `0.2.1`.
 
 ### Cómo pensarlo (para alumnos)
 
@@ -67,7 +67,7 @@ La Tienda UCJC es una práctica de micro-frontends: cuatro equipos independiente
 | Pieza (clave en el manifest) | Custom element | Responsabilidad |
 | --- | --- | --- |
 | `descubrimiento` | `ucjc-descubrimiento` | Catálogo, búsqueda y ficha |
-| `compra` | `ucjc-compra` | Carrito y proceso de compra |
+| `compra` | `ucjc-compra` | Carrito y flujo de compra |
 | `identidad` | `ucjc-identidad` | Usuario y sesión |
 | `datos` | `ucjc-pedidos` | Pedidos y persistencia simulada |
 
@@ -75,19 +75,19 @@ Un fallo al cargar una URL **no** impide cargar el resto.
 
 ### Datos A / Datos B
 
-Hay **dos** implementaciones de Datos. Ambas deben cumplir el mismo contrato de carga (`ucjc-pedidos`, `remote.js`, mismos eventos). El shell solo tiene **un** hueco `datos`: el profesor elige la variante activa (hoy **A**).
+Hay **dos** implementaciones de Datos. Ambas deben cumplir el mismo contrato de carga (`ucjc-pedidos`, `remote.js`, mismos eventos). El shell solo tiene **un** hueco `datos`: el profesor elige la variante activa (hoy **B** por defecto).
 
-## 4. Equipos y repositorios (18/11/2026)
+## 4. Equipos y repositorios (23/11/2026)
 
-Todos los repositorios de alumnos listados aquí son **públicos** (necesario para Pages). Última actividad relevante de código: **3–5/11/2026**.
+Todos los repositorios de alumnos listados aquí son **públicos** (necesario para Pages).
 
 | Equipo | Repositorio | Estado resumido |
 | --- | --- | --- |
-| Descubrimiento | https://github.com/dani84mol/tienda-ucjc-descubrimiento | Tag `v0.2.0`. `remote.js` en la **raíz** de Pages (activo). Emite `@1` bien; flecos de carga (`nombre` / URL versionada). |
-| Compra | https://github.com/tienda-ucjc-compra/tienda-ucjc-compra | Tag `v0.2.0`. `…/v0.2.0/remote.js` activo; escucha sesión + añadir; bloquea confirmar sin sesión. |
-| Identidad | https://github.com/ucjc-ecommerce-identidad/tienda-ucjc-identidad | Tags hasta `v0.2.2` (activo). Login/registro + `sesion-cambiada@1`. |
-| Datos A | https://github.com/HansJeffAS/tienda-ucjc-datos | Tag `v0.2.0`. **Activo** en el hueco `datos` (`ucjc-pedidos`). |
-| Datos B | https://github.com/Juampee/ucjc-datos-alt2 | Tag `v0.2.0` + Pages OK. Reserva A/B (mismo CE). |
+| Descubrimiento | https://github.com/dani84mol/tienda-ucjc-descubrimiento | En shell: `v0.2.3` (sesión canónica + nombre). También existe `v0.2.5` (EUR/USD) no enchufado al abrir. |
+| Compra | https://github.com/tienda-ucjc-compra/tienda-ucjc-compra | Tag `v0.2.0` (sin entrega nueva el 20/11). |
+| Identidad | https://github.com/ucjc-ecommerce-identidad/tienda-ucjc-identidad | Tag `v0.2.3` activo (a11y + UI). |
+| Datos A | https://github.com/HansJeffAS/tienda-ucjc-datos | Tag `v0.2.0` · variante A (`?ab=a`). |
+| Datos B | https://github.com/Juampee/ucjc-datos-alt2 | Tag `v0.2.1` activo (defecto). |
 
 **Contratos:** https://github.com/cesar-andress/tienda-ucjc-contratos — tres eventos `@1` **`firmado`** en `eventos/`.
 
@@ -124,3 +124,7 @@ http://127.0.0.1:4173/
 - Ficheros publicados: `index.html`, `manifest.json`, `relleno/`, `.nojekyll`
 
 Si volviera a dar 404: comprobar que el repo sigue **público** y que el workflow de Pages ha terminado en verde. Esperar 1–2 minutos tras un push.
+
+## 9. Autoría
+
+Solo `cesar.andress@ucjc.edu` (`César Andrés`). Hooks en `.githooks`: prohibido Cursor/aiserv y cualquier `Co-authored-by:` ajeno.
