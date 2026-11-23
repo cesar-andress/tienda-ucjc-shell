@@ -29,6 +29,23 @@
         }
       }
     },
+    "descubrimiento": {
+      "defecto": "a",
+      "variantes": {
+        "a": {
+          "version": "0.2.3",
+          "url": "https://dani84mol.github.io/tienda-ucjc-descubrimiento/v0.2.3/remote.js"
+        },
+        "b": {
+          "version": "0.1.1",
+          "url": "https://tienda-ucjc-compra.github.io/tienda-ucjc-descubrimiento-B/v0.1.1/remote.js"
+        },
+        "c": {
+          "version": "0.1.0",
+          "url": "https://juampee.github.io/descubrimiento-muy-mejorado/v0.1.0/remote.js"
+        }
+      }
+    },
     "datos": {
       "defecto": "b",
       "variantes": {
