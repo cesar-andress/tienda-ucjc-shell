@@ -75,7 +75,7 @@ git push origin v0.1.0
 
 ## Manifest
 
-### A. Estado actual · shell tag `v0.3.3`
+### A. Estado actual · shell tag `v0.3.4`
 
 El `manifest.json` apunta a releases HTTPS de alumnos.  
 `ab` es un **mapa** pieza → `{ defecto, variantes }`. Podéis tener A/B/C en varias piezas a la vez (identidad, descubrimiento, datos, compra).
@@ -164,5 +164,6 @@ Cada viernes a las 14:00 se revisan las versiones etiquetadas. El historial de `
 | 23/11 (tarde) | `0.2.3` | A `0.2.0` · B `0.2.0` | A `0.2.3` · B plus `0.3.0` | A `0.2.4` · B `0.2.1` | Shell **`v0.3.1`** · Identidad B vía jsDelivr (Pages demo vs `gh-pages`) |
 | 23/11 (noche) | `0.2.3` | A `0.2.0` · B `0.2.0` | A `0.2.5` · B plus `0.3.0` | A `0.2.4` · B `0.2.1` | Shell **`v0.3.2`** · Identidad A rediseño; Desc `0.2.5` sigue fuera (aula) |
 | 23/11 (noche+) | A `0.2.3` · B `0.1.1` · C `0.1.0` | A `0.2.0` · B `0.2.0` | A `0.2.5` · B plus `0.3.0` | A `0.2.4` · B `0.2.1` | Shell **`v0.3.3`** · `ab.descubrimiento` A/B/C; Compra C sigue fuera |
+| 23/11 (UI) | = | = | = | = | Shell **`v0.3.4`** · Pages scroll continuo (mismo manifest) |
 
 Reserva documentada: Compra **C** = [`dani84mol/tienda-ucjc-compra`](https://github.com/dani84mol/tienda-ucjc-compra) (Daniel Molina · vacío 23/11 · sin tag/Pages) — **no** enchufar hasta que exista `remote.js` HTTPS. Las hojas A/B/C de Semana 1 son material de aula, no variantes del micro-frontend.

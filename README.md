@@ -6,11 +6,11 @@
 
 Este repositorio lo mantiene el profesor. Los equipos de alumnos **no** tienen escritura aquí.
 
-## Situación actual (23/11/2026) · tag `v0.3.3`
+## Situación actual (23/11/2026) · tag `v0.3.4`
 
 | Hecho | Estado |
 | --- | --- |
-| Tag / release del shell | **`v0.3.3`** — Descubrimiento A/B/C + Identidad A `0.2.5` |
+| Tag / release del shell | **`v0.3.4`** — UI de scroll continuo (misma carga A/B/C que `v0.3.3`) |
 | Shell en GitHub Pages | **Activo** · push a `main` |
 | Repositorio del shell | **Público** |
 | Semana 1 | **Cerrada** |
@@ -122,7 +122,7 @@ Compra **C** está **reservada** (repo de Daniel Molina) pero **sin** entrada en
 
 Todos los repositorios de alumnos listados aquí son **públicos** (necesario para Pages).
 
-### Enchufados en el shell (`v0.3.3`)
+### Enchufados en el shell (`v0.3.4`)
 
 | Equipo / variante | Repositorio | Tag en shell | `remote.js` |
 | --- | --- | --- | --- |
