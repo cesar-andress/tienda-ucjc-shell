@@ -288,14 +288,15 @@
     </header>
 
     <p id="aviso-incidente">
-      <strong>Shell v0.3.7 · 25/11</strong>
+      <strong>Shell v0.3.8 · 25/11</strong>
       Ahora mismo: <span id="etiqueta-ab-resumen">…</span>.
       Sin parámetros: Identidad A (<code>0.2.7</code>), Descubrimiento A (<code>0.2.7</code>), Compra A (<code>0.2.0</code>) y Datos B (<code>0.4.0</code>).
       Compra C es la de Daniel Molina; Descubrimiento C, la de Juan Pedro.
-      CSS/JS comunes: contrato <code>presentacion-campus@1</code> (hay que firmarlo los cuatro equipos).
+      Estilo y script comunes: contrato <code>presentacion-campus@1</code>
+      (lo firman Identidad, Descubrimiento, Compra y Datos).
     </p>
 
-    <section class="hero" aria-label="Presentación">
+    <section class="hero" aria-label="Presentación de la tienda">
       <h1>Tienda UCJC</h1>
       <p>Sesión, catálogo, carrito y pedidos en la misma página.</p>
     </section>
@@ -322,8 +323,8 @@
     </main>
 
     <footer>
-      Shell del profesor. Tokens en <code>comun/campus.css</code> · API <code>ucjcCampus</code>.
-      Eventos <code>ucjc:*</code> en la consola.
+      Shell del profesor. Estilo en <code>comun/campus.css</code>;
+      funciones en <code>ucjcCampus</code>. Los eventos <code>ucjc:*</code> salen en la consola.
     </footer>
   </div>
 
@@ -480,7 +481,7 @@
     document.getElementById('estado').textContent =
       entradas.map(([p, { version }]) => `${TITULO[p] || p} v${version}`).join(' · ');
 
-    console.info('[shell v0.3.7]', elegidas, 'ucjcCampus', window.ucjcCampus?.version);
+    console.info('[shell v0.3.8]', elegidas, 'ucjcCampus', window.ucjcCampus?.version);
 
     for (const [pieza, { version, url }] of entradas) {
       const seccion = document.getElementById(pieza);

@@ -1,7 +1,6 @@
-/* Tienda UCJC — tokens de campus (contrato presentacion-campus@1).
-   El shell los carga antes que los remote.js.
-   Las piezas pueden usar estas variables dentro del Shadow DOM
-   porque heredan desde el documento. */
+/* Tienda UCJC — estilo común de campus (contrato presentación-campus@1).
+   El shell lo carga antes que los remote.js.
+   Las variables llegan al Shadow DOM por herencia. */
 
 :root {
   --ucjc-ink: #1a242c;
@@ -24,7 +23,7 @@
   --ucjc-presentacion: "1";
 }
 
-/* Clases opcionales para botones/textos si la pieza no quiere reinventarlos */
+/* Clases opcionales: podéis usarlas o no, si ya usáis las variables */
 .ucjc-btn {
   font-family: var(--ucjc-font-sans);
   font-weight: 600;

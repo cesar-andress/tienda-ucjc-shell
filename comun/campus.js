@@ -1,50 +1,56 @@
 /**
- * Tienda UCJC — API mínima de campus (contrato presentacion-campus@1).
- * Disponible en window.ucjcCampus antes de cargar los remote.js.
+ * Tienda UCJC — funciones comunes de campus (contrato presentación-campus@1).
+ * El shell las deja en window.ucjcCampus antes de cargar los remote.js.
  */
 (() => {
   const VERSION = '1';
 
-  function dispatch(nombre, detail) {
+  function emitir(nombre, detail) {
     if (typeof nombre !== 'string' || !nombre.startsWith('ucjc:')) {
-      throw new Error('ucjcCampus.dispatch: el nombre debe empezar por ucjc:');
+      throw new Error('ucjcCampus.emitir: el nombre debe empezar por ucjc:');
     }
     const evento = new CustomEvent(nombre, { detail });
     window.dispatchEvent(evento);
     return evento;
   }
 
-  function on(nombre, handler) {
+  function escuchar(nombre, manejador) {
     if (typeof nombre !== 'string' || !nombre.startsWith('ucjc:')) {
-      throw new Error('ucjcCampus.on: el nombre debe empezar por ucjc:');
+      throw new Error('ucjcCampus.escuchar: el nombre debe empezar por ucjc:');
     }
-    window.addEventListener(nombre, handler);
-    return () => window.removeEventListener(nombre, handler);
+    window.addEventListener(nombre, manejador);
+    return () => window.removeEventListener(nombre, manejador);
   }
 
-  function tokens() {
+  function leerTokens() {
     const estilos = getComputedStyle(document.documentElement);
     const leer = (nombre) => estilos.getPropertyValue(nombre).trim();
     return {
-      ink: leer('--ucjc-ink'),
-      muted: leer('--ucjc-muted'),
-      brand: leer('--ucjc-brand'),
-      brandBright: leer('--ucjc-brand-bright'),
-      leaf: leer('--ucjc-leaf'),
+      tinta: leer('--ucjc-ink'),
+      suave: leer('--ucjc-muted'),
+      marca: leer('--ucjc-brand'),
+      marcaClara: leer('--ucjc-brand-bright'),
+      hoja: leer('--ucjc-leaf'),
       panel: leer('--ucjc-panel'),
-      fog: leer('--ucjc-fog'),
-      mist: leer('--ucjc-mist'),
-      fontSans: leer('--ucjc-font-sans'),
-      fontDisplay: leer('--ucjc-font-display'),
-      radius: leer('--ucjc-radius'),
+      niebla: leer('--ucjc-fog'),
+      bruma: leer('--ucjc-mist'),
+      fuenteTexto: leer('--ucjc-font-sans'),
+      fuenteTitulo: leer('--ucjc-font-display'),
+      radio: leer('--ucjc-radius'),
       presentacion: leer('--ucjc-presentacion') || VERSION,
     };
   }
 
-  window.ucjcCampus = Object.freeze({
+  const api = {
     version: VERSION,
-    dispatch,
-    on,
-    tokens,
-  });
+    emitir,
+    escuchar,
+    leerTokens,
+    // Alias cortos por si alguien ya miró el borrador en inglés
+    dispatch: emitir,
+    on: escuchar,
+    tokens: leerTokens,
+  };
+
+  window.ucjcCampus = Object.freeze(api);
 })();
