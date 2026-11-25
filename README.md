@@ -6,11 +6,11 @@
 
 Este repositorio lo mantiene el profesor. Los equipos de alumnos **no** tienen escritura aquí.
 
-## Situación actual (25/11/2026) · tag `v0.3.8`
+## Situación actual (25/11/2026) · tag `v0.3.9`
 
 | Hecho | Estado |
 | --- | --- |
-| Tag / release del shell | **`v0.3.8`** — estilo y script comunes en español (`emitir` / `escuchar`) |
+| Tag / release del shell | **`v0.3.9`** — `ucjcCampus.adoptar` + API en español (`emitir` / `escuchar`) |
 | Shell en GitHub Pages | **Activo** · push a `main` |
 | Repositorio del shell | **Público** |
 | Semana 1 | **Cerrada** |

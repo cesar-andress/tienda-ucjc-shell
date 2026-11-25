@@ -76,7 +76,7 @@ git push origin v0.1.0
 
 ## Manifest
 
-### A. Estado actual · shell tag `v0.3.8`
+### A. Estado actual · shell tag `v0.3.9`
 
 El `manifest.json` apunta a releases HTTPS de alumnos.  
 `ab` es un **mapa** pieza → `{ defecto, variantes }`. Podéis tener A/B/C en varias piezas a la vez (identidad, descubrimiento, datos, compra).
