@@ -1,6 +1,7 @@
 /* Tienda UCJC — estilo común de campus (contrato presentación-campus@1).
    El shell lo carga antes que los remote.js.
-   Las variables llegan al Shadow DOM por herencia. */
+   Las variables llegan al Shadow DOM por herencia.
+   Las clases .ucjc-* solo dentro de la pieza si llamáis a ucjcCampus.adoptar(). */
 
 :root {
   --ucjc-ink: #1a242c;
@@ -37,17 +38,21 @@
 }
 .ucjc-btn:hover {
   border-color: var(--ucjc-brand-bright);
-  background: #fff;
+  background: color-mix(in srgb, var(--ucjc-panel) 70%, #fff);
+}
+.ucjc-btn:focus-visible {
+  outline: 2px solid var(--ucjc-brand-bright);
+  outline-offset: 2px;
 }
 .ucjc-btn-primary {
   background: var(--ucjc-brand);
   border-color: var(--ucjc-brand);
-  color: #f4faf8;
+  color: var(--ucjc-panel);
 }
 .ucjc-btn-primary:hover {
   background: var(--ucjc-brand-bright);
   border-color: var(--ucjc-brand-bright);
-  color: #fff;
+  color: var(--ucjc-panel);
 }
 .ucjc-label {
   font-family: var(--ucjc-font-sans);

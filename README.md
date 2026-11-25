@@ -6,16 +6,16 @@
 
 Este repositorio lo mantiene el profesor. Los equipos de alumnos **no** tienen escritura aquí.
 
-## Situación actual (25/11/2026) · tag `v0.3.9`
+## Situación actual (25/11/2026) · tag `v0.3.10`
 
 | Hecho | Estado |
 | --- | --- |
-| Tag / release del shell | **`v0.3.9`** — `ucjcCampus.adoptar` + API en español (`emitir` / `escuchar`) |
+| Tag / release del shell | **`v0.3.10`** — `comun/campus.*` + `ucjcCampus` (`emitir` / `escuchar` / `leerTokens` / `adoptar`) |
 | Shell en GitHub Pages | **Activo** · push a `main` |
 | Repositorio del shell | **Público** |
 | Semana 1 | **Cerrada** |
 | `manifest.json` | Identidad A/B · Descubrimiento A/B/C · Compra A/B/C · Datos A/B (defecto **B**) |
-| Contratos | Flujo mínimo `@1` + `campana-cambiada@1` **`firmado`** · `pedido-confirmado@2` sigue **`propuesto`** (PR #3 pendiente revisión) |
+| Contratos | Flujo mínimo + `campana` **firmados** · [`presentacion-campus@1`](https://github.com/cesar-andress/tienda-ucjc-contratos/blob/main/presentacion/ucjc-presentacion-campus%401.md) **propuesto** (firma 30/11) |
 | A/B multi | Query `?identidad=a\|b&descubrimiento=a\|b\|c&datos=a\|b&compra=a\|b\|c` |
 
 ### Releases enchufadas ahora
@@ -24,12 +24,12 @@ Este repositorio lo mantiene el profesor. Los equipos de alumnos **no** tienen e
 | --- | --- | --- | --- |
 | Identidad | **A** (defecto) | `0.2.7` | https://ucjc-ecommerce-identidad.github.io/tienda-ucjc-identidad/v0.2.7/remote.js |
 | Identidad | **B** | `0.3.1` | https://cdn.jsdelivr.net/gh/Juampee/ucjc-identidad-plus@gh-pages/v0.3.1/remote.js |
-| Descubrimiento | **A** (defecto) | `0.2.7` | https://dani84mol.github.io/tienda-ucjc-descubrimiento/v0.2.7/remote.js |
+| Descubrimiento | **A** (defecto) | `0.2.8` | https://dani84mol.github.io/tienda-ucjc-descubrimiento/v0.2.8/remote.js |
 | Descubrimiento | **B** | `0.1.3` | https://tienda-ucjc-compra.github.io/tienda-ucjc-descubrimiento-B/v0.1.3/remote.js |
 | Descubrimiento | **C** | `0.1.0` | https://juampee.github.io/descubrimiento-muy-mejorado/v0.1.0/remote.js |
 | Compra | **A** (defecto) | `0.2.0` | https://tienda-ucjc-compra.github.io/tienda-ucjc-compra/v0.2.0/remote.js |
 | Compra | **B** | `0.3.0` | https://ucjc-ecommerce-identidad.github.io/tienda-ucjc-compra-b/v0.3.0/remote.js |
-| Compra | **C** | `0.2.0` | https://dani84mol.github.io/tienda-ucjc-compra/v0.2.0/remote.js |
+| Compra | **C** | `0.3.0` | https://dani84mol.github.io/tienda-ucjc-compra/v0.3.0/remote.js |
 | Datos | **A** | `0.2.5` | https://hansjeffas.github.io/tienda-ucjc-datos/v0.2.5/remote.js |
 | Datos | **B** (defecto) | `0.4.0` | https://juampee.github.io/ucjc-datos-alt2/v0.4.0/remote.js |
 
@@ -66,20 +66,20 @@ El número del manifest es la **release** del micro-frontend. Los mensajes del b
   "identidad": {
     "defecto": "a",
     "variantes": {
-      "a": { "version": "0.2.5", "url": "https://ucjc-ecommerce-identidad.github.io/tienda-ucjc-identidad/v0.2.5/remote.js" },
-      "b": { "version": "0.3.0", "url": "https://cdn.jsdelivr.net/gh/Juampee/ucjc-identidad-plus@gh-pages/v0.3.0/remote.js" }
+      "a": { "version": "0.2.7", "url": "https://ucjc-ecommerce-identidad.github.io/tienda-ucjc-identidad/v0.2.7/remote.js" },
+      "b": { "version": "0.3.1", "url": "https://cdn.jsdelivr.net/gh/Juampee/ucjc-identidad-plus@gh-pages/v0.3.1/remote.js" }
     }
   },
   "descubrimiento": {
     "defecto": "a",
     "variantes": {
-      "a": { "version": "0.2.3", "url": "https://dani84mol.github.io/tienda-ucjc-descubrimiento/v0.2.3/remote.js" },
-      "b": { "version": "0.1.1", "url": "https://tienda-ucjc-compra.github.io/tienda-ucjc-descubrimiento-B/v0.1.1/remote.js" },
+      "a": { "version": "0.2.8", "url": "https://dani84mol.github.io/tienda-ucjc-descubrimiento/v0.2.8/remote.js" },
+      "b": { "version": "0.1.3", "url": "https://tienda-ucjc-compra.github.io/tienda-ucjc-descubrimiento-B/v0.1.3/remote.js" },
       "c": { "version": "0.1.0", "url": "https://juampee.github.io/descubrimiento-muy-mejorado/v0.1.0/remote.js" }
     }
   },
   "datos": { "defecto": "b", "variantes": { "a": { "…": "…" }, "b": { "…": "…" } } },
-  "compra": { "defecto": "a", "variantes": { "a": { "…": "…" }, "b": { "…": "…" } } }
+  "compra": { "defecto": "a", "variantes": { "a": { "…": "…" }, "b": { "…": "…" }, "c": { "…": "…" } } }
 }
 ```
 
@@ -117,28 +117,28 @@ Un fallo al cargar una URL **no** impide cargar el resto.
 
 Hay varias implementaciones de la misma pieza (Identidad A/B, Descubrimiento A/B/C, Datos A/B, Compra A/B). Todas deben cumplir el mismo contrato de carga (CE fijo, `remote.js`, mismos eventos firmados). El shell tiene un hueco por pieza; el profesor (o la query) elige la variante activa.
 
-Compra **C** (Daniel Molina, `dani84mol/tienda-ucjc-compra` `v0.2.0`) ya está enchufada. Las «hojas A/B/C» de Semana 1 siguen siendo material de aula.
+Compra **C** (`dani84mol/tienda-ucjc-compra` `v0.3.0`) ya está enchufada. Las «hojas A/B/C» de Semana 1 siguen siendo material de aula.
 
-## 4. Equipos y repositorios (23/11/2026)
+## 4. Equipos y repositorios (25/11/2026)
 
 Todos los repositorios de alumnos listados aquí son **públicos** (necesario para Pages).
 
-### Enchufados en el shell (`v0.3.5`)
+### Enchufados en el shell (`v0.3.10`)
 
 | Equipo / variante | Repositorio | Tag en shell | `remote.js` |
 | --- | --- | --- | --- |
 | Identidad A | https://github.com/ucjc-ecommerce-identidad/tienda-ucjc-identidad | `v0.2.7` | https://ucjc-ecommerce-identidad.github.io/tienda-ucjc-identidad/v0.2.7/remote.js |
 | Identidad B | https://github.com/Juampee/ucjc-identidad-plus | `v0.3.1` | https://cdn.jsdelivr.net/gh/Juampee/ucjc-identidad-plus@gh-pages/v0.3.1/remote.js |
-| Descubrimiento A | https://github.com/dani84mol/tienda-ucjc-descubrimiento | `v0.2.7` | https://dani84mol.github.io/tienda-ucjc-descubrimiento/v0.2.7/remote.js |
+| Descubrimiento A | https://github.com/dani84mol/tienda-ucjc-descubrimiento | `v0.2.8` | https://dani84mol.github.io/tienda-ucjc-descubrimiento/v0.2.8/remote.js |
 | Descubrimiento B | https://github.com/tienda-ucjc-compra/tienda-ucjc-descubrimiento-B | `v0.1.3` | https://tienda-ucjc-compra.github.io/tienda-ucjc-descubrimiento-B/v0.1.3/remote.js |
 | Descubrimiento C | https://github.com/Juampee/descubrimiento-muy-mejorado | `v0.1.0` | https://juampee.github.io/descubrimiento-muy-mejorado/v0.1.0/remote.js |
 | Compra A | https://github.com/tienda-ucjc-compra/tienda-ucjc-compra | `v0.2.0` | https://tienda-ucjc-compra.github.io/tienda-ucjc-compra/v0.2.0/remote.js |
 | Compra B | https://github.com/ucjc-ecommerce-identidad/tienda-ucjc-compra-b | `v0.3.0` | https://ucjc-ecommerce-identidad.github.io/tienda-ucjc-compra-b/v0.3.0/remote.js |
-| Compra C | https://github.com/dani84mol/tienda-ucjc-compra | `v0.2.0` | https://dani84mol.github.io/tienda-ucjc-compra/v0.2.0/remote.js |
+| Compra C | https://github.com/dani84mol/tienda-ucjc-compra | `v0.3.0` | https://dani84mol.github.io/tienda-ucjc-compra/v0.3.0/remote.js |
 | Datos A | https://github.com/HansJeffAS/tienda-ucjc-datos | `v0.2.5` | https://hansjeffas.github.io/tienda-ucjc-datos/v0.2.5/remote.js |
 | Datos B | https://github.com/Juampee/ucjc-datos-alt2 | `v0.4.0` | https://juampee.github.io/ucjc-datos-alt2/v0.4.0/remote.js |
 
-**Contratos:** https://github.com/cesar-andress/tienda-ucjc-contratos — flujo mínimo `@1` + `campana-cambiada@1` **`firmado`**; `pedido-confirmado@2` en **`propuesto`** (PR #3 pendiente revisión).
+**Contratos:** https://github.com/cesar-andress/tienda-ucjc-contratos — flujo mínimo + `campana` **firmados**; `presentacion-campus@1`, `pedido-confirmado@2` y `moneda-cambiada@1` en **`propuesto`**.
 
 ## 5. Contrato técnico de carga
 

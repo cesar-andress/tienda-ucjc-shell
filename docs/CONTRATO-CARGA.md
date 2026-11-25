@@ -22,18 +22,17 @@ Abrid la consola del navegador en clase: cada evento `ucjc:*` se registra como `
    | `datos` | `ucjc-pedidos` |
 
 3. El módulo **no toca nada fuera de su elemento**: ni `document.body`, ni estilos globales, ni otros elementos. Los estilos van dentro del elemento (Shadow DOM recomendado, no obligatorio).
-4. **Presentación campus `@1`** (estilo y script del shell): variables `--ucjc-*`, clases `.ucjc-*` y `window.ucjcCampus` (`emitir`, `escuchar`, `leerTokens`). Contrato firmable en [tienda-ucjc-contratos/presentacion](https://github.com/cesar-andress/tienda-ucjc-contratos/tree/main/presentacion). El shell carga `comun/campus.css` y `comun/campus.js` **antes** de vuestro `remote.js`.
+4. **Presentación campus `@1`** (estilo y script del shell): variables `--ucjc-*`, clases `.ucjc-*` y `window.ucjcCampus` (`emitir`, `escuchar`, `leerTokens`, `adoptar`). Contrato: [presentacion-campus@1](https://github.com/cesar-andress/tienda-ucjc-contratos/blob/main/presentacion/ucjc-presentacion-campus%401.md). El shell carga `comun/campus.css` y `comun/campus.js` **antes** de vuestro `remote.js`. Las variables atraviesan el Shadow DOM; las clases `.ucjc-*` solo si llamáis a `ucjcCampus.adoptar(this.shadowRoot)`.
 5. El módulo **exporta por defecto** `{ nombre, version }`.
 6. La comunicación con el resto es **solo** por eventos en `window`:
 
    ```js
-   window.dispatchEvent(
-     new CustomEvent('ucjc:<pieza>:<verbo>@<n>', { detail: { /* campos */ } }),
-   );
-   window.addEventListener('ucjc:<pieza>:<verbo>@<n>', (e) => { /* ... */ });
+   window.ucjcCampus.emitir('ucjc:<pieza>:<verbo>@<n>', { /* campos */ });
+   const quitar = window.ucjcCampus.escuchar('ucjc:<pieza>:<verbo>@<n>', (e) => { /* ... */ });
+   // en disconnectedCallback: quitar();
    ```
 
-   Los nombres y los campos de `detail` son los firmados en [tienda-ucjc-contratos](https://github.com/cesar-andress/tienda-ucjc-contratos). Un campo que viaja sin estar en el contrato no existe.
+   Equivale a `dispatchEvent` / `addEventListener`. Los nombres y los campos de `detail` son los firmados en [tienda-ucjc-contratos](https://github.com/cesar-andress/tienda-ucjc-contratos). Un campo que viaja sin estar en el contrato no existe.
 
    El sufijo `@n` es la **versión del contrato del evento**. La release del micro-frontend usa **otro** número (`v0.1.0`, `v0.2.0`, …). No son equivalentes.
 
@@ -76,7 +75,7 @@ git push origin v0.1.0
 
 ## Manifest
 
-### A. Estado actual · shell tag `v0.3.9`
+### A. Estado actual · shell tag `v0.3.10`
 
 El `manifest.json` apunta a releases HTTPS de alumnos.  
 `ab` es un **mapa** pieza → `{ defecto, variantes }`. Podéis tener A/B/C en varias piezas a la vez (identidad, descubrimiento, datos, compra).
@@ -86,37 +85,38 @@ El `manifest.json` apunta a releases HTTPS de alumnos.
   "identidad": {
     "defecto": "a",
     "variantes": {
-      "a": { "version": "0.2.5", "url": "https://ucjc-ecommerce-identidad.github.io/tienda-ucjc-identidad/v0.2.5/remote.js" },
-      "b": { "version": "0.3.0", "url": "https://cdn.jsdelivr.net/gh/Juampee/ucjc-identidad-plus@gh-pages/v0.3.0/remote.js" }
+      "a": { "version": "0.2.7", "url": "https://ucjc-ecommerce-identidad.github.io/tienda-ucjc-identidad/v0.2.7/remote.js" },
+      "b": { "version": "0.3.1", "url": "https://cdn.jsdelivr.net/gh/Juampee/ucjc-identidad-plus@gh-pages/v0.3.1/remote.js" }
     }
   },
   "descubrimiento": {
     "defecto": "a",
     "variantes": {
-      "a": { "version": "0.2.3", "url": "https://dani84mol.github.io/tienda-ucjc-descubrimiento/v0.2.3/remote.js" },
-      "b": { "version": "0.1.1", "url": "https://tienda-ucjc-compra.github.io/tienda-ucjc-descubrimiento-B/v0.1.1/remote.js" },
+      "a": { "version": "0.2.8", "url": "https://dani84mol.github.io/tienda-ucjc-descubrimiento/v0.2.8/remote.js" },
+      "b": { "version": "0.1.3", "url": "https://tienda-ucjc-compra.github.io/tienda-ucjc-descubrimiento-B/v0.1.3/remote.js" },
       "c": { "version": "0.1.0", "url": "https://juampee.github.io/descubrimiento-muy-mejorado/v0.1.0/remote.js" }
     }
   },
   "datos": {
     "defecto": "b",
     "variantes": {
-      "a": { "version": "0.2.4", "url": "https://hansjeffas.github.io/tienda-ucjc-datos/v0.2.4/remote.js" },
-      "b": { "version": "0.2.1", "url": "https://juampee.github.io/ucjc-datos-alt2/v0.2.1/remote.js" }
+      "a": { "version": "0.2.5", "url": "https://hansjeffas.github.io/tienda-ucjc-datos/v0.2.5/remote.js" },
+      "b": { "version": "0.4.0", "url": "https://juampee.github.io/ucjc-datos-alt2/v0.4.0/remote.js" }
     }
   },
   "compra": {
     "defecto": "a",
     "variantes": {
       "a": { "version": "0.2.0", "url": "https://tienda-ucjc-compra.github.io/tienda-ucjc-compra/v0.2.0/remote.js" },
-      "b": { "version": "0.2.0", "url": "https://ucjc-ecommerce-identidad.github.io/tienda-ucjc-compra-b/v0.2.0/remote.js" }
+      "b": { "version": "0.3.0", "url": "https://ucjc-ecommerce-identidad.github.io/tienda-ucjc-compra-b/v0.3.0/remote.js" },
+      "c": { "version": "0.3.0", "url": "https://dani84mol.github.io/tienda-ucjc-compra/v0.3.0/remote.js" }
     }
   }
 }
 ```
 
 Query: `?identidad=b&descubrimiento=c&datos=a&compra=b`. El formato antiguo (`ab.pieza` + `ab.variantes`) sigue valiendo como un solo slot.  
-Identidad B usa jsDelivr mientras `juampee.github.io/.../v0.3.0/remote.js` dé 404 (Pages del repo sirve la demo, no `gh-pages`).
+Identidad B usa jsDelivr mientras `juampee.github.io/.../remote.js` dé 404 (Pages del repo sirve la demo, no `gh-pages`).
 
 ### B. Cómo conmutar A/B/C (aula)
 

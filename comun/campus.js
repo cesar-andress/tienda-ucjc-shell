@@ -40,44 +40,68 @@
       marca: leer('--ucjc-brand'),
       marcaClara: leer('--ucjc-brand-bright'),
       hoja: leer('--ucjc-leaf'),
+      aviso: leer('--ucjc-warn'),
       panel: leer('--ucjc-panel'),
       niebla: leer('--ucjc-fog'),
       bruma: leer('--ucjc-mist'),
+      borde: leer('--ucjc-edge'),
       fuenteTexto: leer('--ucjc-font-sans'),
       fuenteTitulo: leer('--ucjc-font-display'),
       radio: leer('--ucjc-radius'),
-      presentacion: leer('--ucjc-presentacion') || VERSION,
+      espacio: leer('--ucjc-space'),
+      espacioGrande: leer('--ucjc-space-lg'),
+      presentacion: leer('--ucjc-presentacion').replace(/["']/g, '') || VERSION,
     };
   }
 
   /**
    * Entrega campus.css dentro del ShadowRoot para que .ucjc-* funcionen.
    * Las variables --ucjc-* se heredan solas; las clases no.
+   * Usa adoptedStyleSheets: la hoja no es un nodo del árbol, así que sobrevive
+   * a this.shadowRoot.innerHTML = ... en cada repintado. Una sola hoja compartida.
    */
+  let hojaCampus = null;
+  let cargandoHoja = null;
+
+  function obtenerHoja() {
+    if (hojaCampus) return Promise.resolve(hojaCampus);
+    if (!cargandoHoja) {
+      cargandoHoja = fetch(HREF_CSS)
+        .then((respuesta) => {
+          if (!respuesta.ok) throw new Error(`campus.css respondió ${respuesta.status}`);
+          return respuesta.text();
+        })
+        .then((texto) => {
+          const hoja = new CSSStyleSheet();
+          hoja.replaceSync(texto);
+          hojaCampus = hoja;
+          return hoja;
+        });
+    }
+    return cargandoHoja;
+  }
+
   function adoptar(raizSombra) {
     if (!(raizSombra instanceof ShadowRoot)) {
       throw new Error('ucjcCampus.adoptar: hace falta el ShadowRoot de la pieza');
     }
-    if (raizSombra.querySelector('link[data-ucjc-campus="1"]')) return;
-    const enlace = document.createElement('link');
-    enlace.rel = 'stylesheet';
-    enlace.href = HREF_CSS;
-    enlace.dataset.ucjcCampus = '1';
-    raizSombra.appendChild(enlace);
+    return obtenerHoja()
+      .then((hoja) => {
+        if (!raizSombra.adoptedStyleSheets.includes(hoja)) {
+          raizSombra.adoptedStyleSheets = [hoja, ...raizSombra.adoptedStyleSheets];
+        }
+      })
+      .catch((error) => console.warn('[campus] adoptar:', error.message));
   }
 
-  const api = {
+  // Se precarga para que la primera pieza no espere.
+  obtenerHoja().catch(() => {});
+
+  window.ucjcCampus = Object.freeze({
     version: VERSION,
     emitir,
     escuchar,
     leerTokens,
     adoptar,
-    // Alias cortos por si alguien ya miró el borrador en inglés
-    dispatch: emitir,
-    on: escuchar,
-    tokens: leerTokens,
-    adopt: adoptar,
-  };
-
-  window.ucjcCampus = Object.freeze(api);
+  });
 })();
