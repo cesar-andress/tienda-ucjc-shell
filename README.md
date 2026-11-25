@@ -144,6 +144,10 @@ Todos los repositorios de alumnos listados aquí son **públicos** (necesario pa
 
 → [`docs/CONTRATO-CARGA.md`](docs/CONTRATO-CARGA.md)
 
+### Scripts de comprobación (profesor)
+
+→ [`scripts/`](scripts/) — `test-campus.mjs` (API `ucjcCampus`) y `radiografia.mjs` (colores / tokens / listeners en los clones de alumnos). No van a Pages.
+
 ## 6. Cuatro conceptos que no se mezclan
 
 | Concepto | Qué es |
