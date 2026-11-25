@@ -1,31 +1,31 @@
 {
   "identidad": {
-    "version": "0.2.5",
-    "url": "https://ucjc-ecommerce-identidad.github.io/tienda-ucjc-identidad/v0.2.5/remote.js"
+    "version": "0.2.7",
+    "url": "https://ucjc-ecommerce-identidad.github.io/tienda-ucjc-identidad/v0.2.7/remote.js"
   },
   "descubrimiento": {
-    "version": "0.2.3",
-    "url": "https://dani84mol.github.io/tienda-ucjc-descubrimiento/v0.2.3/remote.js"
+    "version": "0.2.7",
+    "url": "https://dani84mol.github.io/tienda-ucjc-descubrimiento/v0.2.7/remote.js"
   },
   "compra": {
     "version": "0.2.0",
     "url": "https://tienda-ucjc-compra.github.io/tienda-ucjc-compra/v0.2.0/remote.js"
   },
   "datos": {
-    "version": "0.2.1",
-    "url": "https://juampee.github.io/ucjc-datos-alt2/v0.2.1/remote.js"
+    "version": "0.4.0",
+    "url": "https://juampee.github.io/ucjc-datos-alt2/v0.4.0/remote.js"
   },
   "ab": {
     "identidad": {
       "defecto": "a",
       "variantes": {
         "a": {
-          "version": "0.2.5",
-          "url": "https://ucjc-ecommerce-identidad.github.io/tienda-ucjc-identidad/v0.2.5/remote.js"
+          "version": "0.2.7",
+          "url": "https://ucjc-ecommerce-identidad.github.io/tienda-ucjc-identidad/v0.2.7/remote.js"
         },
         "b": {
-          "version": "0.3.0",
-          "url": "https://cdn.jsdelivr.net/gh/Juampee/ucjc-identidad-plus@gh-pages/v0.3.0/remote.js"
+          "version": "0.3.1",
+          "url": "https://cdn.jsdelivr.net/gh/Juampee/ucjc-identidad-plus@gh-pages/v0.3.1/remote.js"
         }
       }
     },
@@ -33,12 +33,12 @@
       "defecto": "a",
       "variantes": {
         "a": {
-          "version": "0.2.3",
-          "url": "https://dani84mol.github.io/tienda-ucjc-descubrimiento/v0.2.3/remote.js"
+          "version": "0.2.7",
+          "url": "https://dani84mol.github.io/tienda-ucjc-descubrimiento/v0.2.7/remote.js"
         },
         "b": {
-          "version": "0.1.1",
-          "url": "https://tienda-ucjc-compra.github.io/tienda-ucjc-descubrimiento-B/v0.1.1/remote.js"
+          "version": "0.1.3",
+          "url": "https://tienda-ucjc-compra.github.io/tienda-ucjc-descubrimiento-B/v0.1.3/remote.js"
         },
         "c": {
           "version": "0.1.0",
@@ -50,12 +50,12 @@
       "defecto": "b",
       "variantes": {
         "a": {
-          "version": "0.2.4",
-          "url": "https://hansjeffas.github.io/tienda-ucjc-datos/v0.2.4/remote.js"
+          "version": "0.2.5",
+          "url": "https://hansjeffas.github.io/tienda-ucjc-datos/v0.2.5/remote.js"
         },
         "b": {
-          "version": "0.2.1",
-          "url": "https://juampee.github.io/ucjc-datos-alt2/v0.2.1/remote.js"
+          "version": "0.4.0",
+          "url": "https://juampee.github.io/ucjc-datos-alt2/v0.4.0/remote.js"
         }
       }
     },
@@ -67,8 +67,12 @@
           "url": "https://tienda-ucjc-compra.github.io/tienda-ucjc-compra/v0.2.0/remote.js"
         },
         "b": {
+          "version": "0.3.0",
+          "url": "https://ucjc-ecommerce-identidad.github.io/tienda-ucjc-compra-b/v0.3.0/remote.js"
+        },
+        "c": {
           "version": "0.2.0",
-          "url": "https://ucjc-ecommerce-identidad.github.io/tienda-ucjc-compra-b/v0.2.0/remote.js"
+          "url": "https://dani84mol.github.io/tienda-ucjc-compra/v0.2.0/remote.js"
         }
       }
     }

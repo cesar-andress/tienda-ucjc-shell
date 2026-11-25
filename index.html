@@ -6,28 +6,26 @@
   <title>Tienda UCJC</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=Newsreader:ital,opsz,wght@0,16..72,400;0,16..72,600;1,16..72,400&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,700;9..144,800&family=Figtree:wght@400;500;600;700&display=swap" rel="stylesheet">
   <style>
     :root {
-      --ink: #14202b;
-      --ink-soft: #3a4a58;
-      --paper: #eef3f6;
-      --paper-deep: #e2eaef;
-      --band: #d7e4ec;
-      --brand: #0c4a6e;
-      --brand-deep: #083048;
-      --accent: #1f7a5c;
-      --line: color-mix(in srgb, var(--brand) 18%, transparent);
-      --warn: #0f3d68;
-      --radius-sm: 2px;
-      --max: 68rem;
-      --header-h: 3.6rem;
-      --ease: cubic-bezier(.22, 1, .36, 1);
+      --ink: #1a242c;
+      --muted: #5a6a76;
+      --fog: #f3f6f4;
+      --mist: #e6ece8;
+      --panel: #fbfcfb;
+      --brand: #0b3d4a;
+      --brand-bright: #146b7a;
+      --leaf: #2f6f4e;
+      --edge: color-mix(in srgb, var(--brand) 14%, transparent);
+      --warn-bg: #0b3d4a;
+      --max: 72rem;
+      --ease: cubic-bezier(.2, .8, .2, 1);
       color: var(--ink);
-      background: var(--paper);
-      font-family: "Newsreader", Georgia, serif;
-      font-optical-sizing: auto;
+      background: var(--fog);
+      font-family: "Figtree", "Segoe UI", sans-serif;
       line-height: 1.5;
+      font-weight: 450;
     }
 
     *, *::before, *::after { box-sizing: border-box; }
@@ -36,357 +34,239 @@
       margin: 0;
       min-height: 100vh;
       background:
-        radial-gradient(120% 80% at 8% -10%, rgba(12, 74, 110, .14), transparent 55%),
-        radial-gradient(90% 70% at 100% 8%, rgba(31, 122, 92, .10), transparent 50%),
-        linear-gradient(180deg, #f4f8fb 0%, var(--paper) 28%, #ebf2f6 62%, var(--paper-deep) 100%);
-      background-attachment: fixed;
+        radial-gradient(ellipse 80% 50% at 0% 0%, rgba(20, 107, 122, .09), transparent 55%),
+        radial-gradient(ellipse 60% 40% at 100% 10%, rgba(47, 111, 78, .07), transparent 50%),
+        linear-gradient(180deg, #f7faf8 0%, var(--fog) 40%, var(--mist) 100%);
     }
 
-    body::before {
-      content: "";
-      position: fixed;
-      inset: 0;
-      pointer-events: none;
-      z-index: 0;
-      opacity: .35;
-      background-image:
-        repeating-linear-gradient(
-          -18deg,
-          transparent 0 22px,
-          color-mix(in srgb, var(--brand) 4%, transparent) 22px 23px
-        );
-    }
+    .shell { position: relative; }
 
-    .shell {
-      position: relative;
-      z-index: 1;
-    }
-
-    /* —— Sticky bar —— */
+    /* —— Barra —— */
     .topbar {
       position: sticky;
       top: 0;
-      z-index: 40;
-      display: grid;
-      grid-template-columns: minmax(0, 1fr) auto;
+      z-index: 50;
+      display: flex;
+      flex-wrap: wrap;
       align-items: center;
-      gap: .65rem 1.25rem;
-      min-height: var(--header-h);
-      padding: .55rem clamp(1rem, 3vw, 2rem);
-      background: color-mix(in srgb, #f7fafc 88%, transparent);
-      border-bottom: 1px solid var(--line);
-      backdrop-filter: blur(10px);
-      transition: box-shadow .35s var(--ease), padding .35s var(--ease);
+      gap: .55rem 1.25rem;
+      padding: .7rem clamp(1rem, 3vw, 2.25rem);
+      background: color-mix(in srgb, #f8fbf9 92%, transparent);
+      border-bottom: 1px solid var(--edge);
+      backdrop-filter: blur(12px) saturate(1.1);
     }
-    .topbar.is-compact {
-      box-shadow: 0 1px 0 var(--line);
-      padding-block: .4rem;
-    }
+    .topbar.is-compact { padding-block: .45rem; }
     .brand-lockup {
       display: flex;
       align-items: baseline;
-      gap: .65rem;
-      min-width: 0;
+      gap: .55rem;
       text-decoration: none;
       color: inherit;
+      margin-right: auto;
     }
     .brand-lockup strong {
-      font-family: "Bricolage Grotesque", sans-serif;
+      font-family: "Fraunces", Georgia, serif;
       font-weight: 800;
-      font-size: clamp(1.05rem, 2.2vw, 1.35rem);
-      letter-spacing: -.02em;
-      color: var(--brand-deep);
-      white-space: nowrap;
+      font-size: clamp(1.15rem, 2.4vw, 1.45rem);
+      letter-spacing: -.03em;
+      color: var(--brand);
     }
     .brand-lockup em {
-      font-style: italic;
-      font-weight: 400;
-      color: var(--ink-soft);
-      font-size: .92rem;
-      white-space: nowrap;
-      overflow: hidden;
-      text-overflow: ellipsis;
+      font-style: normal;
+      font-size: .8rem;
+      font-weight: 500;
+      color: var(--muted);
+      letter-spacing: .02em;
     }
     #estado {
-      grid-column: 1 / -1;
-      font-family: "Bricolage Grotesque", sans-serif;
+      width: 100%;
+      order: 3;
       font-size: .72rem;
       font-weight: 500;
-      letter-spacing: .02em;
-      color: var(--ink-soft);
-      opacity: .9;
+      color: var(--muted);
     }
     #nav-ab {
       display: flex;
       flex-wrap: wrap;
-      gap: .45rem .85rem;
-      justify-content: flex-end;
+      gap: .4rem .75rem;
       align-items: center;
     }
     .conmutador {
       display: inline-flex;
       align-items: center;
-      gap: .3rem;
-      font-family: "Bricolage Grotesque", sans-serif;
-      font-size: .75rem;
+      gap: .25rem;
+      font-size: .72rem;
       font-weight: 600;
-      color: var(--ink-soft);
+      color: var(--muted);
     }
     .conmutador a {
-      display: inline-block;
-      padding: .2rem .55rem;
-      border: 1px solid color-mix(in srgb, var(--brand) 28%, transparent);
-      border-radius: var(--radius-sm);
+      display: inline-grid;
+      place-items: center;
+      min-width: 1.55rem;
+      height: 1.55rem;
+      padding: 0 .35rem;
+      border: 1px solid var(--edge);
+      border-radius: 4px;
       text-decoration: none;
-      color: var(--brand-deep);
-      background: color-mix(in srgb, white 70%, transparent);
+      color: var(--brand);
+      background: var(--panel);
       transition: background .2s var(--ease), color .2s var(--ease), border-color .2s var(--ease);
     }
     .conmutador a:hover {
-      border-color: var(--brand);
+      border-color: var(--brand-bright);
       background: #fff;
     }
     .conmutador a[aria-current="page"] {
       background: var(--brand);
-      color: #fff;
       border-color: var(--brand);
+      color: #f4faf8;
     }
 
-    /* —— Corte —— */
+    /* —— Aviso —— */
     #aviso-incidente {
       margin: 0;
-      padding: .7rem clamp(1rem, 3vw, 2rem);
-      background: linear-gradient(90deg, var(--warn), #14507f 70%, #17634a);
-      border-bottom: 1px solid #082844;
-      font-family: "Bricolage Grotesque", sans-serif;
-      font-size: .82rem;
+      padding: .65rem clamp(1rem, 3vw, 2.25rem);
+      background: var(--warn-bg);
+      color: #e8f2f0;
+      font-size: .8rem;
       font-weight: 500;
-      color: #f3f8fc;
       line-height: 1.45;
     }
-    #aviso-incidente strong { font-weight: 700; }
+    #aviso-incidente strong { font-weight: 700; color: #fff; }
     #aviso-incidente code {
-      font-size: .78em;
-      padding: .05em .3em;
-      border-radius: var(--radius-sm);
-      background: rgba(255, 255, 255, .12);
+      font-size: .85em;
+      padding: .05em .28em;
+      border-radius: 3px;
+      background: rgba(255, 255, 255, .1);
     }
 
-    /* —— Hero —— */
+    /* —— Hero corto —— */
     .hero {
-      position: relative;
-      overflow: hidden;
-      padding: clamp(2.4rem, 7vw, 4.6rem) clamp(1rem, 3vw, 2rem) clamp(2rem, 5vw, 3.2rem);
       max-width: var(--max);
       margin: 0 auto;
-    }
-    .hero::after {
-      content: "";
-      position: absolute;
-      right: -8%;
-      top: 10%;
-      width: min(42vw, 22rem);
-      height: min(42vw, 22rem);
-      border-radius: 50%;
-      background:
-        radial-gradient(circle at 35% 35%, rgba(31, 122, 92, .22), transparent 58%),
-        radial-gradient(circle at 70% 70%, rgba(12, 74, 110, .18), transparent 60%);
-      animation: drift 18s var(--ease) infinite alternate;
-      pointer-events: none;
-    }
-    @keyframes drift {
-      from { transform: translate(0, 0) scale(1); }
-      to { transform: translate(-6%, 8%) scale(1.08); }
-    }
-    .hero-kicker {
-      margin: 0 0 .85rem;
-      font-family: "Bricolage Grotesque", sans-serif;
-      font-size: .78rem;
-      font-weight: 700;
-      letter-spacing: .14em;
-      text-transform: uppercase;
-      color: var(--accent);
+      padding: clamp(1.8rem, 5vw, 3rem) clamp(1rem, 3vw, 2.25rem) clamp(1.2rem, 3vw, 1.8rem);
     }
     .hero h1 {
-      position: relative;
-      z-index: 1;
       margin: 0;
-      max-width: 14ch;
-      font-family: "Bricolage Grotesque", sans-serif;
+      font-family: "Fraunces", Georgia, serif;
       font-weight: 800;
-      font-size: clamp(2.6rem, 9vw, 4.6rem);
-      line-height: .95;
-      letter-spacing: -.04em;
-      color: var(--brand-deep);
+      font-size: clamp(2.4rem, 7vw, 3.8rem);
+      line-height: .96;
+      letter-spacing: -.035em;
+      color: var(--brand);
+      max-width: 12ch;
     }
     .hero p {
-      position: relative;
-      z-index: 1;
-      margin: 1.1rem 0 0;
-      max-width: 34rem;
-      font-size: clamp(1.05rem, 2.2vw, 1.25rem);
-      color: var(--ink-soft);
-    }
-    .hero-flow {
-      position: relative;
-      z-index: 1;
-      display: flex;
-      flex-wrap: wrap;
-      gap: .5rem 1.1rem;
-      margin-top: 1.6rem;
-      padding: 0;
-      list-style: none;
-      font-family: "Bricolage Grotesque", sans-serif;
-      font-size: .78rem;
-      font-weight: 600;
-      letter-spacing: .04em;
-      text-transform: uppercase;
-      color: var(--brand);
-    }
-    .hero-flow a {
-      color: inherit;
-      text-decoration: none;
-      border-bottom: 1px solid color-mix(in srgb, var(--brand) 35%, transparent);
-      padding-bottom: .1rem;
-      transition: border-color .2s var(--ease), color .2s var(--ease);
-    }
-    .hero-flow a:hover {
-      color: var(--brand-deep);
-      border-color: var(--brand-deep);
-    }
-    .hero-flow li + li::before {
-      content: "→";
-      margin-right: 1.1rem;
-      color: color-mix(in srgb, var(--brand) 45%, transparent);
-      font-weight: 500;
+      margin: .85rem 0 0;
+      max-width: 36rem;
+      font-size: clamp(1rem, 2vw, 1.15rem);
+      color: var(--muted);
     }
 
-    /* —— Flujo continuo —— */
+    /* —— Lienzo continuo (sin «4 páginas») —— */
     .store {
       max-width: var(--max);
       margin: 0 auto;
-      padding: 0 clamp(1rem, 3vw, 2rem) 3rem;
+      padding: 0 clamp(1rem, 3vw, 2.25rem) 3rem;
     }
-    .store-rail {
-      position: relative;
-      display: flex;
-      flex-direction: column;
-      gap: 0;
-      border-top: 1px solid var(--line);
-    }
-    .store-rail::before {
-      content: "";
-      position: absolute;
-      left: .55rem;
-      top: 0;
-      bottom: 0;
-      width: 1px;
-      background: linear-gradient(
-        180deg,
-        transparent,
-        color-mix(in srgb, var(--brand) 35%, transparent) 8%,
-        color-mix(in srgb, var(--accent) 40%, transparent) 55%,
-        color-mix(in srgb, var(--brand) 25%, transparent) 92%,
-        transparent
-      );
-      pointer-events: none;
+    .canvas {
+      background: var(--panel);
+      border: 1px solid var(--edge);
+      border-radius: 10px;
+      overflow: hidden;
+      box-shadow:
+        0 1px 0 color-mix(in srgb, #fff 70%, transparent) inset,
+        0 18px 40px -28px rgba(11, 61, 74, .28);
     }
 
-    .lane {
-      position: relative;
-      padding: clamp(1.6rem, 4vw, 2.6rem) 0 clamp(1.6rem, 4vw, 2.6rem) clamp(1.6rem, 4vw, 2.4rem);
-      border-bottom: 1px solid var(--line);
+    .stage {
+      padding: clamp(1.1rem, 2.8vw, 1.75rem) clamp(1rem, 2.5vw, 1.6rem);
       opacity: 0;
-      transform: translateY(1.1rem);
-      animation: rise .7s var(--ease) forwards;
+      transform: translateY(.6rem);
+      animation: in .55s var(--ease) forwards;
     }
-    .lane:nth-child(1) { animation-delay: .05s; }
-    .lane:nth-child(2) { animation-delay: .14s; background: color-mix(in srgb, var(--band) 42%, transparent); margin-inline: calc(-1 * clamp(1rem, 3vw, 2rem)); padding-inline: clamp(1rem, 3vw, 2rem) clamp(1rem, 3vw, 2rem); padding-left: calc(clamp(1rem, 3vw, 2rem) + clamp(1.6rem, 4vw, 2.4rem)); }
-    .lane:nth-child(3) { animation-delay: .23s; }
-    .lane:nth-child(4) { animation-delay: .32s; background: color-mix(in srgb, var(--band) 28%, transparent); margin-inline: calc(-1 * clamp(1rem, 3vw, 2rem)); padding-inline: clamp(1rem, 3vw, 2rem) clamp(1rem, 3vw, 2rem); padding-left: calc(clamp(1rem, 3vw, 2rem) + clamp(1.6rem, 4vw, 2.4rem)); border-bottom: 0; }
-    @keyframes rise {
+    .stage:nth-child(1) { animation-delay: .04s; }
+    .stage:nth-child(2) { animation-delay: .1s; }
+    .stage:nth-child(3) { animation-delay: .16s; }
+    .stage:nth-child(4) { animation-delay: .22s; }
+    @keyframes in {
       to { opacity: 1; transform: none; }
     }
 
-    .lane::before {
-      content: "";
-      position: absolute;
-      left: .3rem;
-      top: clamp(1.85rem, 4.2vw, 2.85rem);
-      width: .55rem;
-      height: .55rem;
-      border-radius: 50%;
-      background: var(--brand);
-      box-shadow: 0 0 0 4px color-mix(in srgb, var(--paper) 90%, transparent);
-    }
-    .lane:nth-child(2)::before,
-    .lane:nth-child(4)::before {
-      left: calc(clamp(1rem, 3vw, 2rem) + .3rem);
-      background: var(--accent);
+    /* Identidad: franja estrecha */
+    #identidad.stage {
+      background: linear-gradient(180deg, #eef5f3 0%, var(--panel) 100%);
+      border-bottom: 1px solid var(--edge);
+      padding-block: clamp(.9rem, 2vw, 1.25rem);
     }
 
-    .lane > h2 {
-      margin: 0 0 1rem;
+    /* Descubrimiento: escenario principal */
+    #descubrimiento.stage {
+      padding-block: clamp(1.35rem, 3.2vw, 2rem);
+      min-height: 12rem;
+    }
+
+    /* Compra + Datos: continuidad, sin cajas nuevas */
+    #compra.stage {
+      border-top: 1px dashed color-mix(in srgb, var(--brand) 18%, transparent);
+      background: color-mix(in srgb, var(--mist) 35%, var(--panel));
+    }
+    #datos.stage {
+      border-top: 1px dashed color-mix(in srgb, var(--leaf) 22%, transparent);
+      background: color-mix(in srgb, #e8f0ea 45%, var(--panel));
+    }
+
+    .stage > h2 {
+      margin: 0 0 .85rem;
       display: flex;
       flex-wrap: wrap;
       align-items: baseline;
       justify-content: space-between;
-      gap: .35rem .85rem;
-      font-family: "Bricolage Grotesque", sans-serif;
-      font-size: clamp(1.15rem, 2.5vw, 1.45rem);
+      gap: .25rem .75rem;
+      font-family: "Fraunces", Georgia, serif;
+      font-size: clamp(1.05rem, 2.2vw, 1.28rem);
       font-weight: 700;
       letter-spacing: -.02em;
-      color: var(--brand-deep);
+      color: var(--brand);
     }
-    .lane > h2 span {
-      font-size: .72rem;
+    .stage > h2 span {
+      font-family: "Figtree", sans-serif;
+      font-size: .68rem;
       font-weight: 600;
-      letter-spacing: .06em;
+      letter-spacing: .08em;
       text-transform: uppercase;
-      color: var(--ink-soft);
+      color: var(--muted);
     }
-    .lane .hueco {
-      min-height: 4.5rem;
-    }
+    #identidad.stage > h2 { margin-bottom: .55rem; font-size: 1rem; }
+
+    .hueco { min-height: 3.25rem; }
+    #descubrimiento .hueco { min-height: 8rem; }
+
     .no-disponible {
       margin: 0;
-      padding: .85rem 0;
-      color: #8a2f2f;
+      padding: .7rem 0;
+      color: #8a3a3a;
       font-style: italic;
+      font-size: .95rem;
     }
 
     footer {
-      padding: 1.4rem clamp(1rem, 3vw, 2rem) 2.4rem;
       max-width: var(--max);
       margin: 0 auto;
-      font-size: .88rem;
-      color: var(--ink-soft);
-      border-top: 1px solid var(--line);
+      padding: 1.2rem clamp(1rem, 3vw, 2.25rem) 2.5rem;
+      font-size: .85rem;
+      color: var(--muted);
     }
-    footer code {
-      font-size: .85em;
-      color: var(--brand-deep);
-    }
+    footer code { color: var(--brand); font-size: .9em; }
 
     @media (max-width: 720px) {
-      .topbar {
-        grid-template-columns: 1fr;
-      }
-      #nav-ab { justify-content: flex-start; }
       .brand-lockup em { display: none; }
-      .store-rail::before { left: .35rem; }
-      .lane::before { left: .12rem; }
-      .lane:nth-child(2)::before,
-      .lane:nth-child(4)::before {
-        left: calc(clamp(1rem, 3vw, 2rem) + .12rem);
-      }
-      .hero-flow li + li::before { margin-right: .75rem; }
+      .canvas { border-radius: 8px; }
     }
 
     @media (prefers-reduced-motion: reduce) {
       html { scroll-behavior: auto; }
-      .hero::after { animation: none; }
-      .lane {
+      .stage {
         opacity: 1;
         transform: none;
         animation: none;
@@ -399,50 +279,41 @@
     <header class="topbar" id="topbar">
       <a class="brand-lockup" href="#">
         <strong>Tienda UCJC</strong>
-        <em>campus · un solo recorrido</em>
+        <em>un solo lienzo</em>
       </a>
       <nav id="nav-ab" aria-label="Pruebas A/B por pieza"></nav>
       <small id="estado">cargando manifest…</small>
     </header>
 
     <p id="aviso-incidente">
-      <strong>CORTE · shell v0.3.4</strong>
-      A/B/C en <strong>varias piezas a la vez</strong>
+      <strong>CORTE · shell v0.3.5</strong>
+      Entrega 25/11 · A/B/C multi
       (<span id="etiqueta-ab-resumen">…</span>).
-      Query: <code>?identidad=a|b&amp;descubrimiento=a|b|c&amp;datos=a|b&amp;compra=a|b</code>.
-      Descubrimiento defecto <strong>A</strong> <code>0.2.3</code>; B = <code>descubrimiento-B</code> <code>0.1.1</code>; C = <code>descubrimiento-muy-mejorado</code> <code>0.1.0</code>.
-      Identidad A = <code>v0.2.5</code>; B = <code>identidad-plus</code> <code>v0.3.0</code> (jsDelivr).
-      Datos A <code>v0.2.4</code> escucha <code>pedido-confirmado@2</code> (aún propuesto):
-      con Compra en <code>@1</code> no veréis pedidos nuevos en la variante A.
+      Query: <code>?identidad=a|b&amp;descubrimiento=a|b|c&amp;datos=a|b&amp;compra=a|b|c</code>.
+      Defecto: Identidad A <code>0.2.7</code> · Descubrimiento A <code>0.2.7</code> · Compra A <code>0.2.0</code> · Datos B <code>0.4.0</code>.
+      Compra C = repo de Daniel Molina · Descubrimiento C = <code>descubrimiento-muy-mejorado</code>.
     </p>
 
     <section class="hero" aria-label="Presentación">
-      <p class="hero-kicker">Desarrollo de Front-End · UCJC</p>
       <h1>Tienda UCJC</h1>
-      <p>Un recorrido continuo: entras, descubres, compras y revisas tus pedidos — cuatro piezas, una sola tienda.</p>
-      <ol class="hero-flow">
-        <li><a href="#identidad">Identidad</a></li>
-        <li><a href="#descubrimiento">Descubrimiento</a></li>
-        <li><a href="#compra">Compra</a></li>
-        <li><a href="#datos">Datos</a></li>
-      </ol>
+      <p>Campus en un solo scroll: sesión, catálogo, carrito y pedidos sin saltar de página.</p>
     </section>
 
     <main class="store">
-      <div class="store-rail">
-        <section class="lane" id="identidad">
+      <div class="canvas">
+        <section class="stage" id="identidad">
           <h2>Identidad <span></span></h2>
           <div class="hueco"></div>
         </section>
-        <section class="lane" id="descubrimiento">
+        <section class="stage" id="descubrimiento">
           <h2>Descubrimiento <span></span></h2>
           <div class="hueco"></div>
         </section>
-        <section class="lane" id="compra">
+        <section class="stage" id="compra">
           <h2>Compra <span></span></h2>
           <div class="hueco"></div>
         </section>
-        <section class="lane" id="datos">
+        <section class="stage" id="datos">
           <h2>Datos · Mis pedidos <span></span></h2>
           <div class="hueco"></div>
         </section>
@@ -450,8 +321,8 @@
     </main>
 
     <footer>
-      Shell de integración. Bloque <code>ab</code>: un mapa pieza → variantes
-      (podéis tener Datos y Compra a la vez). Consola: <code>[evento ucjc]</code>.
+      Shell de integración. Bloque <code>ab</code>: mapa pieza → variantes.
+      Consola: <code>[evento ucjc]</code>.
     </footer>
   </div>
 
@@ -535,7 +406,6 @@
     function hrefConClave(pieza, clave, params) {
       const next = new URLSearchParams(params);
       next.set(pieza, clave);
-      // Evitar el legado global ?ab= cuando hay varios slots.
       next.delete('ab');
       const q = next.toString();
       return q ? `?${q}` : '?';
@@ -611,7 +481,7 @@
         ? ` · ab:${Object.entries(elegidas).map(([p, c]) => `${p}=${c}`).join(',')}`
         : '');
 
-    console.info('[shell v0.3.4] A/B multi', elegidas);
+    console.info('[shell v0.3.5] A/B multi', elegidas);
 
     for (const [pieza, { version, url }] of entradas) {
       const seccion = document.getElementById(pieza);
