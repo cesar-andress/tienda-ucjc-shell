@@ -1,0 +1,66 @@
+/* Tienda UCJC — tokens de campus (contrato presentacion-campus@1).
+   El shell los carga antes que los remote.js.
+   Las piezas pueden usar estas variables dentro del Shadow DOM
+   porque heredan desde el documento. */
+
+:root {
+  --ucjc-ink: #1a242c;
+  --ucjc-muted: #5a6a76;
+  --ucjc-fog: #f3f6f4;
+  --ucjc-mist: #e6ece8;
+  --ucjc-panel: #fbfcfb;
+  --ucjc-brand: #0b3d4a;
+  --ucjc-brand-bright: #146b7a;
+  --ucjc-leaf: #2f6f4e;
+  --ucjc-warn: #8a3a3a;
+  --ucjc-edge: color-mix(in srgb, var(--ucjc-brand) 14%, transparent);
+  --ucjc-font-sans: "Figtree", "Segoe UI", sans-serif;
+  --ucjc-font-display: "Fraunces", Georgia, serif;
+  --ucjc-radius: 6px;
+  --ucjc-space: 0.75rem;
+  --ucjc-space-lg: 1.25rem;
+  --ucjc-max: 72rem;
+  --ucjc-ease: cubic-bezier(.2, .8, .2, 1);
+  --ucjc-presentacion: "1";
+}
+
+/* Clases opcionales para botones/textos si la pieza no quiere reinventarlos */
+.ucjc-btn {
+  font-family: var(--ucjc-font-sans);
+  font-weight: 600;
+  font-size: 0.9rem;
+  padding: 0.45rem 0.9rem;
+  border-radius: var(--ucjc-radius);
+  border: 1px solid var(--ucjc-edge);
+  background: var(--ucjc-panel);
+  color: var(--ucjc-brand);
+  cursor: pointer;
+}
+.ucjc-btn:hover {
+  border-color: var(--ucjc-brand-bright);
+  background: #fff;
+}
+.ucjc-btn-primary {
+  background: var(--ucjc-brand);
+  border-color: var(--ucjc-brand);
+  color: #f4faf8;
+}
+.ucjc-btn-primary:hover {
+  background: var(--ucjc-brand-bright);
+  border-color: var(--ucjc-brand-bright);
+  color: #fff;
+}
+.ucjc-label {
+  font-family: var(--ucjc-font-sans);
+  font-size: 0.78rem;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--ucjc-muted);
+}
+.ucjc-title {
+  font-family: var(--ucjc-font-display);
+  font-weight: 700;
+  color: var(--ucjc-brand);
+  letter-spacing: -0.02em;
+}

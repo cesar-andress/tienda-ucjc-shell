@@ -7,23 +7,25 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,700;9..144,800&family=Figtree:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="./comun/campus.css">
   <style>
+    /* Alias locales del shell → tokens de contrato presentacion-campus@1 */
     :root {
-      --ink: #1a242c;
-      --muted: #5a6a76;
-      --fog: #f3f6f4;
-      --mist: #e6ece8;
-      --panel: #fbfcfb;
-      --brand: #0b3d4a;
-      --brand-bright: #146b7a;
-      --leaf: #2f6f4e;
-      --edge: color-mix(in srgb, var(--brand) 14%, transparent);
-      --warn-bg: #0b3d4a;
-      --max: 72rem;
-      --ease: cubic-bezier(.2, .8, .2, 1);
+      --ink: var(--ucjc-ink);
+      --muted: var(--ucjc-muted);
+      --fog: var(--ucjc-fog);
+      --mist: var(--ucjc-mist);
+      --panel: var(--ucjc-panel);
+      --brand: var(--ucjc-brand);
+      --brand-bright: var(--ucjc-brand-bright);
+      --leaf: var(--ucjc-leaf);
+      --edge: var(--ucjc-edge);
+      --warn-bg: var(--ucjc-brand);
+      --max: var(--ucjc-max);
+      --ease: var(--ucjc-ease);
       color: var(--ink);
       background: var(--fog);
-      font-family: "Figtree", "Segoe UI", sans-serif;
+      font-family: var(--ucjc-font-sans);
       line-height: 1.5;
       font-weight: 450;
     }
@@ -286,12 +288,11 @@
     </header>
 
     <p id="aviso-incidente">
-      <strong>Shell v0.3.6 · 25/11</strong>
+      <strong>Shell v0.3.7 · 25/11</strong>
       Ahora mismo: <span id="etiqueta-ab-resumen">…</span>.
       Sin parámetros: Identidad A (<code>0.2.7</code>), Descubrimiento A (<code>0.2.7</code>), Compra A (<code>0.2.0</code>) y Datos B (<code>0.4.0</code>).
       Compra C es la de Daniel Molina; Descubrimiento C, la de Juan Pedro.
-      Cambiáis variante con los botones de arriba
-      (<code>?identidad=b&amp;compra=c</code>, etc.).
+      CSS/JS comunes: contrato <code>presentacion-campus@1</code> (hay que firmarlo los cuatro equipos).
     </p>
 
     <section class="hero" aria-label="Presentación">
@@ -321,10 +322,12 @@
     </main>
 
     <footer>
-      Shell del profesor. Los eventos <code>ucjc:*</code> salen en la consola del navegador.
+      Shell del profesor. Tokens en <code>comun/campus.css</code> · API <code>ucjcCampus</code>.
+      Eventos <code>ucjc:*</code> en la consola.
     </footer>
   </div>
 
+  <script src="./comun/campus.js"></script>
   <script type="module">
     const ELEMENTO = {
       identidad: 'ucjc-identidad',
@@ -477,7 +480,7 @@
     document.getElementById('estado').textContent =
       entradas.map(([p, { version }]) => `${TITULO[p] || p} v${version}`).join(' · ');
 
-    console.info('[shell v0.3.6]', elegidas);
+    console.info('[shell v0.3.7]', elegidas, 'ucjcCampus', window.ucjcCampus?.version);
 
     for (const [pieza, { version, url }] of entradas) {
       const seccion = document.getElementById(pieza);

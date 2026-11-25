@@ -6,11 +6,11 @@
 
 Este repositorio lo mantiene el profesor. Los equipos de alumnos **no** tienen escritura aquí.
 
-## Situación actual (25/11/2026) · tag `v0.3.6`
+## Situación actual (25/11/2026) · tag `v0.3.7`
 
 | Hecho | Estado |
 | --- | --- |
-| Tag / release del shell | **`v0.3.6`** — mismo corte 25/11; aviso de página más claro |
+| Tag / release del shell | **`v0.3.7`** — CSS/JS comunes (`comun/campus.*`) + contrato presentación |
 | Shell en GitHub Pages | **Activo** · push a `main` |
 | Repositorio del shell | **Público** |
 | Semana 1 | **Cerrada** |

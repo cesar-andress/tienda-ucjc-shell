@@ -22,8 +22,9 @@ Abrid la consola del navegador en clase: cada evento `ucjc:*` se registra como `
    | `datos` | `ucjc-pedidos` |
 
 3. El módulo **no toca nada fuera de su elemento**: ni `document.body`, ni estilos globales, ni otros elementos. Los estilos van dentro del elemento (Shadow DOM recomendado, no obligatorio).
-4. El módulo **exporta por defecto** `{ nombre, version }`.
-5. La comunicación con el resto es **solo** por eventos en `window`:
+4. **Presentación campus `@1`** (CSS/JS del shell): variables `--ucjc-*`, clases `.ucjc-*` y `window.ucjcCampus`. Contrato firmable en [tienda-ucjc-contratos/presentacion](https://github.com/cesar-andress/tienda-ucjc-contratos/tree/main/presentacion). El shell carga `comun/campus.css` y `comun/campus.js` **antes** de vuestro `remote.js`.
+5. El módulo **exporta por defecto** `{ nombre, version }`.
+6. La comunicación con el resto es **solo** por eventos en `window`:
 
    ```js
    window.dispatchEvent(
@@ -75,7 +76,7 @@ git push origin v0.1.0
 
 ## Manifest
 
-### A. Estado actual · shell tag `v0.3.5`
+### A. Estado actual · shell tag `v0.3.7`
 
 El `manifest.json` apunta a releases HTTPS de alumnos.  
 `ab` es un **mapa** pieza → `{ defecto, variantes }`. Podéis tener A/B/C en varias piezas a la vez (identidad, descubrimiento, datos, compra).
