@@ -279,24 +279,24 @@
     <header class="topbar" id="topbar">
       <a class="brand-lockup" href="#">
         <strong>Tienda UCJC</strong>
-        <em>un solo lienzo</em>
+        <em>25/11</em>
       </a>
-      <nav id="nav-ab" aria-label="Pruebas A/B por pieza"></nav>
-      <small id="estado">cargando manifest…</small>
+      <nav id="nav-ab" aria-label="Variantes A/B/C"></nav>
+      <small id="estado">cargando…</small>
     </header>
 
     <p id="aviso-incidente">
-      <strong>CORTE · shell v0.3.5</strong>
-      Entrega 25/11 · A/B/C multi
-      (<span id="etiqueta-ab-resumen">…</span>).
-      Query: <code>?identidad=a|b&amp;descubrimiento=a|b|c&amp;datos=a|b&amp;compra=a|b|c</code>.
-      Defecto: Identidad A <code>0.2.7</code> · Descubrimiento A <code>0.2.7</code> · Compra A <code>0.2.0</code> · Datos B <code>0.4.0</code>.
-      Compra C = repo de Daniel Molina · Descubrimiento C = <code>descubrimiento-muy-mejorado</code>.
+      <strong>Shell v0.3.6 · 25/11</strong>
+      Ahora mismo: <span id="etiqueta-ab-resumen">…</span>.
+      Sin parámetros: Identidad A (<code>0.2.7</code>), Descubrimiento A (<code>0.2.7</code>), Compra A (<code>0.2.0</code>) y Datos B (<code>0.4.0</code>).
+      Compra C es la de Daniel Molina; Descubrimiento C, la de Juan Pedro.
+      Cambiáis variante con los botones de arriba
+      (<code>?identidad=b&amp;compra=c</code>, etc.).
     </p>
 
     <section class="hero" aria-label="Presentación">
       <h1>Tienda UCJC</h1>
-      <p>Campus en un solo scroll: sesión, catálogo, carrito y pedidos sin saltar de página.</p>
+      <p>Sesión, catálogo, carrito y pedidos en la misma página.</p>
     </section>
 
     <main class="store">
@@ -321,8 +321,7 @@
     </main>
 
     <footer>
-      Shell de integración. Bloque <code>ab</code>: mapa pieza → variantes.
-      Consola: <code>[evento ucjc]</code>.
+      Shell del profesor. Los eventos <code>ucjc:*</code> salen en la consola del navegador.
     </footer>
   </div>
 
@@ -471,17 +470,14 @@
     pintarNav(abMap, elegidas, params);
 
     const resumen = Object.entries(elegidas)
-      .map(([p, c]) => `${TITULO[p] || p}=${c.toUpperCase()}`)
-      .join(' · ') || 'ninguno';
+      .map(([p, c]) => `${TITULO[p] || p} ${c.toUpperCase()}`)
+      .join(' · ') || 'variantes por defecto';
     document.getElementById('etiqueta-ab-resumen').textContent = resumen;
 
     document.getElementById('estado').textContent =
-      `manifest: ${entradas.map(([p, { version }]) => `${p}@${version}`).join(' · ')}`
-      + (Object.keys(elegidas).length
-        ? ` · ab:${Object.entries(elegidas).map(([p, c]) => `${p}=${c}`).join(',')}`
-        : '');
+      entradas.map(([p, { version }]) => `${TITULO[p] || p} v${version}`).join(' · ');
 
-    console.info('[shell v0.3.5] A/B multi', elegidas);
+    console.info('[shell v0.3.6]', elegidas);
 
     for (const [pieza, { version, url }] of entradas) {
       const seccion = document.getElementById(pieza);
